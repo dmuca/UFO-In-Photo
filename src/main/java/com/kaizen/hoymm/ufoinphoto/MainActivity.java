@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.kaizen.hoymm.ufoinphoto.EditImageActivity.EditImage;
+
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
@@ -64,7 +66,9 @@ public class MainActivity extends AppCompatActivity {
         if (selectedImage == null)
             Toast.makeText(this, "Image not picked.", Toast.LENGTH_SHORT).show();
         else{
-            // TODO send image to new INTENT... :)
+            Intent editImageActivity = new Intent(this, EditImage.class);
+            startActivity(editImageActivity);
+            finish();
         }
 
     }

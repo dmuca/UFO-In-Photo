@@ -3,4 +3,7 @@
     <string name="gallery">gallery</string>
     <string name="capture_using_camera">Capture using camera</string>
     <string name="last_pictures">Last pictures:</string>
+    <string name="ready">Ready</string>
+    <string name="help">Help</string>
+    <string name="back">Back</string>
 </resources>
