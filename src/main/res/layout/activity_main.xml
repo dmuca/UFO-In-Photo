@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context="com.kaizen.hoymm.ufoinphoto.MainActivity">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/imageViewId"/>
+
     <Button
         android:layout_width="0dp"
         android:layout_height="wrap_content"
