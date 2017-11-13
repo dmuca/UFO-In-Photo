@@ -63,24 +63,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Bitmap selectedImage = getSelectedImageAsBitmap(requestCode, resultCode, data);
-        if (selectedImage == null)
-            Toast.makeText(this, "Image not picked.", Toast.LENGTH_SHORT).show();
-        else{
-            Intent editImageActivity = new Intent(this, EditImage.class);
-            startActivity(editImageActivity);
-            finish();
-        }
-
+        ifImageContainsDataThenStartNewActivityAndShowItThere(selectedImage);
     }
 
     private Bitmap getSelectedImageAsBitmap(int requestCode, int resultCode, Intent data) {
         Bitmap selectedImage;
-        if (requestCode == PICK_IMAGE)
-            selectedImage = pickImageFromGalleryResult(resultCode, data);
-        else if (requestCode == CAPTURE_IMAGE)
-            selectedImage = capturePhotoUsingCamera(resultCode, data);
-        else
-            selectedImage = null;
+        switch (requestCode){
+            case PICK_IMAGE:
+                selectedImage = pickImageFromGalleryResult(resultCode, data);
+                break;
+            case CAPTURE_IMAGE:
+                selectedImage = capturePhotoUsingCamera(resultCode, data);
+                break;
+            default:
+                selectedImage = null;
+        }
         return selectedImage;
     }
 
@@ -105,5 +102,15 @@ public class MainActivity extends AppCompatActivity {
 
     private Bitmap capturePhotoUsingCamera(int resultCode, Intent data) {
         return null;
+    }
+
+    private void ifImageContainsDataThenStartNewActivityAndShowItThere(Bitmap selectedImage) {
+        if (selectedImage == null)
+            Toast.makeText(this, "Image not picked.", Toast.LENGTH_SHORT).show();
+        else{
+            Intent editImageActivity = new Intent(this, EditImage.class);
+            startActivity(editImageActivity);
+            finish();
+        }
     }
 }
