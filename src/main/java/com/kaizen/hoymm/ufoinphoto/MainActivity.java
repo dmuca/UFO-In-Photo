@@ -1,14 +1,8 @@
 package com.kaizen.hoymm.ufoinphoto;
 
-import android.Manifest;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -24,7 +18,6 @@ import static com.kaizen.hoymm.ufoinphoto.EditImageActivity.EditImage.URI_OF_PIC
 public class MainActivity extends AppCompatActivity {
     private static final int PICK_IMAGE = 1;
     private static final int CAPTURE_IMAGE = 2;
-    private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 3;
     private Button galleryButton, captureUsingCameraButton;
 
     @Override
@@ -46,20 +39,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private View.OnClickListener getGalleryButtonAction() {
+        final AppCompatActivity activity = this;
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isExternalStoragePermissionGranted())
+                if (DynamicPermissions.getInstance().isExternalStoragePermissionGranted(activity))
                     pickAnImageFromGallery();
                 else
-                    askForReadExternalStoragePermission();
+                    DynamicPermissions.getInstance().askForReadExternalStoragePermission(activity);
             }
         };
-    }
-
-    private boolean isExternalStoragePermissionGranted() {
-        return ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                == PackageManager.PERMISSION_GRANTED;
     }
 
     private void pickAnImageFromGallery() {
@@ -69,50 +58,6 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
     }
 
-    private void askForReadExternalStoragePermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            showExplanationOkCancel(getString(R.string.read_external_storage_explanation));
-
-        } else {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                    MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
-        }
-    }
-
-    private void showExplanationOkCancel(String message) {
-        new AlertDialog.Builder(MainActivity.this)
-                .setMessage(message)
-                .setPositiveButton(R.string.ok, listener)
-                .setNegativeButton(R.string.cancel, listener)
-                .create()
-                .show();
-    }
-
-    DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-        final int BUTTON_NEGATIVE = -2;
-        final int BUTTON_POSITIVE = -1;
-
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            switch (which) {
-                case BUTTON_NEGATIVE:
-                    // int which = -2
-                    dialog.dismiss();
-                    break;
-
-                case BUTTON_POSITIVE:
-                    // int which = -1
-                    ActivityCompat.requestPermissions(
-                            MainActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                            MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
-                    dialog.dismiss();
-                    break;
-            }
-        }
-    };
-
     private View.OnClickListener getCaptureUsingCameraButtonAction() {
         return null;
     }
@@ -120,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Uri selectedImageUri = getSelectedImageAsBitmap(requestCode, resultCode, data);
-        ifImageContainsDataThenStartNewActivityAndShowItThere(selectedImageUri);
+        ifImageContainsDataThenStartNewActivityAndPassImgUriToIt(selectedImageUri);
     }
 
     private Uri getSelectedImageAsBitmap(int requestCode, int resultCode, Intent data) {
@@ -159,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         return null;
     }
 
-    private void ifImageContainsDataThenStartNewActivityAndShowItThere(Uri selectedImageUri) {
+    private void ifImageContainsDataThenStartNewActivityAndPassImgUriToIt(Uri selectedImageUri) {
         if (selectedImageUri == null)
             Toast.makeText(this, "Image not picked.", Toast.LENGTH_SHORT).show();
         else{
