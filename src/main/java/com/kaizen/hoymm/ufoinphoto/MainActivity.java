@@ -15,6 +15,8 @@ import com.kaizen.hoymm.ufoinphoto.EditImageActivity.EditImage;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import static com.kaizen.hoymm.ufoinphoto.EditImageActivity.EditImage.IMAGE_TO_EDIT_KEY;
+
 public class MainActivity extends AppCompatActivity {
     private static final int PICK_IMAGE = 1;
     private static final int CAPTURE_IMAGE = 2;
@@ -42,16 +44,10 @@ public class MainActivity extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
-                getIntent.setType("image/*");
-
-                Intent pickIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                pickIntent.setType("image/*");
-
-                Intent chooserIntent = Intent.createChooser(getIntent, "Select Image");
-                chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] {pickIntent});
-
-                startActivityForResult(chooserIntent, PICK_IMAGE);
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
             }
         };
     }
@@ -109,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Image not picked.", Toast.LENGTH_SHORT).show();
         else{
             Intent editImageActivity = new Intent(this, EditImage.class);
+            editImageActivity.putExtra(IMAGE_TO_EDIT_KEY, selectedImage);
             startActivity(editImageActivity);
             finish();
         }
