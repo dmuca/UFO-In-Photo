@@ -16,8 +16,17 @@ public class EditImage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_image);
-        headerButtons = new HeaderButtons(this);
 
+        initHeaderButtons();
+        loadImage();
+    }
+
+    private void initHeaderButtons() {
+        headerButtons = new HeaderButtons(this);
+        headerButtons.hideReadyButton();
+    }
+
+    private void loadImage() {
         Uri imageUri = getIntent().getParcelableExtra(URI_OF_PICKED_IMAGE_KEY);
         imageToEditImageView = (ImageView) findViewById(R.id.imageToEditId);
         imageToEditImageView.setImageURI(imageUri);

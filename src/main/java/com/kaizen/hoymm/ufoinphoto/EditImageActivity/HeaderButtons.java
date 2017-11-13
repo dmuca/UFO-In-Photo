@@ -29,6 +29,14 @@ class HeaderButtons {
         readyBtn = activity.findViewById(R.id.btnReadyId);
     }
 
+    void showReadyButton(){
+        readyBtn.setVisibility(View.VISIBLE);
+    }
+
+    void hideReadyButton(){
+        readyBtn.setVisibility(View.INVISIBLE);
+    }
+
     private void setButtonsBehavior() {
         setBackButtonsBehavior();
         setHelpButtonsBehavior();
@@ -63,6 +71,4 @@ class HeaderButtons {
             }
         });
     }
-
-
 }
