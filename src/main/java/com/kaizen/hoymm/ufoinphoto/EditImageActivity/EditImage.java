@@ -1,14 +1,13 @@
 package com.kaizen.hoymm.ufoinphoto.EditImageActivity;
 
-import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 
 import com.kaizen.hoymm.ufoinphoto.R;
-
 public class EditImage extends AppCompatActivity {
-    public static final String IMAGE_TO_EDIT_KEY = "com.kaizen.hoymm.ufoinphoto.EditImageActivity.IMAGE_TO_EDIT_KEY";
+    public static final String URI_OF_PICKED_IMAGE_KEY = "com.kaizen.hoymm.ufoinphoto.EditImageActivity.URI_OF_PICKED_IMAGE_KEY";
 
     private ImageView imageToEditImageView;
     private HeaderButtons headerButtons;
@@ -19,8 +18,8 @@ public class EditImage extends AppCompatActivity {
         setContentView(R.layout.activity_edit_image);
         headerButtons = new HeaderButtons(this);
 
-        Bitmap imageBitmap = getIntent().getParcelableExtra(IMAGE_TO_EDIT_KEY);
+        Uri imageUri = getIntent().getParcelableExtra(URI_OF_PICKED_IMAGE_KEY);
         imageToEditImageView = (ImageView) findViewById(R.id.imageToEditId);
-        imageToEditImageView.setImageBitmap(imageBitmap);
+        imageToEditImageView.setImageURI(imageUri);
     }
 }

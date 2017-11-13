@@ -6,4 +6,8 @@
     <string name="ready">Ready</string>
     <string name="help">Help</string>
     <string name="back">Back</string>
+    <string name="unable_to_read_image">I was unable to read an image.</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="read_external_storage_explanation">Application needs permission to read external storage, so it can edit images from gallery.</string>
 </resources>
