@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.kaizen.hoymm.ufoinphoto.MainActivity">
+    tools:context="com.kaizen.hoymm.ufoinphoto.MainActivity"
+    android:background="@color/appThemeColor"
+    >
 
     <ImageView
         android:layout_width="wrap_content"
@@ -46,6 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/last_pictures"
+        android:textColor="@color/textColor"
         android:layout_marginLeft="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="8dp"

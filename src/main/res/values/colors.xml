@@ -6,4 +6,5 @@
 
 
     <color name="textColor">#dcdcdc</color>
+    <color name="appThemeColor">#262626</color>
 </resources>
