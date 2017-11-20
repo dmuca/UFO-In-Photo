@@ -42,12 +42,12 @@
         android:layout_marginBottom="0dp"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintBottom_toTopOf="@+id/bottomFrameId" />
+        app:layout_constraintBottom_toTopOf="@+id/footerFrameId" />
 
     <FrameLayout
-        android:id="@+id/bottomFrameId"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:id="@+id/footerFrameId"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/footer_height"
         android:layout_marginRight="0dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="0dp"
