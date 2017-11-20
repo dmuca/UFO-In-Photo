@@ -41,8 +41,8 @@ public class FooterRotateFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setButtonsBehavior();
         initXMLObjects();
+        setButtonsBehavior();
     }
 
     private void setButtonsBehavior() {
@@ -73,6 +73,7 @@ public class FooterRotateFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 editImageCommunication.showReadyButton();
+                editImageCommunication.showManagementFragment();
             }
         });
     }

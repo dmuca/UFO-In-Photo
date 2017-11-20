@@ -6,4 +6,5 @@ package com.kaizen.hoymm.ufoinphoto.EditImageActivity;
 
 interface EditImageCommunication {
     void showReadyButton();
+    void showManagementFragment();
 }
