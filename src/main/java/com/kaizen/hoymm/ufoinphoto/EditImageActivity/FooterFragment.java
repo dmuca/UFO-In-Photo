@@ -1,9 +1,12 @@
 package com.kaizen.hoymm.ufoinphoto.EditImageActivity;
 
+import android.graphics.Color;
+import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,28 +32,30 @@ public class FooterFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        imageToEdit = view.findViewById(R.id.imageToEditId);
-        initRotateImageFeature(view);
+        imageToEdit = getActivity().findViewById(R.id.imageToEditId);
+        Log.e("ImageTOEdit", imageToEdit == null ? "null" : "smth:)");
+        Log.e("ImageTOEdit", "Pivot X: " + imageToEdit.getPivotX() + ", Pivot Y: " + imageToEdit.getPivotY());
+        initRotateImageFeature();
     }
 
-    private void initRotateImageFeature(View view) {
-        setButtonRotationBehavior((ImageButton) view.findViewById(R.id.rotate_left_button_id), -90);
-        setButtonRotationBehavior((ImageButton) view.findViewById(R.id.rotate_right_button_id), 90);
-        setAcceptButtonBehavior(view);
+    private void initRotateImageFeature() {
+        setButtonRotationBehavior((ImageButton) getActivity().findViewById(R.id.rotate_left_button_id), -90);
+        setButtonRotationBehavior((ImageButton) getActivity().findViewById(R.id.rotate_right_button_id), 90);
+        setAcceptButtonBehavior();
     }
 
     @NonNull
-    private void setButtonRotationBehavior(ImageButton button, final float rotation) {
+    private void setButtonRotationBehavior(ImageButton button, final float angle) {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imageToEdit.setRotation(rotation);
+                imageToEdit.setRotation(imageToEdit.getRotation()+angle);
             }
         });
     }
 
-    private void setAcceptButtonBehavior(View view) {
-        ImageView acceptButton = view.findViewById(R.id.accept_button_id);
+    private void setAcceptButtonBehavior() {
+        ImageView acceptButton = getActivity().findViewById(R.id.accept_button_id);
         acceptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

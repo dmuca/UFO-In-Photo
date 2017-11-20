@@ -111,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
             Intent editImageActivity = new Intent(this, EditImage.class);
             editImageActivity.putExtra(URI_OF_PICKED_IMAGE_KEY, selectedImageUri);
             startActivity(editImageActivity);
-            finish();
         }
     }
 }

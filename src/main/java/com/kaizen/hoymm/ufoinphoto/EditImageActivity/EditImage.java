@@ -1,5 +1,6 @@
 package com.kaizen.hoymm.ufoinphoto.EditImageActivity;
 
+import android.app.ActionBar;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -7,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.kaizen.hoymm.ufoinphoto.R;
@@ -23,10 +25,20 @@ public class EditImage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_image);
-
+        hideStatusBar();
+        recieveImage();
         initHeaderButtons();
         initFooterFragment();
+    }
 
+    private void hideStatusBar() {
+        View decorView = getWindow().getDecorView();
+        // Hide the status bar.
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+    }
+
+    private void recieveImage() {
         Uri imageUri = getIntent().getParcelableExtra(URI_OF_PICKED_IMAGE_KEY);
         setImageUsingUri(imageUri);
     }
