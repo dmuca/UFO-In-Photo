@@ -17,7 +17,7 @@ public class EditImage extends AppCompatActivity implements EditImageCommunicati
 
     private ImageView imageToEditImageView;
     private HeaderButtons headerButtons;
-    private FooterFragment footerFragment;
+    private FooterRotateFragment footerRotateFragment;
 
 
     @Override
@@ -48,8 +48,8 @@ public class EditImage extends AppCompatActivity implements EditImageCommunicati
     }
 
     private void initFooterFragment() {
-        footerFragment = new FooterFragment();
-        addNewFragment(R.id.footerFrameId ,footerFragment);
+        footerRotateFragment = new FooterRotateFragment();
+        addNewFragment(R.id.footerFrameId , footerRotateFragment);
     }
 
     private void addNewFragment(int ID, Fragment fragment) {

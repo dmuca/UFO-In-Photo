@@ -1,13 +1,10 @@
 package com.kaizen.hoymm.ufoinphoto.EditImageActivity;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +17,7 @@ import com.kaizen.hoymm.ufoinphoto.R;
  * Created by hoymm on 20.11.17.
  */
 
-public class FooterFragment extends Fragment {
+public class FooterRotateFragment extends Fragment {
     private ImageView imageToEdit;
     private ImageButton rotateLeftButton, rotateRightButton, acceptButton;
     private EditImageCommunication editImageCommunication;
@@ -28,13 +25,7 @@ public class FooterFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.footer_init_fragment, container, false);
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initRotateImageFeature();
+        return inflater.inflate(R.layout.footer_rotate_fragment, container, false);
     }
 
     @Override
@@ -47,15 +38,28 @@ public class FooterFragment extends Fragment {
         }
     }
 
-    private void initRotateImageFeature() {
-        imageToEdit = getActivity().findViewById(R.id.imageToEditId);
-        setButtonRotationBehavior((ImageButton) getActivity().findViewById(R.id.rotate_left_button_id), -90);
-        setButtonRotationBehavior((ImageButton) getActivity().findViewById(R.id.rotate_right_button_id), 90);
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setButtonsBehavior();
+        initXMLObjects();
+    }
+
+    private void setButtonsBehavior() {
+        setButtonRotationChange(rotateLeftButton, -90);
+        setButtonRotationChange(rotateRightButton, 90);
         setAcceptButtonBehavior();
     }
 
+    private void initXMLObjects() {
+        imageToEdit = getActivity().findViewById(R.id.imageToEditId);
+        acceptButton = getActivity().findViewById(R.id.accept_button_id);
+        rotateLeftButton = getActivity().findViewById(R.id.rotate_left_button_id);
+        rotateRightButton = getActivity().findViewById(R.id.rotate_right_button_id);
+    }
+
     @NonNull
-    private void setButtonRotationBehavior(ImageButton button, final float angle) {
+    private void setButtonRotationChange(ImageButton button, final float angle) {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,7 +69,6 @@ public class FooterFragment extends Fragment {
     }
 
     private void setAcceptButtonBehavior() {
-        ImageView acceptButton = getActivity().findViewById(R.id.accept_button_id);
         acceptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

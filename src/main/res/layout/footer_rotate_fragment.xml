@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+    <ImageButton
+        android:id="@+id/rotate_left_button_id"
+        android:src="@drawable/rotate_left"
+        style="@style/ImageButtonStyle"
+        />
+
+    <ImageButton
+        android:id="@+id/rotate_right_button_id"
+        style="@style/ImageButtonStyle"
+        android:src="@drawable/rotate_right"
+        />
+
+    <ImageButton
+        android:id="@+id/accept_button_id"
+        style="@style/ImageButtonStyle"
+        android:src="@drawable/ok"
+        />
+</LinearLayout>
