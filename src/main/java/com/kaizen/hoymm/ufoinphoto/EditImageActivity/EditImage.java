@@ -1,6 +1,5 @@
 package com.kaizen.hoymm.ufoinphoto.EditImageActivity;
 
-import android.app.ActionBar;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,7 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.kaizen.hoymm.ufoinphoto.R;
-public class EditImage extends AppCompatActivity {
+public class EditImage extends AppCompatActivity implements EditImageCommunication {
     public static final String URI_OF_PICKED_IMAGE_KEY =
             "com.kaizen.hoymm.ufoinphoto.EditImageActivity.URI_OF_PICKED_IMAGE_KEY";
 
@@ -69,5 +68,10 @@ public class EditImage extends AppCompatActivity {
             e.printStackTrace();
             Log.e("EditImage", " unable to load image from URI: " + imageUri.toString());
         }
+    }
+
+    @Override
+    public void showReadyButton() {
+        headerButtons.showReadyButton();
     }
 }

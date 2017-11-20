@@ -1,5 +1,6 @@
 package com.kaizen.hoymm.ufoinphoto.EditImageActivity;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import com.kaizen.hoymm.ufoinphoto.R;
 public class FooterFragment extends Fragment {
     private ImageView imageToEdit;
     private ImageButton rotateLeftButton, rotateRightButton, acceptButton;
+    private EditImageCommunication editImageCommunication;
     
     @Nullable
     @Override
@@ -32,13 +34,21 @@ public class FooterFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        imageToEdit = getActivity().findViewById(R.id.imageToEditId);
-        Log.e("ImageTOEdit", imageToEdit == null ? "null" : "smth:)");
-        Log.e("ImageTOEdit", "Pivot X: " + imageToEdit.getPivotX() + ", Pivot Y: " + imageToEdit.getPivotY());
         initRotateImageFeature();
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try{
+            editImageCommunication = (EditImageCommunication) context;
+        } catch(ClassCastException e){
+            throw new ClassCastException(context.toString() + " must implement OnFragmentSendText");
+        }
+    }
+
     private void initRotateImageFeature() {
+        imageToEdit = getActivity().findViewById(R.id.imageToEditId);
         setButtonRotationBehavior((ImageButton) getActivity().findViewById(R.id.rotate_left_button_id), -90);
         setButtonRotationBehavior((ImageButton) getActivity().findViewById(R.id.rotate_right_button_id), 90);
         setAcceptButtonBehavior();
@@ -59,7 +69,7 @@ public class FooterFragment extends Fragment {
         acceptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                editImageCommunication.showReadyButton();
             }
         });
     }
