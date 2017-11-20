@@ -34,7 +34,8 @@ class HeaderButtons {
     }
 
     void hideReadyButton(){
-        readyBtn.setVisibility(View.INVISIBLE);
+        readyBtn.setText("");
+        readyBtn.setEnabled(false);
     }
 
     private void setButtonsBehavior() {
