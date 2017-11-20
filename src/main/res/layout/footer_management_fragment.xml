@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+    <ImageButton
+        android:id="@+id/add_obj_id"
+        android:src="@drawable/add"
+        style="@style/ImageButtonStyle"
+        />
+
+    <ImageButton
+        android:id="@+id/effects_id"
+        style="@style/ImageButtonStyle"
+        android:src="@drawable/effects"
+        />
+
+    <ImageButton
+        android:id="@+id/transform_id"
+        style="@style/ImageButtonStyle"
+        android:src="@drawable/tranform"
+        />
+
+    <ImageButton
+        android:id="@+id/remove_id"
+        style="@style/ImageButtonStyle"
+        android:src="@drawable/remove"
+        />
+
+    <ImageButton
+        android:id="@+id/elements_id"
+        style="@style/ImageButtonStyle"
+        android:src="@drawable/elements"
+        />
+</LinearLayout>
