@@ -1,19 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle" >
-    <corners
-        android:radius="0dp"
-        />
-    <solid
-        android:color="@color/appThemeColor"
-        />
-    <padding
-        android:left="0dp"
-        android:top="0dp"
-        android:right="0dp"
-        android:bottom="0dp"
-        />
-    <size
-        android:width="154dp"
-        android:height="60dp"
-        />
-</shape>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:state_focused="true"
+        android:state_pressed="true">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle" >
+            <corners
+                android:radius="0dp"
+                />
+            <solid
+                android:color="@color/buttonNormalColor"
+                />
+            <padding
+                android:left="0dp"
+                android:top="0dp"
+                android:right="0dp"
+                android:bottom="0dp"
+                />
+            <size
+                android:width="154dp"
+                android:height="60dp"
+                />
+        </shape>
+    </item>
+
+    <item
+        android:state_focused="false"
+        android:state_pressed="true"
+        >
+        <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle" >
+            <corners
+                android:radius="0dp"
+                />
+            <solid
+                android:color="@color/buttonClickedColor"
+                />
+            <padding
+                android:left="0dp"
+                android:top="0dp"
+                android:right="0dp"
+                android:bottom="0dp"
+                />
+            <size
+                android:width="154dp"
+                android:height="60dp"
+                />
+        </shape>
+    </item>
+
+    <item>
+        <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle" >
+            <corners
+                android:radius="0dp"
+                />
+            <solid
+                android:color="@color/buttonNormalColor"
+                />
+            <padding
+                android:left="0dp"
+                android:top="0dp"
+                android:right="0dp"
+                android:bottom="0dp"
+                />
+            <size
+                android:width="154dp"
+                android:height="60dp"
+                />
+        </shape>
+    </item>
+</selector>
+
