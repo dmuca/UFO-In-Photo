@@ -73,7 +73,7 @@ public class FooterRotateFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 editImageCommunication.showReadyButton();
-                editImageCommunication.showManagementFragment();
+                editImageCommunication.startAnimationHideRotateFooterThenShowManagementFooter();
             }
         });
     }
