@@ -86,7 +86,6 @@ public class EditImage extends AppCompatActivity implements EditImageCommunicati
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.footerFrameId, footerManagementFragment);
             fragmentTransaction.commit();
-            Log.i("FooterManagement", "Fragment added.");
         }
     }
 
@@ -104,11 +103,4 @@ public class EditImage extends AppCompatActivity implements EditImageCommunicati
     public FrameLayout getFooterFrameLayout() {
         return footerFrameLayout;
     }
-
-    @Override
-    public Fragment getFooterManagementFragment() {
-        return footerManagementFragment;
-    }
-
-
 }
