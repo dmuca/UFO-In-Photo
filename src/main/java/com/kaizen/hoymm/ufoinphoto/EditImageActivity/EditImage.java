@@ -12,6 +12,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.kaizen.hoymm.ufoinphoto.R;
+
+import static com.kaizen.hoymm.ufoinphoto.EditImageActivity.FooterManagementFragment.HOW_MANY_BUTTONS;
+
 public class EditImage extends AppCompatActivity implements EditImageCommunication {
     public static final String URI_OF_PICKED_IMAGE_KEY =
             "com.kaizen.hoymm.ufoinphoto.EditImageActivity.URI_OF_PICKED_IMAGE_KEY";
@@ -77,7 +80,9 @@ public class EditImage extends AppCompatActivity implements EditImageCommunicati
     }
 
     @Override
-    public void startAnimationHideRotateFooterThenShowManagementFooter() {
-        FooterAnimations.startHideRotateFooterThenShowManagementFooter(footerFrameLayout, this);
+    public void startAnimationHideRotateFooterThenShowAddObjFooter() {
+        boolean whatButtonsToShow [] = new boolean [] {true, false, false, false, false};
+        FooterComponentChanges.startHideRotateFooterThenShowSelectedComponents
+                (footerFrameLayout, this, whatButtonsToShow);
     }
 }

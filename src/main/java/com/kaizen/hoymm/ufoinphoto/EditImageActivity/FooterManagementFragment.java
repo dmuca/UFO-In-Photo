@@ -14,6 +14,7 @@ import com.kaizen.hoymm.ufoinphoto.R;
  */
 
 public class FooterManagementFragment extends Fragment {
+    public static final int HOW_MANY_BUTTONS = 5;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

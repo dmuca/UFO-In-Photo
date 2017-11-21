@@ -9,21 +9,31 @@ import android.widget.FrameLayout;
 
 import com.kaizen.hoymm.ufoinphoto.R;
 
+import static com.kaizen.hoymm.ufoinphoto.EditImageActivity.FooterManagementFragment.HOW_MANY_BUTTONS;
+
 /**
  * Created by hoymm on 21.11.17.
  */
 
-public class FooterAnimations{
+public class FooterComponentChanges {
     private static final int ANIMATIONS_DURATION = 300;
 
-    public static void startHideRotateFooterThenShowManagementFooter(final FrameLayout footerFrameLayout, Context context) {
+    public static void startHideRotateFooterThenShowSelectedComponents
+            (final FrameLayout footerFrameLayout, Context context, boolean [] footerPanelComponents){
+
+        ifFooterPanelComponentsIsDifferentSizeThenAmountOfPanelButtonsThenThrowException(footerPanelComponents);
+
         final EditImageCommunication editImageCommunication = tryToInitEditImageCommunication(context);
-        final TranslateAnimation getInAnimation =
-                getMoveInAnimation(footerFrameLayout, editImageCommunication, new FooterManagementFragment());
-        final TranslateAnimation getOutAnimation =
-                getPullDownAnimation(footerFrameLayout, getInAnimation);
+        final TranslateAnimation getInAnimation = getMoveInAnimation(footerFrameLayout, editImageCommunication, new FooterManagementFragment());
+        final TranslateAnimation getOutAnimation = getPullDownAnimation(footerFrameLayout, getInAnimation);
         getOutAnimation.start();
         
+    }
+
+    private static void ifFooterPanelComponentsIsDifferentSizeThenAmountOfPanelButtonsThenThrowException(boolean[] footerPanelComponents) {
+        if (footerPanelComponents.length != 5)
+            throw new ArrayHasDifferentSizeThenExpected("Expected array length is " + HOW_MANY_BUTTONS
+                    + ", because footer management panel has " + HOW_MANY_BUTTONS + " buttons.");
     }
 
     @NonNull

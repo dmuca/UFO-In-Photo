@@ -8,6 +8,6 @@ import android.support.v4.app.Fragment;
 
 interface EditImageCommunication {
     void showReadyButton();
-    void startAnimationHideRotateFooterThenShowManagementFooter();
+    void startAnimationHideRotateFooterThenShowAddObjFooter();
     void addNewFragment(int ID, Fragment fragment);
 }
