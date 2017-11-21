@@ -19,7 +19,6 @@ public class EditImage extends AppCompatActivity implements EditImageCommunicati
     public static final String URI_OF_PICKED_IMAGE_KEY =
             "com.kaizen.hoymm.ufoinphoto.EditImageActivity.URI_OF_PICKED_IMAGE_KEY";
 
-    private ImageView imageToEditImageView;
     private HeaderButtons headerButtons;
     private FrameLayout footerFrameLayout;
     private FooterRotateFragment footerRotateFragment;
@@ -73,7 +72,7 @@ public class EditImage extends AppCompatActivity implements EditImageCommunicati
 
     public void setImageUsingUri(Uri imageUri) {
         try {
-            imageToEditImageView = (ImageView) findViewById(R.id.imageToEditId);
+            ImageView imageToEditImageView = (ImageView) findViewById(R.id.imageToEditId);
             imageToEditImageView.setImageURI(imageUri);
         }
         catch (Exception e){
@@ -99,7 +98,7 @@ public class EditImage extends AppCompatActivity implements EditImageCommunicati
         getOutAnimation.setDuration(300);
 
         getInAnimation.setDuration(300);
-        getInAnimation.setFillAfter(true);
+        //getInAnimation.setFillAfter(true);
 
         footerFrameLayout.setAnimation(getOutAnimation);
         getOutAnimation.start();
@@ -132,9 +131,7 @@ public class EditImage extends AppCompatActivity implements EditImageCommunicati
 
             @Override
             public void onAnimationEnd(Animation animation)
-            {
-                footerFrameLayout.setAnimation(getOutAnimation);
-            }
+            {}
         });
     }
 }
