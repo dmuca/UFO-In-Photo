@@ -1,6 +1,7 @@
 package com.kaizen.hoymm.ufoinphoto.EditImageActivity;
 
 import android.support.v4.app.Fragment;
+import android.widget.FrameLayout;
 
 /**
  * Created by hoymm on 20.11.17.
@@ -8,6 +9,8 @@ import android.support.v4.app.Fragment;
 
 interface EditImageCommunication {
     void showReadyButton();
-    void startAnimationHideRotateFooterThenShowAddObjFooter();
-    void addNewFragment(int ID, Fragment fragment);
+    void changeButtonsToShowInFooter(boolean [] buttonsToShow);
+    void addFooterManagementPanelFragmentIfNotAlreadyAdded();
+    FrameLayout getFooterFrameLayout();
+    Fragment getFooterManagementFragment();
 }

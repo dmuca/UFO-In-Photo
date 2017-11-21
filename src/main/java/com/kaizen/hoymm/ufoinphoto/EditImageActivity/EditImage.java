@@ -13,14 +13,13 @@ import android.widget.ImageView;
 
 import com.kaizen.hoymm.ufoinphoto.R;
 
-import static com.kaizen.hoymm.ufoinphoto.EditImageActivity.FooterManagementFragment.HOW_MANY_BUTTONS;
-
 public class EditImage extends AppCompatActivity implements EditImageCommunication {
     public static final String URI_OF_PICKED_IMAGE_KEY =
             "com.kaizen.hoymm.ufoinphoto.EditImageActivity.URI_OF_PICKED_IMAGE_KEY";
 
     private HeaderButtons headerButtons;
     private FrameLayout footerFrameLayout;
+    private FooterManagementFragment footerManagementFragment;
 
 
     @Override
@@ -29,6 +28,7 @@ public class EditImage extends AppCompatActivity implements EditImageCommunicati
         setContentView(R.layout.activity_edit_image);
         hideStatusBar();
         recieveImage();
+        initFragments();
         initHeaderButtons();
         initFooterFrame();
         addNewFragment(R.id.footerFrameId , new FooterRotateFragment());
@@ -44,6 +44,10 @@ public class EditImage extends AppCompatActivity implements EditImageCommunicati
     private void recieveImage() {
         Uri imageUri = getIntent().getParcelableExtra(URI_OF_PICKED_IMAGE_KEY);
         setImageUsingUri(imageUri);
+    }
+
+    private void initFragments() {
+        footerManagementFragment = new FooterManagementFragment();
     }
 
     private void initHeaderButtons() {
@@ -66,12 +70,24 @@ public class EditImage extends AppCompatActivity implements EditImageCommunicati
         }
     }
 
-    @Override
-    public void addNewFragment(int ID, Fragment fragment) {
+    private void addNewFragment(int ID, Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(ID, fragment);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void addFooterManagementPanelFragmentIfNotAlreadyAdded() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment myFragment = fragmentManager.findFragmentById(R.id.footerFrameId);
+
+        if(myFragment == null || !(myFragment instanceof FooterManagementFragment)) {
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.footerFrameId, footerManagementFragment);
+            fragmentTransaction.commit();
+            Log.i("FooterManagement", "Fragment added.");
+        }
     }
 
     @Override
@@ -80,9 +96,19 @@ public class EditImage extends AppCompatActivity implements EditImageCommunicati
     }
 
     @Override
-    public void startAnimationHideRotateFooterThenShowAddObjFooter() {
-        boolean whatButtonsToShow [] = new boolean [] {true, false, false, false, false};
-        FooterComponentChanges.startHideRotateFooterThenShowSelectedComponents
-                (footerFrameLayout, this, whatButtonsToShow);
+    public void changeButtonsToShowInFooter(boolean[] buttonsToShow) {
+        FooterComponentChanges.showFooterLayoutWithSelectedButtons(this, buttonsToShow);
     }
+
+    @Override
+    public FrameLayout getFooterFrameLayout() {
+        return footerFrameLayout;
+    }
+
+    @Override
+    public Fragment getFooterManagementFragment() {
+        return footerManagementFragment;
+    }
+
+
 }
