@@ -8,9 +8,9 @@ import android.widget.FrameLayout;
 
 interface EditImageCommunication {
     void showReadyButton();
-    void changeButtonsToShowInFooter(boolean [] buttonsToShow);
+    void changeFooterPanelFromRotateToManagementFragmentUsingAnimation();
     FrameLayout getFooterFrameLayout();
     Fragment getManagementFooterFragment();
     Fragment getRotateFooterFragment();
-    void showManagementFooter();
+    void showManagementFooterFragmentAndHideRotate();
 }

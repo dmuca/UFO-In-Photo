@@ -4,6 +4,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/buttonNormalColor"
     >
     <ImageButton
         android:id="@+id/add_obj_id"
@@ -15,23 +16,27 @@
         android:id="@+id/effects_id"
         style="@style/ImageButtonStyle"
         android:src="@drawable/effects"
+        android:visibility="invisible"
         />
 
     <ImageButton
         android:id="@+id/transform_id"
         style="@style/ImageButtonStyle"
         android:src="@drawable/tranform"
+        android:visibility="invisible"
         />
 
     <ImageButton
         android:id="@+id/remove_id"
         style="@style/ImageButtonStyle"
         android:src="@drawable/remove"
+        android:visibility="invisible"
         />
 
     <ImageButton
         android:id="@+id/elements_id"
         style="@style/ImageButtonStyle"
         android:src="@drawable/elements"
+        android:visibility="invisible"
         />
 </LinearLayout>

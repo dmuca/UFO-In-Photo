@@ -90,7 +90,7 @@ public class EditImage extends AppCompatActivity implements EditImageCommunicati
     }
 
     @Override
-    public void showManagementFooter() {
+    public void showManagementFooterFragmentAndHideRotate() {
         getSupportFragmentManager().beginTransaction().hide(footerRotateFragment).commit();
         getSupportFragmentManager().beginTransaction().show(footerManagementFragment).commit();
     }
@@ -101,8 +101,8 @@ public class EditImage extends AppCompatActivity implements EditImageCommunicati
     }
 
     @Override
-    public void changeButtonsToShowInFooter(boolean[] buttonsToShow) {
-        FooterComponentChanges.showFooterLayoutWithSelectedButtons(this, buttonsToShow);
+    public void changeFooterPanelFromRotateToManagementFragmentUsingAnimation() {
+        FooterComponentChanges.showFooterLayoutWithSelectedButtons(this);
     }
 
     @Override
