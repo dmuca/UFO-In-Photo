@@ -2,9 +2,14 @@ package com.kaizen.hoymm.ufoinphoto.EditImageActivity;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
+
+import com.kaizen.hoymm.ufoinphoto.R;
 
 import static com.kaizen.hoymm.ufoinphoto.EditImageActivity.FooterManagementFragment.HOW_MANY_BUTTONS;
 
@@ -14,20 +19,25 @@ import static com.kaizen.hoymm.ufoinphoto.EditImageActivity.FooterManagementFrag
 
 public class FooterComponentChanges {
     private static final int ANIMATIONS_DURATION = 300;
-    private static boolean buttonsToShow [];
+    private static boolean currentButtonsToShow[] = {false, false, false, false, false};
+    private static boolean curFragmentIsFooterManagementFragment = false;
 
     public FooterComponentChanges() {
-        buttonsToShow = new boolean[HOW_MANY_BUTTONS];
+        currentButtonsToShow = new boolean[HOW_MANY_BUTTONS];
     }
 
     public static void showFooterLayoutWithSelectedButtons
             (Context context, boolean [] buttonsToGetIntoPanel){
+        curFragmentIsFooterManagementFragment = isCurFragIsFooterManagementFragment((AppCompatActivity)context);
 
         ifFooterPanelComponentsIsDifferentSizeThenAmountOfPanelButtonsThenThrowException(buttonsToGetIntoPanel);
-        final TranslateAnimation animationGetInManagementPanel = getMoveInAnimation(context, buttonsToGetIntoPanel);
+        refreshButtonsToShow(buttonsToGetIntoPanel);
+
+        final TranslateAnimation animationGetInManagementPanel = getMoveInAnimation(context);
+
         final TranslateAnimation animationGetOutManagementPanel = getMoveOutAnimation(context, animationGetInManagementPanel);
+
         animationGetOutManagementPanel.start();
-        
     }
 
     private static void ifFooterPanelComponentsIsDifferentSizeThenAmountOfPanelButtonsThenThrowException(boolean[] footerPanelComponents) {
@@ -37,63 +47,85 @@ public class FooterComponentChanges {
     }
 
     @NonNull
-    private static TranslateAnimation getMoveInAnimation(Context context, boolean [] newFooterButtonsToShow) {
-        refreshButtonsToShow(newFooterButtonsToShow);
-
+    private static TranslateAnimation getMoveInAnimation(Context context) {
         final EditImageCommunication editImageCommunication = tryToInitEditImageCommunication(context);
-        final TranslateAnimation getInAnimation =
+        final TranslateAnimation moveInAnimation =
                 new TranslateAnimation(0, 0, editImageCommunication.getFooterFrameLayout().getHeight(), 0);
-        getInAnimation.setDuration(ANIMATIONS_DURATION);
+        moveInAnimation.setDuration(ANIMATIONS_DURATION);
 
-        getInAnimation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-                editImageCommunication.addFooterManagementPanelFragmentIfNotAlreadyAdded();
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-            }
-        });
-        return getInAnimation;
+        return moveInAnimation;
     }
 
     private static void refreshButtonsToShow(boolean[] newButtonsToShow) {
         for (int i = 0; i < HOW_MANY_BUTTONS; ++i)
-            buttonsToShow = newButtonsToShow;
+            currentButtonsToShow = newButtonsToShow;
 
     }
 
     @NonNull
-    private static TranslateAnimation getMoveOutAnimation(Context context, final TranslateAnimation getInAnimation) {
+    private static TranslateAnimation getMoveOutAnimation(Context context, final TranslateAnimation moveInAnimation) {
+        final boolean [] buttonsToRemove = getButtonsToRemove(currentButtonsToShow);
         final EditImageCommunication editImageCommunication = tryToInitEditImageCommunication(context);
         final FrameLayout frameLayout = editImageCommunication.getFooterFrameLayout();
+        final TranslateAnimation moveOutAnimation = new TranslateAnimation(0, 0, 0, frameLayout.getHeight());
+        moveOutAnimation.setDuration(ANIMATIONS_DURATION);
 
-        final TranslateAnimation getOutAnimation = new TranslateAnimation(0, 0, 0, frameLayout.getHeight());
-        getOutAnimation.setDuration(ANIMATIONS_DURATION);
-
-        getOutAnimation.setAnimationListener(new Animation.AnimationListener() {
+        moveOutAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
             }
 
             @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
+            public void onAnimationRepeat(Animation animation) {}
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                frameLayout.setAnimation(getInAnimation);
-                getInAnimation.start();
+                editImageCommunication.showManagementFooter();
+
+                performAnimationOnWholeFragmentOrJustSomeButtons(editImageCommunication.getManagementFooterFragment(), moveInAnimation);
+                Log.i("FragName 2", editImageCommunication.getManagementFooterFragment().getClass().getName());
+                moveInAnimation.start();
+
             }
         });
 
-        frameLayout.setAnimation(getOutAnimation);
-        return getOutAnimation;
+        performAnimationOnWholeFragmentOrJustSomeButtons(editImageCommunication.getRotateFooterFragment(), moveOutAnimation);
+        Log.i("FragName 1", editImageCommunication.getManagementFooterFragment().getClass().getName());
+        return moveOutAnimation;
+    }
+
+    private static boolean[] getButtonsToRemove(boolean[] buttonsToGetIntoPanel) {
+        boolean buttonsToRemove [] = new boolean[buttonsToGetIntoPanel.length];
+        for (int i = 0; i < buttonsToGetIntoPanel.length; ++i)
+            buttonsToRemove[i] = currentButtonsToShow[i] && !buttonsToGetIntoPanel[i];
+        return buttonsToRemove;
+    }
+
+    private static void performAnimationOnWholeFragmentOrJustSomeButtons(Fragment fragment, TranslateAnimation getInAnimation) {
+        if (curFragmentIsFooterManagementFragment) {
+            moveOutOnlySomeButtons(fragment, getInAnimation);
+            Log.i("WholeFragAnim", "false");
+        } else {
+            moveOutWholeFragment(fragment, getInAnimation);
+            Log.i("WholeFragAnim", "true");
+        }
+    }
+
+    private static void moveOutOnlySomeButtons(Fragment fragment, TranslateAnimation animation) {
+        fragment.getView().setAnimation(animation);
+    }
+
+    private static void moveInOnlySomeButtons(Fragment fragment, TranslateAnimation animation) {
+        fragment.getView().setAnimation(animation);
+    }
+
+    private static void moveOutWholeFragment(Fragment fragment, TranslateAnimation animation) {
+        fragment.getView().setAnimation(animation);
+    }
+
+    private static boolean isCurFragIsFooterManagementFragment(AppCompatActivity appCompatActivity) {
+        Fragment myFragment = appCompatActivity.getSupportFragmentManager().findFragmentById(R.id.footerFrameId);
+        return myFragment instanceof FooterManagementFragment;
     }
 
     public static EditImageCommunication tryToInitEditImageCommunication(Context context) {

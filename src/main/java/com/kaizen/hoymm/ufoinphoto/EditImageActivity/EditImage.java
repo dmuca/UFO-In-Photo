@@ -19,7 +19,7 @@ public class EditImage extends AppCompatActivity implements EditImageCommunicati
 
     private HeaderButtons headerButtons;
     private FrameLayout footerFrameLayout;
-    private FooterManagementFragment footerManagementFragment;
+    private Fragment footerManagementFragment, footerRotateFragment;
 
 
     @Override
@@ -29,9 +29,10 @@ public class EditImage extends AppCompatActivity implements EditImageCommunicati
         hideStatusBar();
         recieveImage();
         initFragments();
+        addFragments();
+        showFooterRotateFragmentAndHideOthers();
         initHeaderButtons();
         initFooterFrame();
-        addNewFragment(R.id.footerFrameId , new FooterRotateFragment());
     }
 
     private void hideStatusBar() {
@@ -47,7 +48,18 @@ public class EditImage extends AppCompatActivity implements EditImageCommunicati
     }
 
     private void initFragments() {
+        footerRotateFragment = new FooterRotateFragment();
         footerManagementFragment = new FooterManagementFragment();
+    }
+
+    private void addFragments() {
+        addNewFragment(R.id.footerFrameId , footerManagementFragment);
+        addNewFragment(R.id.footerFrameId , footerRotateFragment);
+    }
+
+    private void showFooterRotateFragmentAndHideOthers() {
+        getSupportFragmentManager().beginTransaction().show(footerRotateFragment).commit();
+        getSupportFragmentManager().beginTransaction().hide(footerManagementFragment).commit();
     }
 
     private void initHeaderButtons() {
@@ -78,10 +90,9 @@ public class EditImage extends AppCompatActivity implements EditImageCommunicati
     }
 
     @Override
-    public void addFooterManagementPanelFragmentIfNotAlreadyAdded() {
-        Fragment myFragment = getSupportFragmentManager().findFragmentById(R.id.footerFrameId);
-        if(myFragment == null || !(myFragment instanceof FooterManagementFragment))
-            addNewFragment(R.id.footerFrameId, footerManagementFragment);
+    public void showManagementFooter() {
+        getSupportFragmentManager().beginTransaction().hide(footerRotateFragment).commit();
+        getSupportFragmentManager().beginTransaction().show(footerManagementFragment).commit();
     }
 
     @Override
@@ -97,5 +108,15 @@ public class EditImage extends AppCompatActivity implements EditImageCommunicati
     @Override
     public FrameLayout getFooterFrameLayout() {
         return footerFrameLayout;
+    }
+
+    @Override
+    public Fragment getManagementFooterFragment() {
+        return footerManagementFragment;
+    }
+
+    @Override
+    public Fragment getRotateFooterFragment() {
+        return footerRotateFragment;
     }
 }

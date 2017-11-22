@@ -73,7 +73,8 @@ public class FooterRotateFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 editImageCommunication.showReadyButton();
-                editImageCommunication.changeButtonsToShowInFooter(new boolean [] {true, false, false, false, false});
+                editImageCommunication.changeButtonsToShowInFooter
+                        (new boolean [] {true, false, false, false, false});
             }
         });
     }

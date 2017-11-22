@@ -2,6 +2,7 @@ package com.kaizen.hoymm.ufoinphoto.EditImageActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -16,11 +17,23 @@ import com.kaizen.hoymm.ufoinphoto.R;
 class HeaderButtons {
     private Button backBtn, helpBtn, readyBtn;
     private Activity activity;
+    private final EditImageCommunication editImageCommunication;
 
     HeaderButtons(Activity activity) {
         this.activity = activity;
+
+        editImageCommunication = tryInitEditImageCommunication(activity);
         initButtons();
         setButtonsBehavior();
+    }
+
+    private EditImageCommunication tryInitEditImageCommunication(Activity activity) {
+        try {
+            return (EditImageCommunication) activity;
+        }
+        catch (ClassCastException e){
+            throw new ClassCastException(activity.toString() + " must implement OnFragmentSendText");
+        }
     }
 
     private void initButtons() {
@@ -61,6 +74,7 @@ class HeaderButtons {
             @Override
             public void onClick(View v) {
                 Toast.makeText(activity, "Help", Toast.LENGTH_SHORT).show();
+                Log.i("FragName 2", editImageCommunication.getManagementFooterFragment().getClass().getName());
             }
         });
     }
