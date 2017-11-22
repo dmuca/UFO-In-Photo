@@ -79,14 +79,9 @@ public class EditImage extends AppCompatActivity implements EditImageCommunicati
 
     @Override
     public void addFooterManagementPanelFragmentIfNotAlreadyAdded() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment myFragment = fragmentManager.findFragmentById(R.id.footerFrameId);
-
-        if(myFragment == null || !(myFragment instanceof FooterManagementFragment)) {
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.footerFrameId, footerManagementFragment);
-            fragmentTransaction.commit();
-        }
+        Fragment myFragment = getSupportFragmentManager().findFragmentById(R.id.footerFrameId);
+        if(myFragment == null || !(myFragment instanceof FooterManagementFragment))
+            addNewFragment(R.id.footerFrameId, footerManagementFragment);
     }
 
     @Override
