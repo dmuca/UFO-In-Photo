@@ -16,7 +16,6 @@ import com.kaizen.hoymm.ufoinphoto.R;
  */
 
 public class FooterManagementFragment extends Fragment {
-    public static final int HOW_MANY_BUTTONS = 5;
     private ImageButton addButton, effectsButton, transformButton, removeButton, elementsButton;
 
     @Nullable
@@ -28,8 +27,14 @@ public class FooterManagementFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initButtons();
+        initButtonsIfViewExists();
         setButtonsBehavior();
+    }
+
+    private void initButtonsIfViewExists() {
+        View view = getView();
+        if (view != null)
+            initButtons();
     }
 
     private void initButtons() {

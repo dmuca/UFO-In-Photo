@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
@@ -63,12 +64,9 @@ public class FooterComponentChanges {
     }
 
     private static void setAnimationForChoosenFragment(Fragment fragment, TranslateAnimation animation) {
-        try {
-            fragment.getView().setAnimation(animation);
-        }
-        catch (NullPointerException e){
-            e.printStackTrace();
-            Log.e("Footer Panel Change", "unable to perform animation that changes frame in footer panel.");
+        View view = fragment.getView();
+        if (view != null) {
+            view.setAnimation(animation);
         }
     }
 
