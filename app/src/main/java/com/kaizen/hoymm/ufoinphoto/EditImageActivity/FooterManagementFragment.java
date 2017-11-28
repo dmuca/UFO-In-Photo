@@ -1,5 +1,6 @@
 package com.kaizen.hoymm.ufoinphoto.EditImageActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.kaizen.hoymm.ufoinphoto.EditImageActivity.ChooseUFOActivity.ChooseUFOActivity;
 import com.kaizen.hoymm.ufoinphoto.R;
 
 /**
@@ -17,6 +19,7 @@ import com.kaizen.hoymm.ufoinphoto.R;
 
 public class FooterManagementFragment extends Fragment {
     private ImageButton addButton, effectsButton, transformButton, removeButton, elementsButton;
+    private static final int CHOOSE_UFO_RESULT = 1;
 
     @Nullable
     @Override
@@ -57,7 +60,8 @@ public class FooterManagementFragment extends Fragment {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Add button", Toast.LENGTH_SHORT).show();
+                Intent chooseUFOIntent = new Intent(getContext(), ChooseUFOActivity.class);
+                startActivityForResult(chooseUFOIntent, CHOOSE_UFO_RESULT);
             }
         });
     }

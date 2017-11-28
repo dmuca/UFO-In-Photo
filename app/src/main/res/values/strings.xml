@@ -10,4 +10,6 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="read_external_storage_explanation">Application needs permission to read external storage, so it can edit images from gallery.</string>
+    <string name="choosen_ufo_image">Choosen UFO Image</string>
+    <string name="ufo_icon_to_choose">ufo_icon_to_choose</string>
 </resources>
