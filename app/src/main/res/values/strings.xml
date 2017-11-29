@@ -13,4 +13,10 @@
     <string name="choosen_ufo_image">Choosen UFO Image</string>
     <string name="ufo_icon_to_choose">ufo_icon_to_choose</string>
     <string name="no_image_was_selected">No image was selected.</string>
+    <string name="share">Share</string>
+    <string name="save_in_album">Save in album</string>
+    <string name="start_over">Start over</string>
+    <string name="file_not_found">File not found.</string>
+    <string name="error_access_file">Error when trying access file.</string>
+    <string name="saved_in_album">Saved In Album</string>
 </resources>

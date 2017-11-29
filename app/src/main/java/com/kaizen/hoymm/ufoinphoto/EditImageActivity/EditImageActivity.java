@@ -1,5 +1,6 @@
 package com.kaizen.hoymm.ufoinphoto.EditImageActivity;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -161,5 +162,14 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
     @Override
     public Fragment getRotateFooterFragment() {
         return footerRotateFragment;
+    }
+
+    @Override
+    public Bitmap getEditedImage() {
+        RelativeLayout editImageFrameRL = (RelativeLayout) findViewById(R.id.editImageFrameId);
+        editImageFrameRL.setDrawingCacheEnabled(true);
+        Bitmap bitmap = Bitmap.createBitmap(editImageFrameRL.getDrawingCache());
+        editImageFrameRL.setDrawingCacheEnabled(false);
+        return bitmap;
     }
 }

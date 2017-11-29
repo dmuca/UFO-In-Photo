@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".EditImageActivity.EditImageActivity" />
-        <activity android:name=".EditImageActivity.ChooseUFOActivity.ChooseUFOActivity"></activity>
+        <activity android:name=".EditImageActivity.ChooseUFOActivity.ChooseUFOActivity" />
+        <activity android:name=".EditImageActivity.ImgReadyActivity.ImgReadyActivity"></activity>
     </application>
 
 </manifest>

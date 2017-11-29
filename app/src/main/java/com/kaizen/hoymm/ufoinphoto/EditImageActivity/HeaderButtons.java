@@ -2,11 +2,15 @@ package com.kaizen.hoymm.ufoinphoto.EditImageActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.kaizen.hoymm.ufoinphoto.EditImageActivity.ImgReadyActivity.ImgReadyActivity;
 import com.kaizen.hoymm.ufoinphoto.MainActivity;
 import com.kaizen.hoymm.ufoinphoto.R;
+
+import java.io.ByteArrayOutputStream;
 
 /**
  * Created by hoymm on 03.11.17.
@@ -71,6 +75,15 @@ class HeaderButtons {
 
     private void setReadyButtonsBehavior() {
         readyBtn.setOnClickListener
-                (v -> Toast.makeText(activity, "Ready", Toast.LENGTH_SHORT).show());
+                (v -> {
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    Bitmap bitmapNewImage = editImageCommunication.getEditedImage();
+                    bitmapNewImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                    byte[] byteArray = stream.toByteArray();
+
+                    Intent intent = new Intent(activity, ImgReadyActivity.class);
+                    intent.putExtra("BitmapImage", byteArray);
+                    activity.startActivity(intent);
+                });
     }
 }

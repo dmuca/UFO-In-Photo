@@ -1,4 +1,5 @@
 package com.kaizen.hoymm.ufoinphoto.EditImageActivity;
+import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
 import android.widget.FrameLayout;
 
@@ -18,4 +19,6 @@ interface EditImageCommunication {
     Fragment getManagementFooterFragment();
     Fragment getRotateFooterFragment();
     void showManagementFooterFragmentAndHideRotate();
+
+    Bitmap getEditedImage();
 }
