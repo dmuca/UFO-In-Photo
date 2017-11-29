@@ -14,9 +14,9 @@ import android.widget.FrameLayout;
  */
 
 public class FooterComponentChanges {
-    private static final int ANIMATIONS_DURATION = 3000;
+    private static final int ANIMATIONS_DURATION = 300;
 
-    public static void showFooterLayoutWithSelectedButtons(Context context){
+    static void showFooterLayoutWithSelectedButtons(Context context){
 
         final TranslateAnimation animationGetInManagementPanel = getMoveInAnimation(context);
 
