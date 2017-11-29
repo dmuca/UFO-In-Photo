@@ -4,7 +4,6 @@ import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.util.ArrayMap;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -123,11 +122,11 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
         buttonsToShow[1] = buttonsToShow[2] = buttonsToShow[3] = indexOfSelectedUFO != -1;
         buttonsToShow[4] = myUFOObjects.size() > 0;
 
-        footerManagementFragment.showFooterButtons(buttonsToShow);
+        footerManagementFragment.showOrHideFooterPanelButtonsAnimation(buttonsToShow);
     }
 
     @Override
-    public void addNewUFOOBj(int drawableImg) {
+    public void addNewUFOObj(int drawableImg) {
         RelativeLayout editImageFrameRL = (RelativeLayout) findViewById(R.id.editImageFrameId);
         ImageView imgUFO = new ImageView(this);
         imgUFO.setImageResource(drawableImg);
@@ -141,11 +140,12 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
 
     private void selectNewUfoObj(int index){
         indexOfSelectedUFO = index;
+        Log.i("Index", "set to " + indexOfSelectedUFO);
     }
 
     @Override
     public void changeFooterPanelFromRotateToManagementFragmentUsingAnimation() {
-        FooterAnimations.showFooterLayoutWithSelectedButtons(this);
+        SwapRotateToManagementFooterPanelAnimation.showFooterLayout(this);
     }
 
     @Override

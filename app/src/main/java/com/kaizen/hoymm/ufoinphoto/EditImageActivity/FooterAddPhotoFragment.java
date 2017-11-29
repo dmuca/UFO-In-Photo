@@ -4,22 +4,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.kaizen.hoymm.ufoinphoto.EditImageActivity.ChooseUFOActivity.ChooseUFOActivity;
 import com.kaizen.hoymm.ufoinphoto.R;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import static android.app.Activity.RESULT_OK;
+import static com.kaizen.hoymm.ufoinphoto.EditImageActivity.SwapRotateToManagementFooterPanelAnimation.ANIMATIONS_DURATION;
 
 /**
  * Created by hoymm on 20.11.17.
@@ -78,11 +75,16 @@ public class FooterAddPhotoFragment extends Fragment{
     }
 
     private void setBehaviorTransformButton() {
-        transformButton.setOnClickListener(v -> Toast.makeText(getContext(), "Transform button", Toast.LENGTH_SHORT).show());
+        transformButton.setOnClickListener(v -> {
+            Toast.makeText(getContext(), "Transform button", Toast.LENGTH_SHORT).show();
+        });
     }
 
     private void setBehaviorRemoveButton() {
-        removeButton.setOnClickListener(v -> Toast.makeText(getContext(), "Remove button", Toast.LENGTH_SHORT).show());
+        removeButton.setOnClickListener(v -> {
+            Toast.makeText(getContext(), "Remove button", Toast.LENGTH_SHORT).show();
+            showOrHideFooterPanelButtonsAnimation(new boolean []{true, false, false, false, true});
+        });
     }
 
     private void setBehaviorElementsButton() {
@@ -95,7 +97,7 @@ public class FooterAddPhotoFragment extends Fragment{
             case CHOOSE_UFO_REQ_CODE:
                 if (resultCode == RESULT_OK) {
                     int selectedUFOImg = data.getIntExtra(ChooseUFOActivity.SELECTED_UFO_DRAWABLE_KEY, R.drawable.img1);
-                    editImageCommunication.addNewUFOOBj(selectedUFOImg);
+                    editImageCommunication.addNewUFOObj(selectedUFOImg);
                     editImageCommunication.showHideFooterButtonsAnimation();
                 }
                 else
@@ -104,16 +106,57 @@ public class FooterAddPhotoFragment extends Fragment{
         }
     }
 
-    void showFooterButtons(boolean[] buttonsToShow) {
-        Log.i("ButtonsToShow", "buttonsToShow[0] == " + buttonsToShow[0]);
-        Log.i("ButtonsToShow", "buttonsToShow[1] == " + buttonsToShow[1]);
-        Log.i("ButtonsToShow", "buttonsToShow[2] == " + buttonsToShow[2]);
-        Log.i("ButtonsToShow", "buttonsToShow[3] == " + buttonsToShow[3]);
-        Log.i("ButtonsToShow", "buttonsToShow[4] == " + buttonsToShow[4]);
-        addButton.setVisibility(buttonsToShow[0] ? View.VISIBLE : View.INVISIBLE);
-        effectsButton.setVisibility(buttonsToShow[1] ? View.VISIBLE : View.INVISIBLE);
-        transformButton.setVisibility(buttonsToShow[2] ? View.VISIBLE : View.INVISIBLE);
-        removeButton.setVisibility(buttonsToShow[3] ? View.VISIBLE : View.INVISIBLE);
-        elementsButton.setVisibility(buttonsToShow[4] ? View.VISIBLE : View.INVISIBLE);
+    void showOrHideFooterPanelButtonsAnimation(boolean[] buttonsToShow) {
+        checkWhetherHideOrShowButtonUsingAnimation(addButton, buttonsToShow[0]);
+        checkWhetherHideOrShowButtonUsingAnimation(effectsButton, buttonsToShow[1]);
+        checkWhetherHideOrShowButtonUsingAnimation(transformButton, buttonsToShow[2]);
+        checkWhetherHideOrShowButtonUsingAnimation(removeButton, buttonsToShow[3]);
+        checkWhetherHideOrShowButtonUsingAnimation(elementsButton, buttonsToShow[4]);
+    }
+
+    private void checkWhetherHideOrShowButtonUsingAnimation(ImageButton imageButton, boolean buttonsToShow) {
+        if (buttonShowAnimationShouldBeStarted(imageButton, buttonsToShow))
+            showAnimationForButtonStart(imageButton);
+        else if (buttonHideAnimationShouldBeStarted(imageButton, buttonsToShow))
+            hideAnimationForButtonStart(imageButton);
+    }
+
+    private boolean buttonShowAnimationShouldBeStarted(ImageButton imageButton, boolean buttonsToShow) {
+        return (imageButton.getVisibility() == View.INVISIBLE || imageButton.getVisibility() == View.GONE) && buttonsToShow;
+    }
+
+    private void showAnimationForButtonStart(ImageButton imageButton) {
+        final TranslateAnimation moveInAnimation = new TranslateAnimation(0, 0, imageButton.getHeight(), 0);
+        moveInAnimation.setDuration(ANIMATIONS_DURATION);
+        imageButton.setAnimation(moveInAnimation);
+        moveInAnimation.start();
+        imageButton.setVisibility(View.VISIBLE);
+    }
+
+    private boolean buttonHideAnimationShouldBeStarted(ImageButton imageButton, boolean buttonsToShow) {
+        return imageButton.getVisibility() == View.VISIBLE && !buttonsToShow;
+    }
+
+    private void hideAnimationForButtonStart(ImageButton imageButton) {
+        final TranslateAnimation moveOutAnimation = new TranslateAnimation(0, 0, 0, imageButton.getHeight());
+        moveOutAnimation.setDuration(ANIMATIONS_DURATION);
+        imageButton.setAnimation(moveOutAnimation);
+        moveOutAnimation.start();
+        moveOutAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                imageButton.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
     }
 }

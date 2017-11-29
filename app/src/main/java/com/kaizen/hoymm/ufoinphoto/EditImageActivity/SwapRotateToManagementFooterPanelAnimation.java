@@ -13,10 +13,10 @@ import android.widget.FrameLayout;
  * Created by Damian Muca (Kaizen) on 21.11.17.
  */
 
-public class FooterAnimations {
-    private static final int ANIMATIONS_DURATION = 300;
+public class SwapRotateToManagementFooterPanelAnimation {
+    static final int ANIMATIONS_DURATION = 300;
 
-    static void showFooterLayoutWithSelectedButtons(Context context){
+    static void showFooterLayout(Context context){
         final TranslateAnimation animationGetInManagementPanel = getMoveInAnimation(context);
         final TranslateAnimation animationGetOutManagementPanel = getMoveOutAnimation(context, animationGetInManagementPanel);
         animationGetOutManagementPanel.start();

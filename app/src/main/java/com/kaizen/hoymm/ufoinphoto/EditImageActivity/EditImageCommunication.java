@@ -10,7 +10,7 @@ interface EditImageCommunication {
     void showReadyButton();
     void hideReadyButton();
     void showHideFooterButtonsAnimation();
-    void addNewUFOOBj(int drawableImg);
+    void addNewUFOObj(int drawableImg);
 
 
     void changeFooterPanelFromRotateToManagementFragmentUsingAnimation();
