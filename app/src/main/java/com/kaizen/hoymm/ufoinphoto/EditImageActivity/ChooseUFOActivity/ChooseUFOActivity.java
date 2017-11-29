@@ -1,5 +1,7 @@
 package com.kaizen.hoymm.ufoinphoto.EditImageActivity.ChooseUFOActivity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +12,8 @@ import android.widget.ImageView;
 import com.kaizen.hoymm.ufoinphoto.R;
 
 public class ChooseUFOActivity extends AppCompatActivity implements ChangeMainImage {
+    public static final String SELECTED_UFO_DRAWABLE_KEY =
+            "com.kaizen.hoymm.ufoinphoto.EditImageActivity.ChooseUFOActivity";
     private int mainImgDrawable = R.drawable.img1;
     private ImageView UFOMainImage;
 
@@ -40,7 +44,10 @@ public class ChooseUFOActivity extends AppCompatActivity implements ChangeMainIm
 
     private View.OnClickListener getOnMainImageClickListener() {
         return v -> {
-
+            Intent data = new Intent();
+            data.putExtra(SELECTED_UFO_DRAWABLE_KEY, mainImgDrawable);
+            setResult(RESULT_OK, data);
+            finish();
         };
     }
 

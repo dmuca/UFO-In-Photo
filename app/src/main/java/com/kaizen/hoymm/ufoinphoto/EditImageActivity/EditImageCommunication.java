@@ -7,7 +7,11 @@ import android.widget.FrameLayout;
  */
 
 interface EditImageCommunication {
-    void showReadyButton();
+    void showFooterButtons();
+    void hideFooterButtons();
+    void addNewUFOOBj(int drawableImg);
+
+
     void changeFooterPanelFromRotateToManagementFragmentUsingAnimation();
     FrameLayout getFooterFrameLayout();
     Fragment getManagementFooterFragment();

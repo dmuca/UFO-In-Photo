@@ -66,7 +66,7 @@ public class FooterRotateFragment extends Fragment {
 
     private void setAcceptButtonBehavior() {
         acceptButton.setOnClickListener(v -> {
-                editImageCommunication.showReadyButton();
+                editImageCommunication.showFooterButtons();
                 editImageCommunication.changeFooterPanelFromRotateToManagementFragmentUsingAnimation();
             });
     }

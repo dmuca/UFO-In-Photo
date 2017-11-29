@@ -4,14 +4,20 @@ import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.util.ArrayMap;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.kaizen.hoymm.ufoinphoto.R;
+
+import java.util.ArrayList;
 
 public class EditImageActivity extends AppCompatActivity implements EditImageCommunication {
     public static final String URI_OF_PICKED_IMAGE_KEY =
@@ -20,12 +26,14 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
     private HeaderButtons headerButtons;
     private FrameLayout footerFrameLayout;
     private Fragment footerManagementFragment, footerRotateFragment;
+    private ArrayList<ImageView> myUFOObjects;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_image);
+        myUFOObjects = new ArrayList<>();
         hideStatusBar();
         recieveImage();
         initFragments();
@@ -49,7 +57,7 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
 
     private void initFragments() {
         footerRotateFragment = new FooterRotateFragment();
-        footerManagementFragment = new FooterManagementFragment();
+        footerManagementFragment = new FooterAddPhotoFragment();
     }
 
     private void addFragments() {
@@ -96,13 +104,30 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
     }
 
     @Override
-    public void showReadyButton() {
+    public void showFooterButtons() {
         headerButtons.showReadyButton();
     }
 
     @Override
+    public void hideFooterButtons() {
+
+    }
+
+    @Override
+    public void addNewUFOOBj(int drawableImg) {
+        RelativeLayout editImageFrameRL = (RelativeLayout) findViewById(R.id.editImageFrameId);
+        ImageView imgUFO = new ImageView(this);
+        imgUFO.setImageResource(drawableImg);
+        imgUFO.setLayoutParams(new ActionBar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        // set params etc.
+        editImageFrameRL.addView(imgUFO, editImageFrameRL.getWidth(), editImageFrameRL.getHeight());
+
+        myUFOObjects.add(imgUFO);
+    }
+
+    @Override
     public void changeFooterPanelFromRotateToManagementFragmentUsingAnimation() {
-        FooterComponentChanges.showFooterLayoutWithSelectedButtons(this);
+        FooterAnimations.showFooterLayoutWithSelectedButtons(this);
     }
 
     @Override
