@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import com.kaizen.hoymm.ufoinphoto.R;
 
 /**
- * Created by hoymm on 28.11.17.
+ * Created by Damian Muca (Kaizen) on 28.11.17.
  */
 
 class ChooseUFOFooterAdapter extends RecyclerView.Adapter<ChooseUFOFooterAdapter.ViewHolder> {

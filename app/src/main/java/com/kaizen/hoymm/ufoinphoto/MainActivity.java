@@ -9,14 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.kaizen.hoymm.ufoinphoto.EditImageActivity.EditImage;
+import com.kaizen.hoymm.ufoinphoto.EditImageActivity.EditImageActivity;
 
 import java.io.FileNotFoundException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import static com.kaizen.hoymm.ufoinphoto.EditImageActivity.EditImage.URI_OF_PICKED_IMAGE_KEY;
+import static com.kaizen.hoymm.ufoinphoto.EditImageActivity.EditImageActivity.URI_OF_PICKED_IMAGE_KEY;
 
 public class MainActivity extends AppCompatActivity {
     private static final int PICK_IMAGE = 1;
@@ -29,13 +25,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initButtons();
         setButtonsActions();
-
-        List<String> names = Arrays.asList("peter", "anna", "mike", "xenia");
-        Collections.sort(names, (String a, String b) -> {
-           return b.compareTo(a);
-        });
-        System.out.println(names);
-
     }
 
     private void initButtons() {
@@ -50,15 +39,12 @@ public class MainActivity extends AppCompatActivity {
 
     private View.OnClickListener getGalleryButtonAction() {
         final AppCompatActivity activity = this;
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        return v -> {
                 if (DynamicPermissions.getInstance().isExternalStoragePermissionGranted(activity))
                     pickAnImageFromGallery();
                 else
                     DynamicPermissions.getInstance().askForReadExternalStoragePermission(activity);
-            }
-        };
+            };
     }
 
     private void pickAnImageFromGallery() {
@@ -118,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         if (selectedImageUri == null)
             Toast.makeText(this, "Image not picked.", Toast.LENGTH_SHORT).show();
         else{
-            Intent editImageActivity = new Intent(this, EditImage.class);
+            Intent editImageActivity = new Intent(this, EditImageActivity.class);
             editImageActivity.putExtra(URI_OF_PICKED_IMAGE_KEY, selectedImageUri);
             startActivity(editImageActivity);
         }

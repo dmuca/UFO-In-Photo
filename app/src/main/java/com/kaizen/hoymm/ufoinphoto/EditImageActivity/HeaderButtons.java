@@ -2,8 +2,6 @@ package com.kaizen.hoymm.ufoinphoto.EditImageActivity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -59,32 +57,20 @@ class HeaderButtons {
     }
 
     private void setBackButtonsBehavior() {
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        backBtn.setOnClickListener(v -> {
                 Intent intent = new Intent(activity, MainActivity.class);
                 activity.startActivity(intent);
                 activity.finish();
-            }
-        });
+            });
     }
 
     private void setHelpButtonsBehavior() {
-        helpBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(activity, "Help", Toast.LENGTH_SHORT).show();
-                Log.i("FragName 2", editImageCommunication.getManagementFooterFragment().getClass().getName());
-            }
-        });
+        helpBtn.setOnClickListener
+                (v -> Toast.makeText(activity, "Help", Toast.LENGTH_SHORT).show());
     }
 
     private void setReadyButtonsBehavior() {
-        readyBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(activity, "Ready", Toast.LENGTH_SHORT).show();
-            }
-        });
+        readyBtn.setOnClickListener
+                (v -> Toast.makeText(activity, "Ready", Toast.LENGTH_SHORT).show());
     }
 }

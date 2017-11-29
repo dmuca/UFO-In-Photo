@@ -1,6 +1,6 @@
 package com.kaizen.hoymm.ufoinphoto;
 
-import com.kaizen.hoymm.ufoinphoto.EditImageActivity.EditImage;
+import com.kaizen.hoymm.ufoinphoto.EditImageActivity.EditImageActivity;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -11,11 +11,11 @@ import org.junit.Test;
  * Created by hoymm on 14.11.17.
  */
 
-public class EditImageTest {
-    private static EditImage editImage;
+public class EditImageActivityTest {
+    private static EditImageActivity editImageActivity;
     @BeforeClass
     public static void beforeClass(){
-        editImage = new EditImage();
+        editImageActivity = new EditImageActivity();
     }
 
     @Before
@@ -25,6 +25,6 @@ public class EditImageTest {
 
     @Test (expected = NullPointerException.class)
     public void testTryLoadImage(){
-        editImage.setImageUsingUri(null);
+        editImageActivity.setImageUsingUri(null);
     }
 }

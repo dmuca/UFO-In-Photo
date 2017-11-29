@@ -12,7 +12,7 @@ import android.support.v4.content.ContextCompat;
  * Created by hoymm on 13.11.17.
  */
 
-public class DynamicPermissions {
+class DynamicPermissions {
     private static DynamicPermissions dynamicPermissions = null;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 3;
     private DialogInterface.OnClickListener listener;
@@ -28,7 +28,7 @@ public class DynamicPermissions {
         }
     }
 
-    public static DynamicPermissions getInstance(){
+    static DynamicPermissions getInstance(){
         if (dynamicPermissions == null)
             dynamicPermissions = new DynamicPermissions();
         return dynamicPermissions;
@@ -36,15 +36,15 @@ public class DynamicPermissions {
 
     private DynamicPermissions() {}
 
-    public boolean isExternalStoragePermissionGranted(Activity activity) {
+    boolean isExternalStoragePermissionGranted(Activity activity) {
         return ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
 
-    public void askForReadExternalStoragePermission(Activity activity) {
+    void askForReadExternalStoragePermission(Activity activity) {
         String explanationText = activity.getString(R.string.read_external_storage_explanation);
         String systemPermissionKey = Manifest.permission.READ_EXTERNAL_STORAGE;
-        int requestCode = MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE;
-        PermissionsData permissionDataReadExternalStorage = new PermissionsData(explanationText, systemPermissionKey, requestCode);
+        PermissionsData permissionDataReadExternalStorage =
+                new PermissionsData(explanationText, systemPermissionKey, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
 
         askForPermission(activity, permissionDataReadExternalStorage);
     }

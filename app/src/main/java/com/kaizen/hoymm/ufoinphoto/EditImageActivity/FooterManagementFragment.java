@@ -57,48 +57,33 @@ public class FooterManagementFragment extends Fragment {
     }
 
     private void setBehaviorAddButton() {
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent chooseUFOIntent = new Intent(getContext(), ChooseUFOActivity.class);
-                startActivityForResult(chooseUFOIntent, CHOOSE_UFO_RESULT);
-            }
+        addButton.setOnClickListener(v -> {
+            Intent chooseUFOIntent = new Intent(getContext(), ChooseUFOActivity.class);
+            startActivityForResult(chooseUFOIntent, CHOOSE_UFO_RESULT);
         });
     }
 
     private void setBehaviorEffectsButton() {
-        effectsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        effectsButton.setOnClickListener(v -> {
                 Toast.makeText(getContext(), "Effects button", Toast.LENGTH_SHORT).show();
-            }
         });
     }
 
     private void setBehaviorTransformButton() {
-        transformButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        transformButton.setOnClickListener(v -> {
                 Toast.makeText(getContext(), "Transform button", Toast.LENGTH_SHORT).show();
-            }
-        });
+            });
     }
 
     private void setBehaviorRemoveButton() {
-        removeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        removeButton.setOnClickListener(v -> {
                 Toast.makeText(getContext(), "Remove button", Toast.LENGTH_SHORT).show();
-            }
-        });
+            });
     }
 
     private void setBehaviorElementsButton() {
-        elementsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        elementsButton.setOnClickListener(v -> {
                 Toast.makeText(getContext(), "Elements button", Toast.LENGTH_SHORT).show();
-            }
-        });
+            });
     }
 }

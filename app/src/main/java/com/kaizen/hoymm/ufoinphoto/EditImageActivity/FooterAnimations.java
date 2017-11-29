@@ -10,7 +10,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 
 /**
- * Created by hoymm on 21.11.17.
+ * Created by Damian Muca (Kaizen) on 21.11.17.
  */
 
 public class FooterComponentChanges {

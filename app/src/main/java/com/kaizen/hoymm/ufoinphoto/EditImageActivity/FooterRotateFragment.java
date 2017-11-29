@@ -60,21 +60,14 @@ public class FooterRotateFragment extends Fragment {
 
     @NonNull
     private void setButtonRotationChange(ImageButton button, final float angle) {
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                imageToEdit.setRotation(imageToEdit.getRotation()+angle);
-            }
-        });
+        button.setOnClickListener
+                (v -> imageToEdit.setRotation(imageToEdit.getRotation()+angle));
     }
 
     private void setAcceptButtonBehavior() {
-        acceptButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        acceptButton.setOnClickListener(v -> {
                 editImageCommunication.showReadyButton();
                 editImageCommunication.changeFooterPanelFromRotateToManagementFragmentUsingAnimation();
-            }
-        });
+            });
     }
 }

@@ -13,7 +13,7 @@ import android.widget.ImageView;
 
 import com.kaizen.hoymm.ufoinphoto.R;
 
-public class EditImage extends AppCompatActivity implements EditImageCommunication {
+public class EditImageActivity extends AppCompatActivity implements EditImageCommunication {
     public static final String URI_OF_PICKED_IMAGE_KEY =
             "com.kaizen.hoymm.ufoinphoto.EditImageActivity.URI_OF_PICKED_IMAGE_KEY";
 
@@ -78,7 +78,7 @@ public class EditImage extends AppCompatActivity implements EditImageCommunicati
         }
         catch (Exception e){
             e.printStackTrace();
-            Log.e("EditImage", " unable to load image from URI: " + imageUri.toString());
+            Log.e("EditImageActivity", " unable to load image from URI: " + imageUri.toString());
         }
     }
 
