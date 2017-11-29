@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private View.OnClickListener getGalleryButtonAction() {
         final AppCompatActivity activity = this;
         return v -> {
-                if (DynamicPermissions.getInstance().isExternalStoragePermissionGranted(activity))
+                if (DynamicPermissions.getInstance().isReadExternalStoragePermissionGranted(activity))
                     pickAnImageFromGallery();
                 else
                     DynamicPermissions.getInstance().askForReadExternalStoragePermission(activity);

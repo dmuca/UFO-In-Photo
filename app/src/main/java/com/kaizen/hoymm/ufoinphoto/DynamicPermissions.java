@@ -12,9 +12,10 @@ import android.support.v4.content.ContextCompat;
  * Created by hoymm on 13.11.17.
  */
 
-class DynamicPermissions {
+public class DynamicPermissions {
     private static DynamicPermissions dynamicPermissions = null;
-    private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 3;
+    private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
+    private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 2;
     private DialogInterface.OnClickListener listener;
 
     private class PermissionsData {
@@ -28,16 +29,18 @@ class DynamicPermissions {
         }
     }
 
-    static DynamicPermissions getInstance(){
+    public static DynamicPermissions getInstance(){
         if (dynamicPermissions == null)
             dynamicPermissions = new DynamicPermissions();
         return dynamicPermissions;
     }
 
-    private DynamicPermissions() {}
-
-    boolean isExternalStoragePermissionGranted(Activity activity) {
+    boolean isReadExternalStoragePermissionGranted(Activity activity) {
         return ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    public boolean isWriteExternalStoragePermissionGranted(Activity activity) {
+        return ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
 
     void askForReadExternalStoragePermission(Activity activity) {
@@ -46,6 +49,14 @@ class DynamicPermissions {
         PermissionsData permissionDataReadExternalStorage =
                 new PermissionsData(explanationText, systemPermissionKey, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
 
+        askForPermission(activity, permissionDataReadExternalStorage);
+    }
+
+    public void askForWriteExternalStoragePermission(Activity activity) {
+        String explanationText = activity.getString(R.string.write_external_storage_explanation);
+        String systemPermissionKey = Manifest.permission.WRITE_EXTERNAL_STORAGE;
+        PermissionsData permissionDataReadExternalStorage =
+                new PermissionsData(explanationText, systemPermissionKey, MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
         askForPermission(activity, permissionDataReadExternalStorage);
     }
 

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.kaizen.hoymm.ufoinphoto.DynamicPermissions;
 import com.kaizen.hoymm.ufoinphoto.R;
 
 import java.io.File;
@@ -30,8 +31,8 @@ public class ImgReadyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_img_ready);
 
-        retrieveBitmapImage();
-        illustrativeImage.setImageBitmap(bitmapImg);
+        //retrieveBitmapImage();
+        //illustrativeImage.setImageBitmap(bitmapImg);
 
         initButtons();
         setButtonsListeners();
@@ -60,13 +61,13 @@ public class ImgReadyActivity extends AppCompatActivity {
     }
 
     private void setSaveInAlbumButtonListener() {
-        saveInAlbumButton.setOnClickListener(v -> {
-            storeImage(bitmapImg);
-        });
-    }
+        saveInAlbumButton.setOnClickListener(v -> {/*
+            if (DynamicPermissions.getInstance().isWriteExternalStoragePermissionGranted(this))
+                storeImage(bitmapImg);
+            else
+                DynamicPermissions.getInstance().askForWriteExternalStoragePermission(this);*/
 
-    private void setStartOverButtonListener() {
-        startOverButton.setOnClickListener(v -> Toast.makeText(this, "Start Over", Toast.LENGTH_SHORT).show());
+        });
     }
 
     private void storeImage(Bitmap image) {
@@ -113,5 +114,9 @@ public class ImgReadyActivity extends AppCompatActivity {
         String mImageName="UFO_"+ timeStamp +".jpg";
         mediaFile = new File(mediaStorageDir.getPath() + File.separator + mImageName);
         return mediaFile;
+    }
+
+    private void setStartOverButtonListener() {
+        startOverButton.setOnClickListener(v -> Toast.makeText(this, "Start Over", Toast.LENGTH_SHORT).show());
     }
 }
