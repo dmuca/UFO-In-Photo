@@ -7,8 +7,9 @@ import android.widget.FrameLayout;
  */
 
 interface EditImageCommunication {
-    void showFooterButtons();
-    void hideFooterButtons();
+    void showReadyButton();
+    void hideReadyButton();
+    void showHideFooterButtonsAnimation();
     void addNewUFOOBj(int drawableImg);
 
 

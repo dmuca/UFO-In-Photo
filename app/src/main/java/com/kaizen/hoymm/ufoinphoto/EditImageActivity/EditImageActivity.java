@@ -25,8 +25,11 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
 
     private HeaderButtons headerButtons;
     private FrameLayout footerFrameLayout;
-    private Fragment footerManagementFragment, footerRotateFragment;
+    private FooterAddPhotoFragment footerManagementFragment;
+    private FooterRotateFragment footerRotateFragment;
+
     private ArrayList<ImageView> myUFOObjects;
+    private int indexOfSelectedUFO = -1;
 
 
     @Override
@@ -104,13 +107,23 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
     }
 
     @Override
-    public void showFooterButtons() {
+    public void showReadyButton() {
         headerButtons.showReadyButton();
     }
 
     @Override
-    public void hideFooterButtons() {
+    public void hideReadyButton() {
+        headerButtons.hideReadyButton();
+    }
 
+    @Override
+    public void showHideFooterButtonsAnimation() {
+        boolean buttonsToShow [] = new boolean [5];
+        buttonsToShow[0] = true;
+        buttonsToShow[1] = buttonsToShow[2] = buttonsToShow[3] = indexOfSelectedUFO != -1;
+        buttonsToShow[4] = myUFOObjects.size() > 0;
+
+        footerManagementFragment.showFooterButtons(buttonsToShow);
     }
 
     @Override
@@ -121,8 +134,13 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
         imgUFO.setLayoutParams(new ActionBar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         // set params etc.
         editImageFrameRL.addView(imgUFO, editImageFrameRL.getWidth(), editImageFrameRL.getHeight());
-
         myUFOObjects.add(imgUFO);
+        selectNewUfoObj(myUFOObjects.size()-1);
+
+    }
+
+    private void selectNewUfoObj(int index){
+        indexOfSelectedUFO = index;
     }
 
     @Override
@@ -136,7 +154,7 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
     }
 
     @Override
-    public Fragment getManagementFooterFragment() {
+    public FooterAddPhotoFragment getManagementFooterFragment() {
         return footerManagementFragment;
     }
 

@@ -4,14 +4,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.kaizen.hoymm.ufoinphoto.EditImageActivity.ChooseUFOActivity.ChooseUFOActivity;
 import com.kaizen.hoymm.ufoinphoto.R;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -90,10 +96,24 @@ public class FooterAddPhotoFragment extends Fragment{
                 if (resultCode == RESULT_OK) {
                     int selectedUFOImg = data.getIntExtra(ChooseUFOActivity.SELECTED_UFO_DRAWABLE_KEY, R.drawable.img1);
                     editImageCommunication.addNewUFOOBj(selectedUFOImg);
+                    editImageCommunication.showHideFooterButtonsAnimation();
                 }
                 else
                     Toast.makeText(getContext(), R.string.no_image_was_selected, Toast.LENGTH_SHORT).show();
                 break;
         }
+    }
+
+    void showFooterButtons(boolean[] buttonsToShow) {
+        Log.i("ButtonsToShow", "buttonsToShow[0] == " + buttonsToShow[0]);
+        Log.i("ButtonsToShow", "buttonsToShow[1] == " + buttonsToShow[1]);
+        Log.i("ButtonsToShow", "buttonsToShow[2] == " + buttonsToShow[2]);
+        Log.i("ButtonsToShow", "buttonsToShow[3] == " + buttonsToShow[3]);
+        Log.i("ButtonsToShow", "buttonsToShow[4] == " + buttonsToShow[4]);
+        addButton.setVisibility(buttonsToShow[0] ? View.VISIBLE : View.INVISIBLE);
+        effectsButton.setVisibility(buttonsToShow[1] ? View.VISIBLE : View.INVISIBLE);
+        transformButton.setVisibility(buttonsToShow[2] ? View.VISIBLE : View.INVISIBLE);
+        removeButton.setVisibility(buttonsToShow[3] ? View.VISIBLE : View.INVISIBLE);
+        elementsButton.setVisibility(buttonsToShow[4] ? View.VISIBLE : View.INVISIBLE);
     }
 }

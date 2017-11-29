@@ -17,7 +17,6 @@ public class FooterAnimations {
     private static final int ANIMATIONS_DURATION = 300;
 
     static void showFooterLayoutWithSelectedButtons(Context context){
-
         final TranslateAnimation animationGetInManagementPanel = getMoveInAnimation(context);
         final TranslateAnimation animationGetOutManagementPanel = getMoveOutAnimation(context, animationGetInManagementPanel);
         animationGetOutManagementPanel.start();
