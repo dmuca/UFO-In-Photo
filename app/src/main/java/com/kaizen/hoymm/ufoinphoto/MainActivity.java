@@ -1,22 +1,34 @@
 package com.kaizen.hoymm.ufoinphoto;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.kaizen.hoymm.ufoinphoto.EditImageActivity.EditImageActivity;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static com.kaizen.hoymm.ufoinphoto.EditImageActivity.EditImageActivity.URI_OF_PICKED_IMAGE_KEY;
 
 public class MainActivity extends AppCompatActivity {
-    private static final int PICK_IMAGE = 1;
-    private static final int CAPTURE_IMAGE = 2;
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private static String mCurrentPhotoPath = "";
+    private static final int CAPTURE_IMAGE_REQUEST = 2;
     private Button galleryButton, captureUsingCameraButton;
 
     @Override
@@ -34,16 +46,22 @@ public class MainActivity extends AppCompatActivity {
 
     private void setButtonsActions() {
         galleryButton.setOnClickListener(getGalleryButtonAction());
-        captureUsingCameraButton.setOnClickListener(getCaptureUsingCameraButtonAction());
+        captureUsingCameraButton.setOnClickListener(v -> {
+            if (DynamicPermissions.getInstance().isWriteExternalStoragePermissionGranted(this)){
+                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, CAPTURE_IMAGE_REQUEST);
+            }
+            else
+                DynamicPermissions.getInstance().askForWriteExternalStoragePermission(this);
+        });
     }
 
     private View.OnClickListener getGalleryButtonAction() {
-        final AppCompatActivity activity = this;
         return v -> {
-                if (DynamicPermissions.getInstance().isReadExternalStoragePermissionGranted(activity))
+                if (DynamicPermissions.getInstance().isReadExternalStoragePermissionGranted(this))
                     pickAnImageFromGallery();
                 else
-                    DynamicPermissions.getInstance().askForReadExternalStoragePermission(activity);
+                    DynamicPermissions.getInstance().askForReadExternalStoragePermission(this);
             };
     }
 
@@ -51,11 +69,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
-    }
-
-    private View.OnClickListener getCaptureUsingCameraButtonAction() {
-        return null;
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
     }
 
     @Override
@@ -65,18 +79,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private Uri getSelectedImageAsBitmap(int requestCode, int resultCode, Intent data) {
-        Uri selectedImageUri = null;
         switch (requestCode){
-            case PICK_IMAGE:
-                selectedImageUri = pickImageFromGalleryResult(resultCode, data);
-                break;
-            case CAPTURE_IMAGE:
-                //selectedImageUri = capturePhotoUsingCamera(resultCode, data);
-                break;
+            case PICK_IMAGE_REQUEST:
+                return pickImageFromGalleryResult(resultCode, data);
+            case CAPTURE_IMAGE_REQUEST:
+                Bitmap photo = (Bitmap) data.getExtras().get("data");
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                photo.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+                String path = MediaStore.Images.Media.insertImage(this.getContentResolver(), photo, "Title", null);
+                return Uri.parse(path);
             default:
-                selectedImageUri = null;
+                return null;
         }
-        return selectedImageUri;
     }
 
     private Uri pickImageFromGalleryResult(int resultCode, Intent data) {
@@ -94,10 +108,6 @@ public class MainActivity extends AppCompatActivity {
 
     private Uri pickImageFromGalleryAndConvertToBitmap(Intent data) throws FileNotFoundException {
         return data.getData();
-    }
-
-    private Bitmap capturePhotoUsingCamera(int resultCode, Intent data) {
-        return null;
     }
 
     private void ifImageContainsDataThenStartNewActivityAndPassImgUriToIt(Uri selectedImageUri) {
