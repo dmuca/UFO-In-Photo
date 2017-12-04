@@ -2,9 +2,7 @@ package com.kaizen.hoymm.ufoinphoto.EditImageActivity;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
@@ -18,8 +16,7 @@ public class SwapRotateToManagementFooterPanelAnimation {
 
     static void showFooterLayout(Context context){
         final TranslateAnimation animationGetInManagementPanel = getMoveInAnimation(context);
-        final TranslateAnimation animationGetOutManagementPanel = getMoveOutAnimation(context, animationGetInManagementPanel);
-        animationGetOutManagementPanel.start();
+        animateFooterMoveOut(context, animationGetInManagementPanel);
     }
 
     @NonNull
@@ -33,7 +30,7 @@ public class SwapRotateToManagementFooterPanelAnimation {
     }
 
     @NonNull
-    private static TranslateAnimation getMoveOutAnimation(Context context, final TranslateAnimation moveInAnimation) {
+    private static TranslateAnimation animateFooterMoveOut(Context context, final TranslateAnimation moveInAnimation) {
         final EditImageCommunication editImageCommunication = tryToInitEditImageCommunication(context);
         final FrameLayout frameLayout = editImageCommunication.getFooterFrameLayout();
         final TranslateAnimation moveOutAnimation = new TranslateAnimation(0, 0, 0, frameLayout.getHeight());
@@ -49,22 +46,13 @@ public class SwapRotateToManagementFooterPanelAnimation {
             @Override
             public void onAnimationEnd(Animation animation) {
                 editImageCommunication.showManagementFooterFragmentAndHideRotate();
-                setAnimationForChoosenFragment(editImageCommunication.getManagementFooterFragment(), moveInAnimation);
-                moveInAnimation.start();
-
+                editImageCommunication.getManagementFooterFragment().getView().startAnimation(moveInAnimation);
             }
         });
 
-        setAnimationForChoosenFragment(editImageCommunication.getRotateFooterFragment(), moveOutAnimation);
+        editImageCommunication.getRotateFooterFragment().getView().startAnimation(moveOutAnimation);
         Log.i("FragName 1", editImageCommunication.getManagementFooterFragment().getClass().getName());
         return moveOutAnimation;
-    }
-
-    private static void setAnimationForChoosenFragment(Fragment fragment, TranslateAnimation animation) {
-        View view = fragment.getView();
-        if (view != null) {
-            view.setAnimation(animation);
-        }
     }
 
     public static EditImageCommunication tryToInitEditImageCommunication(Context context) {
