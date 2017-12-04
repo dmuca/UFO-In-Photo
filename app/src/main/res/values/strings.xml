@@ -20,4 +20,5 @@
     <string name="file_not_found">File not found.</string>
     <string name="error_access_file">Error when trying access file.</string>
     <string name="saved_in_album">Saved In Album</string>
+    <string name="img_not_selected">Image not selected.</string>
 </resources>

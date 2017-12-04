@@ -13,12 +13,11 @@ import android.support.v4.content.ContextCompat;
  */
 
 public class DynamicPermissions {
-    private static DynamicPermissions dynamicPermissions = null;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 2;
-    private DialogInterface.OnClickListener listener;
+    private static DialogInterface.OnClickListener listener;
 
-    private class PermissionsData {
+    private static class PermissionsData {
         String explanationMessage, permissionKey;
         int requestCode;
 
@@ -29,21 +28,15 @@ public class DynamicPermissions {
         }
     }
 
-    public static DynamicPermissions getInstance(){
-        if (dynamicPermissions == null)
-            dynamicPermissions = new DynamicPermissions();
-        return dynamicPermissions;
-    }
-
-    boolean isReadExternalStoragePermissionGranted(Activity activity) {
+    static boolean isReadExternalStoragePermissionGranted(Activity activity) {
         return ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
 
-    public boolean isWriteExternalStoragePermissionGranted(Activity activity) {
+    public static boolean isWriteExternalStoragePermissionGranted(Activity activity) {
         return ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
 
-    void askForReadExternalStoragePermission(Activity activity) {
+    static void askForReadExternalStoragePermission(Activity activity) {
         String explanationText = activity.getString(R.string.read_external_storage_explanation);
         String systemPermissionKey = Manifest.permission.READ_EXTERNAL_STORAGE;
         PermissionsData permissionDataReadExternalStorage =
@@ -52,7 +45,7 @@ public class DynamicPermissions {
         askForPermission(activity, permissionDataReadExternalStorage);
     }
 
-    public void askForWriteExternalStoragePermission(Activity activity) {
+    public static void askForWriteExternalStoragePermission(Activity activity) {
         String explanationText = activity.getString(R.string.write_external_storage_explanation);
         String systemPermissionKey = Manifest.permission.WRITE_EXTERNAL_STORAGE;
         PermissionsData permissionDataReadExternalStorage =
@@ -60,14 +53,14 @@ public class DynamicPermissions {
         askForPermission(activity, permissionDataReadExternalStorage);
     }
 
-    private void askForPermission(Activity activity, PermissionsData permissionsData) {
+    private static void askForPermission(Activity activity, PermissionsData permissionsData) {
         if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permissionsData.permissionKey))
             showExplanationOkCancel(activity, permissionsData);
         else
             ActivityCompat.requestPermissions(activity, new String[]{permissionsData.permissionKey}, permissionsData.requestCode);
     }
 
-    private void showExplanationOkCancel(Activity activity, PermissionsData permissionsData) {
+    private static void showExplanationOkCancel(Activity activity, PermissionsData permissionsData) {
         initListener(activity, permissionsData);
         new AlertDialog.Builder(activity)
                 .setMessage(permissionsData.explanationMessage)
@@ -77,7 +70,7 @@ public class DynamicPermissions {
                 .show();
     }
 
-    private void initListener(final Activity activity, final PermissionsData permissionsData){
+    private static void initListener(final Activity activity, final PermissionsData permissionsData){
         listener = new DialogInterface.OnClickListener() {
             final int BUTTON_NEGATIVE = -2;
             final int BUTTON_POSITIVE = -1;

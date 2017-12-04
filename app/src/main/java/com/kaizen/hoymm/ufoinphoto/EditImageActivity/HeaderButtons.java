@@ -3,10 +3,7 @@ package com.kaizen.hoymm.ufoinphoto.EditImageActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.media.MediaScannerConnection;
-import android.net.Uri;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
@@ -16,14 +13,12 @@ import com.kaizen.hoymm.ufoinphoto.EditImageActivity.ImgReadyActivity.ImgReadyAc
 import com.kaizen.hoymm.ufoinphoto.MainActivity;
 import com.kaizen.hoymm.ufoinphoto.R;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Random;
 
 /**
  * Created by hoymm on 03.11.17.
@@ -90,21 +85,12 @@ class HeaderButtons {
     private void setReadyButtonsBehavior() {
         readyBtn.setOnClickListener
                 (v -> {
-                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     Bitmap bitmapNewImage = editImageCommunication.getEditedImage();
-
-
-
-                    if (DynamicPermissions.getInstance().isWriteExternalStoragePermissionGranted(activity)){
+                    if (DynamicPermissions.isWriteExternalStoragePermissionGranted(activity))
                         storeImage(bitmapNewImage);
-                    }
                     else
-                        DynamicPermissions.getInstance().askForWriteExternalStoragePermission(activity);
-                    //bitmapNewImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                    //byte[] byteArray = stream.toByteArray();
-
+                        DynamicPermissions.askForWriteExternalStoragePermission(activity);
                     Intent intent = new Intent(activity, ImgReadyActivity.class);
-                    //intent.putExtra("BitmapImage", byteArray);
                     activity.startActivity(intent);
                 });
     }

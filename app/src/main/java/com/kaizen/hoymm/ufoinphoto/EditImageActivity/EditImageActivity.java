@@ -22,6 +22,8 @@ import java.util.ArrayList;
 public class EditImageActivity extends AppCompatActivity implements EditImageCommunication {
     public static final String URI_OF_PICKED_IMAGE_KEY =
             "com.kaizen.hoymm.ufoinphoto.EditImageActivity.URI_OF_PICKED_IMAGE_KEY";
+    public static final String BITMAP_OF_PHOTO_CAPTURED =
+            "com.kaizen.hoymm.ufoinphoto.EditImageActivity.BITMAP_OF_PHOTO_CAPTURED";
 
     private HeaderButtons headerButtons;
     private FrameLayout footerFrameLayout;
@@ -55,7 +57,18 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
 
     private void recieveImage() {
         Uri imageUri = getIntent().getParcelableExtra(URI_OF_PICKED_IMAGE_KEY);
-        setImageUsingUri(imageUri);
+        Bitmap bitmapPhoto = getIntent().getParcelableExtra(BITMAP_OF_PHOTO_CAPTURED);
+        if (imageUri != null) {
+            setImageUsingUri(imageUri);
+            Log.e("GetPassedPhoto", "photo catched by bitmap.");
+        }
+        else if (bitmapPhoto != null) {
+            setImageUsingBitmap(bitmapPhoto);
+            Log.e("GetPassedPhoto", "photo catched by bitmap.");
+        }
+        else
+            Log.e("GetPassedPhoto", "problem with catching and showing photo.");
+
     }
 
     private void initFragments() {
@@ -90,6 +103,17 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
         catch (Exception e){
             e.printStackTrace();
             Log.e("EditImageActivity", " unable to load image from URI: " + imageUri.toString());
+        }
+    }
+
+    public void setImageUsingBitmap(Bitmap photo) {
+        try {
+            ImageView imageToEditImageView = (ImageView) findViewById(R.id.imageToEditId);
+            imageToEditImageView.setImageBitmap(photo);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            Log.e("EditImageActivity", " unable to load bitmap: " + photo);
         }
     }
 
