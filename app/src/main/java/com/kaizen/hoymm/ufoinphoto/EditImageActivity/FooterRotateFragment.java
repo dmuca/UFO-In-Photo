@@ -61,7 +61,7 @@ public class FooterRotateFragment extends Fragment {
     @NonNull
     private void setButtonRotationChange(ImageButton button, final float angle) {
         button.setOnClickListener
-                (v -> imageToEdit.setRotation(imageToEdit.getRotation()+angle));
+                (v -> imageToEdit.setRotation(imageToEdit.getRotation() + angle));
     }
 
     private void setAcceptButtonBehavior() {

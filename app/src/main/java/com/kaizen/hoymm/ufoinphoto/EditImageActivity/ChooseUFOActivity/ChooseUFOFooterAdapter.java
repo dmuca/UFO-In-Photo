@@ -65,7 +65,7 @@ class ChooseUFOFooterAdapter extends RecyclerView.Adapter<ChooseUFOFooterAdapter
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ImageView imageView = (ImageView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.image_view_ufo_to_choose, parent, false);
+                .inflate(R.layout.ufo_to_choose_image_view, parent, false);
         return new ViewHolder(imageView);
     }
 

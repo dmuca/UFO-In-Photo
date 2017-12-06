@@ -47,7 +47,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/imageToEditId"
-            android:scaleType="fitCenter" />
+            android:adjustViewBounds="true"
+            android:scaleType="center"
+            />
     </RelativeLayout>
     <FrameLayout
         android:id="@+id/footerFrameId"

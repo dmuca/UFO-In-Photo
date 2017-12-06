@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, R.string.img_not_selected, Toast.LENGTH_SHORT).show();
     }
 
+
+
     private void startNewActivityAndPassImgUriToIt(Uri selectedImageUri) {
         Intent editImageActivity = new Intent(this, EditImageActivity.class);
         editImageActivity.putExtra(URI_OF_PICKED_IMAGE_KEY, selectedImageUri);
