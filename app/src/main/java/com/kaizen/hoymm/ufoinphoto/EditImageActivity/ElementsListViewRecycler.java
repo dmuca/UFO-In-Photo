@@ -2,11 +2,10 @@ package com.kaizen.hoymm.ufoinphoto.EditImageActivity;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
+import android.view.animation.Interpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
 
@@ -18,19 +17,19 @@ import static com.kaizen.hoymm.ufoinphoto.EditImageActivity.EditImageActivity.AN
  * Created by Damian Muca (Kaizen) on 06.12.17.
  */
 
-class ElementsListRecyclerView {
+class ElementsListViewRecycler {
 
     private LinearLayout viewBoxOfRecyclerView;
     private RecyclerView recyclerView;
+    private boolean anyAnimationWorking = false;
 
     private TranslateAnimation showElementsListPanel;
     private TranslateAnimation hideElementsListPanel;
 
-    private int indexOfSelectedUFO = -1;
     private ElementsListViewAdapter elementsRecyclerViewAdapter;
     private EditImageActivity activity;
 
-    ElementsListRecyclerView(EditImageActivity appCompatActivity) {
+    ElementsListViewRecycler(EditImageActivity appCompatActivity) {
         this.activity = appCompatActivity;
         initXMLObjects();
         initAndSetAdapterForElementsListPanel();
@@ -54,18 +53,19 @@ class ElementsListRecyclerView {
     }
 
     private void initShowAnimation() {
-        showElementsListPanel = new TranslateAnimation(
-                recyclerView.getX(), recyclerView.getX(), recyclerView.getY() + viewBoxOfRecyclerView.getHeight(), recyclerView.getY());
+        showElementsListPanel = new TranslateAnimation(0, 0, recyclerView.getHeight(), 0);
         showElementsListPanel.setDuration(ANIMATIONS_DURATION*2);
-        showElementsListPanel.setInterpolator(new AccelerateDecelerateInterpolator());
+        showElementsListPanel.setInterpolator(new FastAccelerateInterpolator());
         showElementsListPanel.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
                 recyclerView.setVisibility(View.VISIBLE);
+                anyAnimationWorking = true;
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
+                anyAnimationWorking = false;
             }
 
             @Override
@@ -75,18 +75,19 @@ class ElementsListRecyclerView {
     }
 
     private void initHideAnimation() {
-        hideElementsListPanel = new TranslateAnimation(
-                recyclerView.getX(), recyclerView.getX(), recyclerView.getY(), recyclerView.getY() + recyclerView.getHeight());
+        hideElementsListPanel = new TranslateAnimation(0, 0, 0, recyclerView.getHeight());
         hideElementsListPanel.setDuration(ANIMATIONS_DURATION*2);
-        hideElementsListPanel.setInterpolator(new AccelerateDecelerateInterpolator());
+        hideElementsListPanel.setInterpolator(new SlowAccelerateInterpolator());
         hideElementsListPanel.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
+                anyAnimationWorking = true;
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
                 recyclerView.setVisibility(View.INVISIBLE);
+                anyAnimationWorking = false;
             }
 
             @Override
@@ -96,8 +97,20 @@ class ElementsListRecyclerView {
         });
     }
 
+    private class FastAccelerateInterpolator implements Interpolator {
+        public float getInterpolation(float t) {
+            return (float)(1-Math.pow((1-t),2*1.5f));
+        }
+    }
+
+    private class SlowAccelerateInterpolator implements Interpolator {
+        public float getInterpolation(float t) {
+            return (float)(Math.pow(t, 1.3));
+        }
+    }
+
     void hideOrShowUFOElementsPanel() {
-        if (!recyclerView.isAnimating())
+        if (!anyAnimationWorking)
             if (recyclerView.getVisibility() == View.INVISIBLE) {
                 initShowAnimation();
                 recyclerView.startAnimation(showElementsListPanel);
@@ -113,10 +126,19 @@ class ElementsListRecyclerView {
     }
 
     int getSelectedItemIndex() {
-        return indexOfSelectedUFO;
+        return elementsRecyclerViewAdapter.getSelectedIndex();
     }
 
     void setSelectedItemIndex(int newIndex) {
-        indexOfSelectedUFO = newIndex;
+        elementsRecyclerViewAdapter.setSelectedIndex(newIndex);
+    }
+
+    void removeItem(int index){
+        elementsRecyclerViewAdapter.removeItem(index);
+    }
+
+    void addItem(int drawableId){
+        elementsRecyclerViewAdapter.addItem(drawableId);
+        elementsRecyclerViewAdapter.notifyDataSetChanged();
     }
 }

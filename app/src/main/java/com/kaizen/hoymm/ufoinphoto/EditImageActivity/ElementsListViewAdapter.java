@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.kaizen.hoymm.ufoinphoto.R;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,24 +20,18 @@ import java.util.List;
 
 class ElementsListViewAdapter extends RecyclerView.Adapter <ElementsListViewAdapter.ViewHolder> {
     private int selectedIndex = 4;
-    private List<Integer> imagesList =
-            //new ArrayList<>();
-            Arrays.asList(R.drawable.img1
-                    , R.drawable.img2
-                    , R.drawable.img3
-                    , R.drawable.img4
-                    , R.drawable.img5
-                    , R.drawable.img6
-                    , R.drawable.img7
-                    , R.drawable.img8
-                    , R.drawable.img9
-                    , R.drawable.img1
-                    , R.drawable.img2
-            );
+    private ArrayList <Integer> imagesList = new ArrayList<>();
     private EditImageCommunication editImageCommunication;
 
     ElementsListViewAdapter(EditImageCommunication editImageCommunication) {
         this.editImageCommunication = editImageCommunication;
+
+        imagesList.add(R.drawable.img1);
+        imagesList.add(R.drawable.img1);
+        imagesList.add(R.drawable.img1);
+        imagesList.add(R.drawable.img1);
+        imagesList.add(R.drawable.img1);
+        imagesList.add(R.drawable.img1);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder{
@@ -62,7 +57,7 @@ class ElementsListViewAdapter extends RecyclerView.Adapter <ElementsListViewAdap
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.constraintLayout.setSelected(position == selectedIndex);
         holder.imageOfUFO.setImageResource(imagesList.get(position));
-        holder.idNumbText.setText(String.valueOf(position));
+        holder.idNumbText.setText(String.valueOf(position+1));
 
         holder.constraintLayout.setOnClickListener(v -> {
             selectedIndex = position;
@@ -80,7 +75,16 @@ class ElementsListViewAdapter extends RecyclerView.Adapter <ElementsListViewAdap
         imagesList.remove(index);
     }
 
-    void addItem(int index){
-        imagesList.add(index);
+    void addItem(int drawableId){
+        imagesList.add(drawableId);
     }
+
+    void setSelectedIndex(int newIndex){
+        selectedIndex = newIndex;
+    }
+
+    int getSelectedIndex(){
+        return selectedIndex;
+    }
+
 }

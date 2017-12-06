@@ -29,7 +29,7 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
 
     private HeaderButtons headerButtons;
     private FrameLayout footerFrameLayout;
-    private ElementsListRecyclerView elementsListRecyclerView;
+    private ElementsListViewRecycler elementsListViewRecycler;
     private FooterManagementFragment footerManagementFragment;
     private FooterRotateFragment footerRotateFragment;
 
@@ -48,7 +48,7 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
         addFragments();
         showFooterRotateFragmentAndHideOthers();
         initHeaderButtons();
-        elementsListRecyclerView = new ElementsListRecyclerView(this);
+        elementsListViewRecycler = new ElementsListViewRecycler(this);
         initFooterFrame();
     }
 
@@ -148,7 +148,7 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
     public void showHideFooterButtonsAnimation() {
         boolean buttonsToShow [] = new boolean [5];
         buttonsToShow[0] = true;
-        buttonsToShow[1] = buttonsToShow[2] = buttonsToShow[3] = elementsListRecyclerView.getSelectedItemIndex() != -1;
+        buttonsToShow[1] = buttonsToShow[2] = buttonsToShow[3] = elementsListViewRecycler.getSelectedItemIndex() != -1;
         buttonsToShow[4] = myUFOObjects.size() > 0;
 
         footerManagementFragment.showOrHideFooterPanelButtonsAnimation(buttonsToShow);
@@ -156,6 +156,12 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
 
     @Override
     public void addNewUFOObj(int drawableImg) {
+        addUFOToMainPhoto(drawableImg);
+        addUFOToElementsList(drawableImg);
+
+    }
+
+    private void addUFOToMainPhoto(int drawableImg) {
         RelativeLayout editImageFrameRL = (RelativeLayout) findViewById(R.id.editImageFrameId);
         ImageView imgUFO = new ImageView(this);
         imgUFO.setImageResource(drawableImg);
@@ -164,11 +170,15 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
         editImageFrameRL.addView(imgUFO, editImageFrameRL.getWidth(), editImageFrameRL.getHeight());
         myUFOObjects.add(imgUFO);
         selectNewUfoObj(myUFOObjects.size()-1);
+    }
 
+    private void addUFOToElementsList(int drawableImg) {
+        elementsListViewRecycler.addItem(drawableImg);
+        elementsListViewRecycler.notifyDataSetChanged();
     }
 
     private void selectNewUfoObj(int newIndex){
-        elementsListRecyclerView.setSelectedItemIndex(newIndex);
+        elementsListViewRecycler.setSelectedItemIndex(newIndex);
     }
 
     @Override
@@ -207,12 +217,12 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
 
     @Override
     public void notifyElemenetsListDataChanged() {
-        elementsListRecyclerView.notifyDataSetChanged();
+        elementsListViewRecycler.notifyDataSetChanged();
     }
 
     @Override
     public void hideShowUFOElementsPanel() {
-        elementsListRecyclerView.hideOrShowUFOElementsPanel();
+        elementsListViewRecycler.hideOrShowUFOElementsPanel();
     }
 
 }

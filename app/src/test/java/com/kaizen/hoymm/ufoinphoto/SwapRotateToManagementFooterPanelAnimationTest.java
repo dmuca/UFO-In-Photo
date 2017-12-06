@@ -1,6 +1,7 @@
 package com.kaizen.hoymm.ufoinphoto;
 
 import com.kaizen.hoymm.ufoinphoto.EditImageActivity.SwapRotateToManagementFooterPanelAnimation;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 
