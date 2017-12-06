@@ -8,6 +8,11 @@
     <color name="textColor">#dcdcdc</color>
     <color name="appThemeColor">#262626</color>
 
+    <color name="elementsListBackground">#e1262626</color>
+    <color name="elementsListBackgroundPressed">#606e6e6e</color>
+    <color name="elementsListBackgroundSelected">#6affbf00</color>
+    <color name="elementsListSeparateLineColor">#70ffffff</color>
+
     <color name="buttonNormalColor">#353535</color>
     <color name="buttonClickedColor">#212121</color>
 </resources>

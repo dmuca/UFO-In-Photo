@@ -88,7 +88,10 @@ public class FooterAddPhotoFragment extends Fragment{
     }
 
     private void setBehaviorElementsButton() {
-        elementsButton.setOnClickListener(v -> Toast.makeText(getContext(), "Elements button", Toast.LENGTH_SHORT).show());
+        elementsButton.setOnClickListener(v -> {
+            Toast.makeText(getContext(), "Elements button", Toast.LENGTH_SHORT).show();
+            editImageCommunication.notifyElemenetsListDataChanged();
+        });
     }
 
     @Override

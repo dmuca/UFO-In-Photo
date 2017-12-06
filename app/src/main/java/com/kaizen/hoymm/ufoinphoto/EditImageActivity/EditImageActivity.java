@@ -8,18 +8,22 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.kaizen.hoymm.ufoinphoto.R;
 
 import java.util.ArrayList;
 
 public class EditImageActivity extends AppCompatActivity implements EditImageCommunication {
+
     public static final String URI_OF_PICKED_IMAGE_KEY =
             "com.kaizen.hoymm.ufoinphoto.EditImageActivity.URI_OF_PICKED_IMAGE_KEY";
     public static final String BITMAP_OF_PHOTO_CAPTURED =
@@ -30,7 +34,10 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
     private FooterAddPhotoFragment footerManagementFragment;
     private FooterRotateFragment footerRotateFragment;
 
+
     private ArrayList<ImageView> myUFOObjects;
+    private ElementsListViewAdapter elementsRecyclerViewAdapter;
+    private RecyclerView recyclerElementsListView;
     private int indexOfSelectedUFO = -1;
 
 
@@ -46,6 +53,7 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
         showFooterRotateFragmentAndHideOthers();
         initHeaderButtons();
         initFooterFrame();
+        initAndSetAdapterForElementsListPanel();
     }
 
     private void hideStatusBar() {
@@ -93,6 +101,18 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
 
     private void initFooterFrame() {
         footerFrameLayout = (FrameLayout) findViewById(R.id.footerFrameId);
+    }
+
+    private void initAndSetAdapterForElementsListPanel() {
+        recyclerElementsListView = (RecyclerView) findViewById(R.id.elements_list_recycler_view_id);
+        recyclerElementsListView.setHasFixedSize(false);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerElementsListView.setLayoutManager(layoutManager);
+
+        elementsRecyclerViewAdapter = new ElementsListViewAdapter(this);
+        recyclerElementsListView.setAdapter(elementsRecyclerViewAdapter);
+
     }
 
     public void setImageUsingUri(Uri imageUri) {
@@ -165,7 +185,6 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
 
     private void selectNewUfoObj(int index){
         indexOfSelectedUFO = index;
-        Log.i("Index", "set to " + indexOfSelectedUFO);
     }
 
     @Override
@@ -195,5 +214,15 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
         Bitmap bitmap = Bitmap.createBitmap(editImageFrameRL.getDrawingCache());
         editImageFrameRL.setDrawingCacheEnabled(false);
         return bitmap;
+    }
+
+    @Override
+    public void selectImageAndCloseThisWindow(int imgIndex) {
+        Toast.makeText(this, "Select an img of ID: " + imgIndex, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void notifyElemenetsListDataChanged() {
+        elementsRecyclerViewAdapter.notifyDataSetChanged();
     }
 }

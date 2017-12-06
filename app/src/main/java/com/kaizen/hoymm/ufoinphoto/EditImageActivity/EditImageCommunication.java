@@ -21,4 +21,7 @@ interface EditImageCommunication {
     void showManagementFooterFragmentAndHideRotate();
 
     Bitmap getEditedImage();
+    void selectImageAndCloseThisWindow(int imgIndex);
+
+    void notifyElemenetsListDataChanged();
 }

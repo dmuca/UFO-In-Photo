@@ -23,7 +23,6 @@ public class ChooseUFOActivity extends AppCompatActivity implements ChangeMainIm
         setContentView(R.layout.activity_choose_ufo);
         initUFOMainImageAndSetListener();
         initAndSetAdapterForChoosingUFOImg();
-
     }
 
     private void initAndSetAdapterForChoosingUFOImg() {

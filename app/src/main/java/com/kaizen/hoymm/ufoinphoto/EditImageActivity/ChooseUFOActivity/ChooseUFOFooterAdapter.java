@@ -79,4 +79,6 @@ class ChooseUFOFooterAdapter extends RecyclerView.Adapter<ChooseUFOFooterAdapter
     public int getItemCount() {
         return miniShipIcons.length;
     }
+
+
 }
