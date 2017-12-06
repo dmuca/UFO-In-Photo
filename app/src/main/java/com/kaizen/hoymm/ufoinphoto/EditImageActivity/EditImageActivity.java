@@ -177,6 +177,12 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
         elementsListViewRecycler.notifyDataSetChanged();
     }
 
+    @Override
+    public void removeCurrentlySelectedUFOObj() {
+        elementsListViewRecycler.removeCurrentUFOObjAndSetToNegativeOne();
+        elementsListViewRecycler.notifyDataSetChanged();
+    }
+
     private void selectNewUfoObj(int newIndex){
         elementsListViewRecycler.setSelectedItemIndex(newIndex);
     }
@@ -208,11 +214,6 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
         Bitmap bitmap = Bitmap.createBitmap(editImageFrameRL.getDrawingCache());
         editImageFrameRL.setDrawingCacheEnabled(false);
         return bitmap;
-    }
-
-    @Override
-    public void selectImageAndCloseThisWindow(int imgIndex) {
-        Toast.makeText(this, "Select an img of ID: " + imgIndex, Toast.LENGTH_SHORT).show();
     }
 
     @Override

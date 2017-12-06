@@ -82,7 +82,7 @@ public class FooterManagementFragment extends Fragment{
 
     private void setBehaviorRemoveButton() {
         removeButton.setOnClickListener(v -> {
-            Toast.makeText(getContext(), "Remove button", Toast.LENGTH_SHORT).show();
+            editImageCommunication.removeCurrentlySelectedUFOObj();
             showOrHideFooterPanelButtonsAnimation(new boolean []{true, false, false, false, true});
         });
     }

@@ -2,7 +2,6 @@ package com.kaizen.hoymm.ufoinphoto.EditImageActivity;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Interpolator;
@@ -133,8 +132,8 @@ class ElementsListViewRecycler {
         elementsRecyclerViewAdapter.setSelectedIndex(newIndex);
     }
 
-    void removeItem(int index){
-        elementsRecyclerViewAdapter.removeItem(index);
+    void removeCurrentUFOObjAndSetToNegativeOne(){
+        elementsRecyclerViewAdapter.removeCurrentUFOObjAndSetToNegativeOne();
     }
 
     void addItem(int drawableId){

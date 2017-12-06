@@ -11,15 +11,13 @@ import android.widget.TextView;
 import com.kaizen.hoymm.ufoinphoto.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by Damian Muca (Kaizen) on 06.12.17.
  */
 
 class ElementsListViewAdapter extends RecyclerView.Adapter <ElementsListViewAdapter.ViewHolder> {
-    private int selectedIndex = 4;
+    private int selectedIndex = -1;
     private ArrayList <Integer> imagesList = new ArrayList<>();
     private EditImageCommunication editImageCommunication;
 
@@ -62,7 +60,7 @@ class ElementsListViewAdapter extends RecyclerView.Adapter <ElementsListViewAdap
         holder.constraintLayout.setOnClickListener(v -> {
             selectedIndex = position;
             this.notifyDataSetChanged();
-            editImageCommunication.selectImageAndCloseThisWindow(position);
+            editImageCommunication.showHideFooterButtonsAnimation();
         });
     }
 
@@ -71,8 +69,14 @@ class ElementsListViewAdapter extends RecyclerView.Adapter <ElementsListViewAdap
         return imagesList.size();
     }
 
-    void removeItem(int index){
-        imagesList.remove(index);
+    void removeCurrentUFOObjAndSetToNegativeOne(){
+        if (selectedIndex == -1)
+            Log.e("Remove", "Wrong index tried to remove: " + selectedIndex);
+        else {
+            imagesList.remove(selectedIndex);
+            Log.i("Remove", "Removed index: " + selectedIndex);
+        }
+        selectedIndex = -1;
     }
 
     void addItem(int drawableId){
