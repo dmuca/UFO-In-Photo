@@ -16,13 +16,13 @@ import com.kaizen.hoymm.ufoinphoto.EditImageActivity.ChooseUFOActivity.ChooseUFO
 import com.kaizen.hoymm.ufoinphoto.R;
 
 import static android.app.Activity.RESULT_OK;
-import static com.kaizen.hoymm.ufoinphoto.EditImageActivity.SwapRotateToManagementFooterPanelAnimation.ANIMATIONS_DURATION;
+import static com.kaizen.hoymm.ufoinphoto.EditImageActivity.EditImageActivity.ANIMATIONS_DURATION;
 
 /**
  * Created by hoymm on 20.11.17.
  */
 
-public class FooterAddPhotoFragment extends Fragment{
+public class FooterManagementFragment extends Fragment{
     private EditImageCommunication editImageCommunication;
     private ImageButton addButton, effectsButton, transformButton, removeButton, elementsButton;
     private static final int CHOOSE_UFO_REQ_CODE = 1;
@@ -91,6 +91,7 @@ public class FooterAddPhotoFragment extends Fragment{
         elementsButton.setOnClickListener(v -> {
             Toast.makeText(getContext(), "Elements button", Toast.LENGTH_SHORT).show();
             editImageCommunication.notifyElemenetsListDataChanged();
+            editImageCommunication.hideShowUFOElementsPanel();
         });
     }
 

@@ -8,8 +8,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +21,7 @@ import com.kaizen.hoymm.ufoinphoto.R;
 import java.util.ArrayList;
 
 public class EditImageActivity extends AppCompatActivity implements EditImageCommunication {
-
+    public static final int ANIMATIONS_DURATION = 300;
     public static final String URI_OF_PICKED_IMAGE_KEY =
             "com.kaizen.hoymm.ufoinphoto.EditImageActivity.URI_OF_PICKED_IMAGE_KEY";
     public static final String BITMAP_OF_PHOTO_CAPTURED =
@@ -31,14 +29,12 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
 
     private HeaderButtons headerButtons;
     private FrameLayout footerFrameLayout;
-    private FooterAddPhotoFragment footerManagementFragment;
+    private ElementsListRecyclerView elementsListRecyclerView;
+    private FooterManagementFragment footerManagementFragment;
     private FooterRotateFragment footerRotateFragment;
 
 
     private ArrayList<ImageView> myUFOObjects;
-    private ElementsListViewAdapter elementsRecyclerViewAdapter;
-    private RecyclerView recyclerElementsListView;
-    private int indexOfSelectedUFO = -1;
 
 
     @Override
@@ -52,8 +48,8 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
         addFragments();
         showFooterRotateFragmentAndHideOthers();
         initHeaderButtons();
+        elementsListRecyclerView = new ElementsListRecyclerView(this);
         initFooterFrame();
-        initAndSetAdapterForElementsListPanel();
     }
 
     private void hideStatusBar() {
@@ -81,7 +77,7 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
 
     private void initFragments() {
         footerRotateFragment = new FooterRotateFragment();
-        footerManagementFragment = new FooterAddPhotoFragment();
+        footerManagementFragment = new FooterManagementFragment();
     }
 
     private void addFragments() {
@@ -101,18 +97,6 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
 
     private void initFooterFrame() {
         footerFrameLayout = (FrameLayout) findViewById(R.id.footerFrameId);
-    }
-
-    private void initAndSetAdapterForElementsListPanel() {
-        recyclerElementsListView = (RecyclerView) findViewById(R.id.elements_list_recycler_view_id);
-        recyclerElementsListView.setHasFixedSize(false);
-
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        recyclerElementsListView.setLayoutManager(layoutManager);
-
-        elementsRecyclerViewAdapter = new ElementsListViewAdapter(this);
-        recyclerElementsListView.setAdapter(elementsRecyclerViewAdapter);
-
     }
 
     public void setImageUsingUri(Uri imageUri) {
@@ -164,7 +148,7 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
     public void showHideFooterButtonsAnimation() {
         boolean buttonsToShow [] = new boolean [5];
         buttonsToShow[0] = true;
-        buttonsToShow[1] = buttonsToShow[2] = buttonsToShow[3] = indexOfSelectedUFO != -1;
+        buttonsToShow[1] = buttonsToShow[2] = buttonsToShow[3] = elementsListRecyclerView.getSelectedItemIndex() != -1;
         buttonsToShow[4] = myUFOObjects.size() > 0;
 
         footerManagementFragment.showOrHideFooterPanelButtonsAnimation(buttonsToShow);
@@ -183,8 +167,8 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
 
     }
 
-    private void selectNewUfoObj(int index){
-        indexOfSelectedUFO = index;
+    private void selectNewUfoObj(int newIndex){
+        elementsListRecyclerView.setSelectedItemIndex(newIndex);
     }
 
     @Override
@@ -198,7 +182,7 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
     }
 
     @Override
-    public FooterAddPhotoFragment getManagementFooterFragment() {
+    public FooterManagementFragment getManagementFooterFragment() {
         return footerManagementFragment;
     }
 
@@ -223,6 +207,12 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
 
     @Override
     public void notifyElemenetsListDataChanged() {
-        elementsRecyclerViewAdapter.notifyDataSetChanged();
+        elementsListRecyclerView.notifyDataSetChanged();
     }
+
+    @Override
+    public void hideShowUFOElementsPanel() {
+        elementsListRecyclerView.hideOrShowUFOElementsPanel();
+    }
+
 }

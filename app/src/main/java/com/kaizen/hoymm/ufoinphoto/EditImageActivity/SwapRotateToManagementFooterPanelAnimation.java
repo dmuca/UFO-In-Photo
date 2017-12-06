@@ -7,12 +7,13 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 
+import static com.kaizen.hoymm.ufoinphoto.EditImageActivity.EditImageActivity.ANIMATIONS_DURATION;
+
 /**
  * Created by Damian Muca (Kaizen) on 21.11.17.
  */
 
 public class SwapRotateToManagementFooterPanelAnimation {
-    static final int ANIMATIONS_DURATION = 300;
 
     static void showFooterLayout(Context context){
         final TranslateAnimation animationGetInManagementPanel = getMoveInAnimation(context);

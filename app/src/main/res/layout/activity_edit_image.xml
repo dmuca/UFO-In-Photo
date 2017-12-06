@@ -58,9 +58,11 @@
         android:layout_height="0dp"
         android:orientation="vertical"
         android:gravity="bottom"
+        android:id="@+id/box_for_recycler_view_id"
         app:layout_constraintBottom_toTopOf="@+id/footerFrameId"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editImageFrameId">
+        app:layout_constraintTop_toTopOf="@+id/editImageFrameId"
+        >
         <android.support.v7.widget.RecyclerView
             android:id="@+id/elements_list_recycler_view_id"
             android:layout_width="wrap_content"

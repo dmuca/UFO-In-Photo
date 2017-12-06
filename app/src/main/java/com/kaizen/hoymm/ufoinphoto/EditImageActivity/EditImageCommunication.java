@@ -24,4 +24,5 @@ interface EditImageCommunication {
     void selectImageAndCloseThisWindow(int imgIndex);
 
     void notifyElemenetsListDataChanged();
+    void hideShowUFOElementsPanel();
 }
