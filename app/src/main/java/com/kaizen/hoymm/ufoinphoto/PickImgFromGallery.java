@@ -15,7 +15,7 @@ import static com.kaizen.hoymm.ufoinphoto.MainActivity.PICK_IMG_FROM_GALLERY_REQ
  * Created by Damian Muca (Kaizen) on 04.12.17.
  */
 
-public class PickImgFromGallery {
+class PickImgFromGallery {
     private static PickImgFromGallery pickImgFromGallery;
     private AppCompatActivity activity = null;
 

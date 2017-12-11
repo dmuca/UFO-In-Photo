@@ -163,4 +163,8 @@ public class FooterManagementFragment extends Fragment{
             }
         });
     }
+
+    boolean isListShown(){
+        return elementsButton.isActivated();
+    }
 }

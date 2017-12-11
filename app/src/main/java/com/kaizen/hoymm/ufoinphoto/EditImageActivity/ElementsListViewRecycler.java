@@ -140,4 +140,8 @@ class ElementsListViewRecycler {
         elementsRecyclerViewAdapter.addItem(drawableId);
         elementsRecyclerViewAdapter.notifyDataSetChanged();
     }
+
+    boolean isElementListShown(){
+        return recyclerView.getVisibility() == View.VISIBLE;
+    }
 }

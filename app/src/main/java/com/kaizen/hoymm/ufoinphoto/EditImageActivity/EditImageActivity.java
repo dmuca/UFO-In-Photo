@@ -25,6 +25,7 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
     public static final String BITMAP_OF_PHOTO_CAPTURED =
             "com.kaizen.hoymm.ufoinphoto.EditImageActivity.BITMAP_OF_PHOTO_CAPTURED";
 
+    private ImageView imageToEditImageView = null;
     private HeaderButtons headerButtons;
     private FrameLayout footerFrameLayout;
     private ElementsListViewRecycler elementsListViewRecycler;
@@ -41,7 +42,7 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
         setContentView(R.layout.activity_edit_image);
         myUFOObjects = new ArrayList<>();
         hideStatusBar();
-        recieveImage();
+        initReciveAndSetOnClickListenerForMainImg();
         initFragments();
         addFragments();
         showFooterRotateFragmentAndHideOthers();
@@ -57,7 +58,13 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
         decorView.setSystemUiVisibility(uiOptions);
     }
 
-    private void recieveImage() {
+    private void initReciveAndSetOnClickListenerForMainImg() {
+        imageToEditImageView = (ImageView) findViewById(R.id.imageToEditId);
+        recieveAnImageAndSetItsPreview();
+        setOnClickListener();
+    }
+
+    private void recieveAnImageAndSetItsPreview() {
         Uri imageUri = getIntent().getParcelableExtra(URI_OF_PICKED_IMAGE_KEY);
         Bitmap bitmapPhoto = getIntent().getParcelableExtra(BITMAP_OF_PHOTO_CAPTURED);
         if (imageUri != null) {
@@ -70,7 +77,13 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
         }
         else
             Log.e("GetPassedPhoto", "problem with catching and showing photo.");
+    }
 
+    private void setOnClickListener() {
+        imageToEditImageView.setOnClickListener(v -> {
+            if (elementsListViewRecycler.isElementListShown())
+                hideShowUFOElementsPanel();
+        });
     }
 
     private void initFragments() {
@@ -99,7 +112,6 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
 
     public void setImageUsingUri(Uri imageUri) {
         try {
-            ImageView imageToEditImageView = (ImageView) findViewById(R.id.imageToEditId);
             imageToEditImageView.setImageURI(imageUri);
         }
         catch (Exception e){
@@ -110,7 +122,6 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
 
     public void setImageUsingBitmap(Bitmap photo) {
         try {
-            ImageView imageToEditImageView = (ImageView) findViewById(R.id.imageToEditId);
             imageToEditImageView.setImageBitmap(photo);
         }
         catch (Exception e){
@@ -224,4 +235,11 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
         elementsListViewRecycler.hideOrShowUFOElementsPanel();
     }
 
+    @Override
+    public void onBackPressed() {
+        if (elementsListViewRecycler.isElementListShown())
+            hideShowUFOElementsPanel();
+        else
+            super.onBackPressed();
+    }
 }

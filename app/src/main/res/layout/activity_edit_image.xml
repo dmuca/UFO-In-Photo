@@ -48,6 +48,7 @@
             android:layout_height="match_parent"
             android:id="@+id/imageToEditId"
             android:adjustViewBounds="true"
+            android:clickable="true"
             android:scaleType="center"
             android:contentDescription="@string/currently_editing_image"
             />
