@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Interpolator;
 import android.view.animation.TranslateAnimation;
-import android.widget.LinearLayout;
 
 import com.kaizen.hoymm.ufoinphoto.R;
 
@@ -17,8 +16,6 @@ import static com.kaizen.hoymm.ufoinphoto.EditImageActivity.EditImageActivity.AN
  */
 
 class ElementsListViewRecycler {
-
-    private LinearLayout viewBoxOfRecyclerView;
     private RecyclerView recyclerView;
     private boolean anyAnimationWorking = false;
 
@@ -35,7 +32,6 @@ class ElementsListViewRecycler {
     }
 
     private void initXMLObjects() {
-        viewBoxOfRecyclerView = (LinearLayout) activity.findViewById(R.id.box_for_recycler_view_id);
         recyclerView = (RecyclerView) activity.findViewById(R.id.elements_list_recycler_view_id);
     }
 
@@ -132,7 +128,7 @@ class ElementsListViewRecycler {
         elementsRecyclerViewAdapter.setSelectedIndex(newIndex);
     }
 
-    void removeCurrentUFOObjAndSetToNegativeOne(){
+    void removeCurUFOObj(){
         elementsRecyclerViewAdapter.removeCurrentUFOObjAndSetToNegativeOne();
     }
 
@@ -141,7 +137,7 @@ class ElementsListViewRecycler {
         elementsRecyclerViewAdapter.notifyDataSetChanged();
     }
 
-    boolean isElementListShown(){
+    boolean isElementsListShown(){
         return recyclerView.getVisibility() == View.VISIBLE;
     }
 }

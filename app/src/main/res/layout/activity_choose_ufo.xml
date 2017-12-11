@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.kaizen.hoymm.ufoinphoto.EditImageActivity.ChooseUFOActivity.ChooseUFOActivity">
+    tools:context="com.kaizen.hoymm.ufoinphoto.EditImageActivity.ActivityChooseUFO.ChooseUFOActivity">
 
     <ImageView
         android:layout_width="match_parent"

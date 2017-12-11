@@ -33,8 +33,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".EditImageActivity.EditImageActivity" />
-        <activity android:name=".EditImageActivity.ChooseUFOActivity.ChooseUFOActivity" />
-        <activity android:name=".EditImageActivity.ImgReadyActivity.ImgReadyActivity"></activity>
+        <activity android:name=".EditImageActivity.ActivityChooseUFO.ChooseUFOActivity" />
+        <activity android:name=".EditImageActivity.ActivityImgReady.ImgReadyActivity"></activity>
     </application>
 
 </manifest>

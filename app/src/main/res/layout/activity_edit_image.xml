@@ -29,7 +29,8 @@
         <Button
             android:id="@+id/btnReadyId"
             style="@style/ButtonStyle"
-            android:text="@string/ready" />
+            android:enabled="false"
+            android:text="" />
     </LinearLayout>
 
     <RelativeLayout

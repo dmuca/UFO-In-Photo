@@ -1,4 +1,4 @@
-package com.kaizen.hoymm.ufoinphoto.EditImageActivity.ChooseUFOActivity;
+package com.kaizen.hoymm.ufoinphoto.EditImageActivity.ActivityChooseUFO;
 
 /**
  * Created by hoymm on 28.11.17.

@@ -12,7 +12,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.kaizen.hoymm.ufoinphoto.EditImageActivity.ChooseUFOActivity.ChooseUFOActivity;
+import com.kaizen.hoymm.ufoinphoto.EditImageActivity.ActivityChooseUFO.ChooseUFOActivity;
 import com.kaizen.hoymm.ufoinphoto.R;
 
 import static android.app.Activity.RESULT_OK;

@@ -1,53 +1,39 @@
 package com.kaizen.hoymm.ufoinphoto.EditImageActivity;
 
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import com.kaizen.hoymm.ufoinphoto.R;
 
-import java.util.ArrayList;
-
 public class EditImageActivity extends AppCompatActivity implements EditImageCommunication {
     public static final int ANIMATIONS_DURATION = 300;
-    public static final String URI_OF_PICKED_IMAGE_KEY =
-            "com.kaizen.hoymm.ufoinphoto.EditImageActivity.URI_OF_PICKED_IMAGE_KEY";
-    public static final String BITMAP_OF_PHOTO_CAPTURED =
-            "com.kaizen.hoymm.ufoinphoto.EditImageActivity.BITMAP_OF_PHOTO_CAPTURED";
+    private HeaderButtonsSection headerButtonsSection;
+    private CenterImgSection centerImgSection;
 
-    private ImageView imageToEditImageView = null;
-    private HeaderButtons headerButtons;
+    // FOOTER (bottom) SECTION
     private FrameLayout footerFrameLayout;
-    private ElementsListViewRecycler elementsListViewRecycler;
-    private FooterManagementFragment footerManagementFragment;
     private FooterRotateFragment footerRotateFragment;
-
-
-    private ArrayList<ImageView> myUFOObjects;
-
+    private FooterManagementFragment footerManagementFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_image);
-        myUFOObjects = new ArrayList<>();
         hideStatusBar();
-        initReciveAndSetOnClickListenerForMainImg();
-        initFragments();
-        addFragments();
+
+        initHeaderButtonsSection();
+        initCenterImgSection();
+
+
+        initFooterFragments();
+        addFooterFragments();
         showFooterRotateFragmentAndHideOthers();
-        initHeaderButtons();
-        elementsListViewRecycler = new ElementsListViewRecycler(this);
         initFooterFrame();
     }
 
@@ -58,40 +44,20 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
         decorView.setSystemUiVisibility(uiOptions);
     }
 
-    private void initReciveAndSetOnClickListenerForMainImg() {
-        imageToEditImageView = (ImageView) findViewById(R.id.imageToEditId);
-        recieveAnImageAndSetItsPreview();
-        setOnClickListener();
+    private void initHeaderButtonsSection() {
+        headerButtonsSection = new HeaderButtonsSection(this);
     }
 
-    private void recieveAnImageAndSetItsPreview() {
-        Uri imageUri = getIntent().getParcelableExtra(URI_OF_PICKED_IMAGE_KEY);
-        Bitmap bitmapPhoto = getIntent().getParcelableExtra(BITMAP_OF_PHOTO_CAPTURED);
-        if (imageUri != null) {
-            setImageUsingUri(imageUri);
-            Log.e("GetPassedPhoto", "photo catched by bitmap.");
-        }
-        else if (bitmapPhoto != null) {
-            setImageUsingBitmap(bitmapPhoto);
-            Log.e("GetPassedPhoto", "photo catched by bitmap.");
-        }
-        else
-            Log.e("GetPassedPhoto", "problem with catching and showing photo.");
+    private void initCenterImgSection() {
+        centerImgSection = new CenterImgSection(this);
     }
 
-    private void setOnClickListener() {
-        imageToEditImageView.setOnClickListener(v -> {
-            if (elementsListViewRecycler.isElementListShown())
-                hideShowUFOElementsPanel();
-        });
-    }
-
-    private void initFragments() {
+    private void initFooterFragments() {
         footerRotateFragment = new FooterRotateFragment();
         footerManagementFragment = new FooterManagementFragment();
     }
 
-    private void addFragments() {
+    private void addFooterFragments() {
         addNewFragment(R.id.footerFrameId , footerManagementFragment);
         addNewFragment(R.id.footerFrameId , footerRotateFragment);
     }
@@ -101,33 +67,8 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
         getSupportFragmentManager().beginTransaction().hide(footerManagementFragment).commit();
     }
 
-    private void initHeaderButtons() {
-        headerButtons = new HeaderButtons(this);
-        headerButtons.hideReadyButton();
-    }
-
     private void initFooterFrame() {
         footerFrameLayout = (FrameLayout) findViewById(R.id.footerFrameId);
-    }
-
-    public void setImageUsingUri(Uri imageUri) {
-        try {
-            imageToEditImageView.setImageURI(imageUri);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            Log.e("EditImageActivity", " unable to load image from URI: " + imageUri.toString());
-        }
-    }
-
-    public void setImageUsingBitmap(Bitmap photo) {
-        try {
-            imageToEditImageView.setImageBitmap(photo);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            Log.e("EditImageActivity", " unable to load bitmap: " + photo);
-        }
     }
 
     private void addNewFragment(int ID, Fragment fragment) {
@@ -145,55 +86,33 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
 
     @Override
     public void showReadyButton() {
-        headerButtons.showReadyButton();
+        headerButtonsSection.showReadyButton();
     }
 
     @Override
     public void hideReadyButton() {
-        headerButtons.hideReadyButton();
+        headerButtonsSection.hideReadyButton();
     }
 
     @Override
     public void showHideFooterButtonsAnimation() {
         boolean buttonsToShow [] = new boolean [5];
         buttonsToShow[0] = true;
-        buttonsToShow[1] = buttonsToShow[2] = buttonsToShow[3] = elementsListViewRecycler.getSelectedItemIndex() != -1;
-        buttonsToShow[4] = myUFOObjects.size() > 0;
+        buttonsToShow[1] = buttonsToShow[2] = buttonsToShow[3] = centerImgSection.getSelectedItemIndex() != -1;
+        buttonsToShow[4] = centerImgSection.howManyUFOObjectsCurrently() > 0;
 
         footerManagementFragment.showOrHideFooterPanelButtonsAnimation(buttonsToShow);
     }
 
     @Override
     public void addNewUFOObj(int drawableImg) {
-        addUFOToMainPhoto(drawableImg);
-        addUFOToElementsList(drawableImg);
-
-    }
-
-    private void addUFOToMainPhoto(int drawableImg) {
-        RelativeLayout editImageFrameRL = (RelativeLayout) findViewById(R.id.editImageFrameId);
-        ImageView imgUFO = new ImageView(this);
-        imgUFO.setImageResource(drawableImg);
-        imgUFO.setLayoutParams(new ActionBar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        // set params etc.
-        editImageFrameRL.addView(imgUFO, editImageFrameRL.getWidth(), editImageFrameRL.getHeight());
-        myUFOObjects.add(imgUFO);
-        selectNewUfoObj(myUFOObjects.size()-1);
-    }
-
-    private void addUFOToElementsList(int drawableImg) {
-        elementsListViewRecycler.addItem(drawableImg);
-        elementsListViewRecycler.notifyDataSetChanged();
+        centerImgSection.addUFOToMainPhoto(drawableImg);
+        centerImgSection.addUFOToElementsList(drawableImg);
     }
 
     @Override
     public void removeCurrentlySelectedUFOObj() {
-        elementsListViewRecycler.removeCurrentUFOObjAndSetToNegativeOne();
-        elementsListViewRecycler.notifyDataSetChanged();
-    }
-
-    private void selectNewUfoObj(int newIndex){
-        elementsListViewRecycler.setSelectedItemIndex(newIndex);
+        centerImgSection.removeCurUFOObj();
     }
 
     @Override
@@ -227,17 +146,17 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
 
     @Override
     public void notifyElemenetsListDataChanged() {
-        elementsListViewRecycler.notifyDataSetChanged();
+        centerImgSection.notifyDataSetChanged();
     }
 
     @Override
     public void hideShowUFOElementsPanel() {
-        elementsListViewRecycler.hideOrShowUFOElementsPanel();
+        centerImgSection.hideOrShowUFOElementsPanel();
     }
 
     @Override
     public void onBackPressed() {
-        if (elementsListViewRecycler.isElementListShown())
+        if (centerImgSection.isElementsListShown())
             hideShowUFOElementsPanel();
         else
             super.onBackPressed();

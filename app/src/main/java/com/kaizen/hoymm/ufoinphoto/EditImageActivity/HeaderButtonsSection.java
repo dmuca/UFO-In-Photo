@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.kaizen.hoymm.ufoinphoto.DynamicPermissions;
-import com.kaizen.hoymm.ufoinphoto.EditImageActivity.ImgReadyActivity.ImgReadyActivity;
+import com.kaizen.hoymm.ufoinphoto.EditImageActivity.ActivityImgReady.ImgReadyActivity;
 import com.kaizen.hoymm.ufoinphoto.MainActivity;
 import com.kaizen.hoymm.ufoinphoto.R;
 
@@ -24,14 +24,14 @@ import java.io.IOException;
  * Created by hoymm on 03.11.17.
  */
 
-public class HeaderButtons {
+public class HeaderButtonsSection {
     public static final String TEMP_IMG_NAME="MI_TEMP.jpg";
     private Button backBtn, helpBtn, readyBtn;
     private Activity activity;
     private final EditImageCommunication editImageCommunication;
     private String TAG = "SAVE_TEMP_IMG";
 
-    HeaderButtons(Activity activity) {
+    HeaderButtonsSection(Activity activity) {
         this.activity = activity;
 
         editImageCommunication = tryInitEditImageCommunication(activity);

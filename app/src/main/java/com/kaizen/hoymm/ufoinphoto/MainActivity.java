@@ -9,9 +9,10 @@ import android.widget.Toast;
 
 import com.kaizen.hoymm.ufoinphoto.EditImageActivity.EditImageActivity;
 
-import static com.kaizen.hoymm.ufoinphoto.EditImageActivity.EditImageActivity.URI_OF_PICKED_IMAGE_KEY;
-
 public class MainActivity extends AppCompatActivity {
+    public static final String URI_OF_ORIGINAL_IMAGE_KEY =
+            "com.kaizen.hoymm.ufoinphoto.EditImageActivity.URI_OF_ORIGINAL_IMAGE_KEY";
+
     static final int PICK_IMG_FROM_GALLERY_REQUEST = 1;
     static final int CAPTURE_IMAGE_REQUEST = 2;
     private static Uri curPhotoUri = null;
@@ -52,11 +53,9 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, R.string.img_not_selected, Toast.LENGTH_SHORT).show();
     }
 
-
-
     private void startNewActivityAndPassImgUriToIt(Uri selectedImageUri) {
         Intent editImageActivity = new Intent(this, EditImageActivity.class);
-        editImageActivity.putExtra(URI_OF_PICKED_IMAGE_KEY, selectedImageUri);
+        editImageActivity.putExtra(URI_OF_ORIGINAL_IMAGE_KEY, selectedImageUri);
         startActivity(editImageActivity);
     }
 }

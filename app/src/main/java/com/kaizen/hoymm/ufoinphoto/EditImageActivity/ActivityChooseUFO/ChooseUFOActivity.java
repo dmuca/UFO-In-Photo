@@ -1,4 +1,4 @@
-package com.kaizen.hoymm.ufoinphoto.EditImageActivity.ChooseUFOActivity;
+package com.kaizen.hoymm.ufoinphoto.EditImageActivity.ActivityChooseUFO;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
