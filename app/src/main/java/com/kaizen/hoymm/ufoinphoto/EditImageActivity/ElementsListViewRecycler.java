@@ -27,11 +27,11 @@ class ElementsListViewRecycler {
 
     ElementsListViewRecycler(EditImageActivity appCompatActivity) {
         this.activity = appCompatActivity;
-        initXMLObjects();
+        initRecyclerView();
         initAndSetAdapterForElementsListPanel();
     }
 
-    private void initXMLObjects() {
+    private void initRecyclerView() {
         recyclerView = (RecyclerView) activity.findViewById(R.id.elements_list_recycler_view_id);
     }
 

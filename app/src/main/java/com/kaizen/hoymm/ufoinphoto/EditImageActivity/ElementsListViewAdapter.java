@@ -23,13 +23,6 @@ class ElementsListViewAdapter extends RecyclerView.Adapter <ElementsListViewAdap
 
     ElementsListViewAdapter(EditImageCommunication editImageCommunication) {
         this.editImageCommunication = editImageCommunication;
-
-        imagesList.add(R.drawable.img1);
-        imagesList.add(R.drawable.img1);
-        imagesList.add(R.drawable.img1);
-        imagesList.add(R.drawable.img1);
-        imagesList.add(R.drawable.img1);
-        imagesList.add(R.drawable.img1);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder{

@@ -22,4 +22,5 @@
     <string name="saved_in_album">Saved In Album</string>
     <string name="img_not_selected">Image not selected.</string>
     <string name="currently_editing_image">Currently editing image</string>
+    <string name="img_has_been_saved">Image has been saved.</string>
 </resources>

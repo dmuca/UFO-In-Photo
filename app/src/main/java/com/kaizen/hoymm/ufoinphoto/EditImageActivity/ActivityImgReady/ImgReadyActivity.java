@@ -9,13 +9,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.kaizen.hoymm.ufoinphoto.EditImageActivity.SectionHeaderButtons;
+import com.kaizen.hoymm.ufoinphoto.EditImageActivity.StoreImg;
 import com.kaizen.hoymm.ufoinphoto.R;
-
-import static com.kaizen.hoymm.ufoinphoto.EditImageActivity.SectionHeaderButtons.TEMP_IMG_NAME;
 
 public class ImgReadyActivity extends AppCompatActivity {
     private Button shareButton, saveInAlbumButton, startOverButton;
+    private Bitmap editedImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,18 +23,21 @@ public class ImgReadyActivity extends AppCompatActivity {
 
         initButtons();
         setButtonsListeners();
-        setTempImageToPreview();
+        loadEditedImg();
+        insertEditetImgAsPreview();
     }
 
-    private void setTempImageToPreview() {
-        ImageView selected_photo = (ImageView) findViewById(R.id.illustrativeImgId);
-        SectionHeaderButtons.getOutputMediaFile(this);
+    private void loadEditedImg() {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-        String photoPath = SectionHeaderButtons.getPathToFolder(this) + "/" + TEMP_IMG_NAME;
+        String photoPath = StoreImg.getTempPhotoPath(this);
         Log.d("SAVE_TEMP_IMG", "Path: " + photoPath);
-        Bitmap bitmap = BitmapFactory.decodeFile(photoPath, options);
-        selected_photo.setImageBitmap(bitmap);
+        editedImg = BitmapFactory.decodeFile(photoPath, options);
+    }
+
+    private void insertEditetImgAsPreview() {
+        ImageView selected_photo = (ImageView) findViewById(R.id.illustrativeImgId);
+        selected_photo.setImageBitmap(editedImg);
     }
 
     private void initButtons() {
@@ -56,7 +58,8 @@ public class ImgReadyActivity extends AppCompatActivity {
 
     private void setSaveInAlbumButtonListener() {
         saveInAlbumButton.setOnClickListener(v -> {
-
+            if (StoreImg.tryStoreImagePermanently(editedImg, this))
+                Toast.makeText(this, R.string.img_has_been_saved, Toast.LENGTH_SHORT).show();
         });
     }
 
