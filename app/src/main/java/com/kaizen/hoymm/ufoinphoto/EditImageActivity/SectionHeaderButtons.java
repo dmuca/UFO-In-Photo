@@ -24,14 +24,14 @@ import java.io.IOException;
  * Created by hoymm on 03.11.17.
  */
 
-public class HeaderButtonsSection {
+public class SectionHeaderButtons {
     public static final String TEMP_IMG_NAME="MI_TEMP.jpg";
     private Button backBtn, helpBtn, readyBtn;
     private Activity activity;
     private final EditImageCommunication editImageCommunication;
     private String TAG = "SAVE_TEMP_IMG";
 
-    HeaderButtonsSection(Activity activity) {
+    SectionHeaderButtons(Activity activity) {
         this.activity = activity;
 
         editImageCommunication = tryInitEditImageCommunication(activity);

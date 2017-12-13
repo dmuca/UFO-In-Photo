@@ -18,7 +18,7 @@ import static com.kaizen.hoymm.ufoinphoto.MainActivity.URI_OF_ORIGINAL_IMAGE_KEY
  * Created by Damian Muca (Kaizen) on 11.12.17.
  */
 
-class CenterImgSection {
+class SectionCenterImg {
     private EditImageActivity activity;
 
     private ElementsListViewRecycler elementsListViewRecycler;
@@ -29,7 +29,7 @@ class CenterImgSection {
             "com.kaizen.hoymm.ufoinphoto.EditImageActivity.BITMAP_OF_PHOTO_CAPTURED";
     private ArrayList<ImageView> myUFOObjects = new ArrayList<>();
 
-    CenterImgSection(EditImageActivity activity) {
+    SectionCenterImg(EditImageActivity activity) {
         this.activity = activity;
         initReciveAndSetOnClickListenerForMainImg();
         elementsListViewRecycler = new ElementsListViewRecycler(activity);

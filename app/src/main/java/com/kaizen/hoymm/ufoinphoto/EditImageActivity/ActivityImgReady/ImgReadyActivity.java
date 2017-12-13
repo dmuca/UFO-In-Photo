@@ -9,10 +9,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.kaizen.hoymm.ufoinphoto.EditImageActivity.HeaderButtonsSection;
+import com.kaizen.hoymm.ufoinphoto.EditImageActivity.SectionHeaderButtons;
 import com.kaizen.hoymm.ufoinphoto.R;
 
-import static com.kaizen.hoymm.ufoinphoto.EditImageActivity.HeaderButtonsSection.TEMP_IMG_NAME;
+import static com.kaizen.hoymm.ufoinphoto.EditImageActivity.SectionHeaderButtons.TEMP_IMG_NAME;
 
 public class ImgReadyActivity extends AppCompatActivity {
     private Button shareButton, saveInAlbumButton, startOverButton;
@@ -29,10 +29,10 @@ public class ImgReadyActivity extends AppCompatActivity {
 
     private void setTempImageToPreview() {
         ImageView selected_photo = (ImageView) findViewById(R.id.illustrativeImgId);
-        HeaderButtonsSection.getOutputMediaFile(this);
+        SectionHeaderButtons.getOutputMediaFile(this);
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-        String photoPath = HeaderButtonsSection.getPathToFolder(this) + "/" + TEMP_IMG_NAME;
+        String photoPath = SectionHeaderButtons.getPathToFolder(this) + "/" + TEMP_IMG_NAME;
         Log.d("SAVE_TEMP_IMG", "Path: " + photoPath);
         Bitmap bitmap = BitmapFactory.decodeFile(photoPath, options);
         selected_photo.setImageBitmap(bitmap);
