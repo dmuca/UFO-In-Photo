@@ -2,7 +2,10 @@ package com.kaizen.hoymm.ufoinphoto.EditImageActivity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -13,6 +16,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -64,6 +68,7 @@ public class StoreImg {
         }
         File mediaFile;
         mediaFile = new File(mediaStorageDir.getPath() + File.separator + fileName);
+        refreshAndroidGallery(Uri.fromFile(mediaFile), context);
         return mediaFile;
     }
 
@@ -85,15 +90,25 @@ public class StoreImg {
                 + "/Files";
     }
 
-    public static class StoragePermissionException extends Exception
+    static class StoragePermissionException extends Exception
     {
-        // Parameterless Constructor
-        public StoragePermissionException() {}
-
         // Constructor that accepts a message
-        public StoragePermissionException(String message)
+        StoragePermissionException(String message)
         {
             super(message);
+        }
+    }
+
+    private static void refreshAndroidGallery(Uri fileUri, Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Intent mediaScanIntent = new Intent(
+                    Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+            mediaScanIntent.setData(fileUri);
+            context.sendBroadcast(mediaScanIntent);
+        } else {
+            context.sendBroadcast(new Intent(
+                    Intent.ACTION_MEDIA_MOUNTED,
+                    Uri.parse("file://" + Environment.getExternalStorageDirectory())));
         }
     }
 }

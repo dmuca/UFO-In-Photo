@@ -63,6 +63,7 @@ class ElementsListViewAdapter extends RecyclerView.Adapter <ElementsListViewAdap
     }
 
     void removeCurrentUFOObjAndSetToNegativeOne(){
+        Log.i("SelectedIndex", " i hereby set index to be -1");
         if (selectedIndex == -1)
             Log.e("Remove", "Wrong index tried to remove: " + selectedIndex);
         else {
@@ -81,6 +82,7 @@ class ElementsListViewAdapter extends RecyclerView.Adapter <ElementsListViewAdap
     }
 
     int getSelectedIndex(){
+        Log.i("SelectedIndex", "is a " + selectedIndex);
         return selectedIndex;
     }
 

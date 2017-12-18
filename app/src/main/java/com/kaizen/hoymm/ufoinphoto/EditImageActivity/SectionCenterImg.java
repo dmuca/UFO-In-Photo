@@ -20,6 +20,7 @@ import static com.kaizen.hoymm.ufoinphoto.MainActivity.URI_OF_ORIGINAL_IMAGE_KEY
 
 class SectionCenterImg {
     private EditImageActivity activity;
+    private RelativeLayout areWithImages;
 
     private ElementsListViewRecycler elementsListViewRecycler;
     private ImageView imageToEditImageView = null;
@@ -47,8 +48,14 @@ class SectionCenterImg {
     }
 
     void removeCurUFOObj() {
+        removeObjectFromImage();
         elementsListViewRecycler.removeCurUFOObj();
         elementsListViewRecycler.notifyDataSetChanged();
+    }
+
+    private void removeObjectFromImage() {
+        areWithImages.removeView(myUFOObjects.get(getSelectedItemIndex()));
+        myUFOObjects.remove(getSelectedItemIndex());
     }
 
     private void recieveAnImageAndSetItsPreview() {
@@ -94,12 +101,12 @@ class SectionCenterImg {
     }
 
     void addUFOToMainPhoto(int drawableImg) {
-        RelativeLayout editImageFrameRL = (RelativeLayout) activity.findViewById(R.id.editImageFrameId);
+        areWithImages = (RelativeLayout) activity.findViewById(R.id.editImageFrameId);
         ImageView imgUFO = new ImageView(activity);
         imgUFO.setImageResource(drawableImg);
         imgUFO.setLayoutParams(new ActionBar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         // set params etc.
-        editImageFrameRL.addView(imgUFO, editImageFrameRL.getWidth(), editImageFrameRL.getHeight());
+        areWithImages.addView(imgUFO, areWithImages.getWidth(), areWithImages.getHeight());
         myUFOObjects.add(imgUFO);
         setSelectedItemIndex(myUFOObjects.size()-1);
     }
