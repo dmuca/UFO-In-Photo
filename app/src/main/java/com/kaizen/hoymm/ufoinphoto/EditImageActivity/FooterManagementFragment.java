@@ -111,25 +111,35 @@ public class FooterManagementFragment extends Fragment{
     }
 
     void showOrHideFooterPanelButtonsAnimation(boolean[] buttonsToShow) {
-        checkWhetherHideOrShowButtonUsingAnimation(addButton, buttonsToShow[0]);
-        checkWhetherHideOrShowButtonUsingAnimation(effectsButton, buttonsToShow[1]);
-        checkWhetherHideOrShowButtonUsingAnimation(transformButton, buttonsToShow[2]);
-        checkWhetherHideOrShowButtonUsingAnimation(removeButton, buttonsToShow[3]);
-        checkWhetherHideOrShowButtonUsingAnimation(elementsButton, buttonsToShow[4]);
+        showOrHideButton(addButton, buttonsToShow[0]);
+        showOrHideButton(effectsButton, buttonsToShow[1]);
+        showOrHideButton(transformButton, buttonsToShow[2]);
+        showOrHideButton(removeButton, buttonsToShow[3]);
+        showOrHideButton(elementsButton, buttonsToShow[4]);
     }
 
-    private void checkWhetherHideOrShowButtonUsingAnimation(ImageButton imageButton, boolean buttonsToShow) {
-        if (buttonShowAnimationShouldBeStarted(imageButton, buttonsToShow))
-            showAnimationForButtonStart(imageButton);
-        else if (buttonHideAnimationShouldBeStarted(imageButton, buttonsToShow))
-            hideAnimationForButtonStart(imageButton);
+    private void showOrHideButton(ImageButton imageButton, boolean buttonsToShow) {
+        if (ifButtonShouldBeShown(imageButton, buttonsToShow))
+            showButton(imageButton);
+        else if (ifButtonShouldBeHidden(imageButton, buttonsToShow))
+            hideButton(imageButton);
     }
 
-    private boolean buttonShowAnimationShouldBeStarted(ImageButton imageButton, boolean buttonsToShow) {
-        return (imageButton.getVisibility() == View.INVISIBLE || imageButton.getVisibility() == View.GONE) && buttonsToShow;
+    private boolean ifButtonShouldBeShown(ImageButton imageButton, boolean buttonsToShow) {
+        return (imageButton.getVisibility() == View.INVISIBLE || imageButton.getVisibility() == View.GONE)
+                && buttonsToShow;
     }
 
-    private void showAnimationForButtonStart(ImageButton imageButton) {
+    private boolean ifButtonShouldBeHidden(ImageButton imageButton, boolean buttonsToShow) {
+        return imageButton.getVisibility() == View.VISIBLE && !buttonsToShow;
+    }
+
+    private void showButton(ImageButton imageButton) {
+        imageButton.setEnabled(true);
+        startShowAnimation(imageButton);
+    }
+
+    private void startShowAnimation(ImageButton imageButton) {
         final TranslateAnimation moveInAnimation = new TranslateAnimation(0, 0, imageButton.getHeight(), 0);
         moveInAnimation.setDuration(ANIMATIONS_DURATION);
         imageButton.setAnimation(moveInAnimation);
@@ -137,11 +147,12 @@ public class FooterManagementFragment extends Fragment{
         imageButton.setVisibility(View.VISIBLE);
     }
 
-    private boolean buttonHideAnimationShouldBeStarted(ImageButton imageButton, boolean buttonsToShow) {
-        return imageButton.getVisibility() == View.VISIBLE && !buttonsToShow;
+    private void hideButton(ImageButton imageButton) {
+        imageButton.setEnabled(false);
+        startHideAnimation(imageButton);
     }
 
-    private void hideAnimationForButtonStart(ImageButton imageButton) {
+    private void startHideAnimation(final ImageButton imageButton) {
         final TranslateAnimation moveOutAnimation = new TranslateAnimation(0, 0, 0, imageButton.getHeight());
         moveOutAnimation.setDuration(ANIMATIONS_DURATION);
         imageButton.setAnimation(moveOutAnimation);
