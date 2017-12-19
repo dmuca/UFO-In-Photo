@@ -82,7 +82,7 @@ class ElementsListViewAdapter extends RecyclerView.Adapter <ElementsListViewAdap
         if (selectedIndex != -1)
             editImageCommunication.removeDashedBorder();
         selectedIndex = newIndex;
-        editImageCommunication.setDashedBorderIfAnySelected();
+        editImageCommunication.setDashedAndSelectedUFOImg();
     }
 
     int getSelectedIndex(){

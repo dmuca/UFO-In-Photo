@@ -14,6 +14,7 @@ interface EditImageCommunication {
 
     void addNewUFOObj(int drawableImg);
     void selectLastUFOObject();
+    void selectUFOObject(int index);
 
 
     void changeFooterPanelFromRotateToManagementFragmentUsingAnimation();
@@ -29,5 +30,5 @@ interface EditImageCommunication {
 
     void removeCurUFO();
     void removeDashedBorder();
-    void setDashedBorderIfAnySelected();
+    void setDashedAndSelectedUFOImg();
 }

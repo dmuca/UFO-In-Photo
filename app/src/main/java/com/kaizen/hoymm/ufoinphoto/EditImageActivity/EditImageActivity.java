@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
@@ -18,7 +17,7 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
 
     @Override
     protected void onResume() {
-        setDashedBorderIfAnySelected();
+        setDashedAndSelectedUFOImg();
         super.onResume();
     }
 
@@ -82,6 +81,11 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
     }
 
     @Override
+    public void selectUFOObject(int index) {
+        sectionCenterImg.selectUFO(index);
+    }
+
+    @Override
     public void removeCurUFO() {
         sectionCenterImg.removeCurUFOObj();
     }
@@ -92,9 +96,10 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
     }
 
     @Override
-    public void setDashedBorderIfAnySelected() {
-        if (sectionCenterImg != null)
+    public void setDashedAndSelectedUFOImg() {
+        if (sectionCenterImg != null) {
             sectionCenterImg.setDashedBorderIfAnySelected();
+        }
     }
 
     @Override

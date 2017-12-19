@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.kaizen.hoymm.ufoinphoto.R;
@@ -28,7 +27,7 @@ class SectionCenterImg {
             "com.kaizen.hoymm.ufoinphoto.EditImageActivity.URI_OF_EDITED_IMAGE_KEY";
     private static final String BITMAP_OF_PHOTO_CAPTURED =
             "com.kaizen.hoymm.ufoinphoto.EditImageActivity.BITMAP_OF_PHOTO_CAPTURED";
-    private ArrayList<ImageView> myUFOObjects = new ArrayList<>();
+    private ArrayList<UFOImageView> UFOImages = new ArrayList<>();
 
     SectionCenterImg(EditImageActivity activity) {
         this.activity = activity;
@@ -54,8 +53,8 @@ class SectionCenterImg {
     }
 
     private void removeObjectFromImage() {
-        areaWithImages.removeView(myUFOObjects.get(getSelectedItemIndex()));
-        myUFOObjects.remove(getSelectedItemIndex());
+        areaWithImages.removeView(UFOImages.get(getSelectedItemIndex()));
+        UFOImages.remove(getSelectedItemIndex());
     }
 
     private void recieveAnImageAndSetItsPreview() {
@@ -102,18 +101,25 @@ class SectionCenterImg {
 
     void addUFOToPhoto(int drawableImg) {
         areaWithImages = (RelativeLayout) activity.findViewById(R.id.editImageFrameId);
-        ImageView imgUFO = new ImageView(activity);
+        UFOImageView imgUFO = new UFOImageView(activity);
         imgUFO.setImageResource(drawableImg);
 
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(areaWithImages.getWidth()/2, areaWithImages.getHeight()/2);
         params.addRule(RelativeLayout.CENTER_HORIZONTAL);
         params.addRule(RelativeLayout.CENTER_VERTICAL);
         areaWithImages.addView(imgUFO, params);
-        myUFOObjects.add(imgUFO);
+        UFOImages.add(imgUFO);
     }
 
     void selectLastUFO() {
-        elementsListViewRecycler.selectUFO(myUFOObjects.size()-1);
+        selectUFO(UFOImages.size()-1);
+    }
+
+    void selectUFO(int index){
+        if (getSelectedItemIndex() != -1)
+            UFOImages.get(getSelectedItemIndex()).setSelected(false);
+        UFOImages.get(index).setSelected(true);
+        elementsListViewRecycler.selectUFO(index);
     }
 
     void notifyDataSetChanged() {
@@ -134,17 +140,17 @@ class SectionCenterImg {
     }
 
     int howManyUFOObjectsCurrently() {
-        return myUFOObjects.size();
+        return UFOImages.size();
     }
 
     void clearDashedBoard() {
-        myUFOObjects.get(getSelectedItemIndex()).setBackground(null);
+        UFOImages.get(getSelectedItemIndex()).setBackground(null);
     }
 
     void setDashedBorderIfAnySelected() {
-        if (getSelectedItemIndex() >= 0)
-            myUFOObjects.get(getSelectedItemIndex()).setBackground(ContextCompat.getDrawable(activity.getBaseContext(),R.drawable.dashed_background));
-        else
-            Log.i("DashSelect", "no  item selected.");
+        if (getSelectedItemIndex() >= 0){
+            UFOImages.get(getSelectedItemIndex()).setBackground(ContextCompat.getDrawable(activity.getBaseContext(),R.drawable.dashed_background));
+            UFOImages.get(getSelectedItemIndex()).setSelected(true);
+        }
     }
 }
