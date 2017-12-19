@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
@@ -14,6 +15,12 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
     private SectionHeaderButtons sectionHeaderButtons;
     private SectionCenterImg sectionCenterImg;
     private SectionFooter sectionFooter;
+
+    @Override
+    protected void onResume() {
+        setDashedBorderIfAnySelected();
+        super.onResume();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,13 +87,14 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
     }
 
     @Override
-    public void clearDashedBorder() {
+    public void removeDashedBorder() {
         sectionCenterImg.clearDashedBoard();
     }
 
     @Override
-    public void setDashedBorder() {
-        sectionCenterImg.setDashedBoard();
+    public void setDashedBorderIfAnySelected() {
+        if (sectionCenterImg != null)
+            sectionCenterImg.setDashedBorderIfAnySelected();
     }
 
     @Override

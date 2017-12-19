@@ -80,9 +80,9 @@ class ElementsListViewAdapter extends RecyclerView.Adapter <ElementsListViewAdap
     void selectUFO(int newIndex){
         Log.i("SelectedIndex", "set to " + newIndex);
         if (selectedIndex != -1)
-            editImageCommunication.clearDashedBorder();
+            editImageCommunication.removeDashedBorder();
         selectedIndex = newIndex;
-        editImageCommunication.setDashedBorder();
+        editImageCommunication.setDashedBorderIfAnySelected();
     }
 
     int getSelectedIndex(){

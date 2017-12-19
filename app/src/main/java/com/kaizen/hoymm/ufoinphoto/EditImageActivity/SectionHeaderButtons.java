@@ -75,6 +75,7 @@ public class SectionHeaderButtons {
     private void setReadyButtonsBehavior() {
         readyBtn.setOnClickListener
                 (v -> {
+                    editImageCommunication.removeDashedBorder();
                     Bitmap bitmapNewImage = editImageCommunication.getEditedImage();
                     if (DynamicPermissions.isWriteExternalStoragePermissionGranted(activity))
                         StoreImg.storeImageTemporarily(bitmapNewImage, activity);

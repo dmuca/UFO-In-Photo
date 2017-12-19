@@ -28,6 +28,6 @@ interface EditImageCommunication {
     void hideShowUFOElementsPanel();
 
     void removeCurUFO();
-    void clearDashedBorder();
-    void setDashedBorder();
+    void removeDashedBorder();
+    void setDashedBorderIfAnySelected();
 }

@@ -141,8 +141,10 @@ class SectionCenterImg {
         myUFOObjects.get(getSelectedItemIndex()).setBackground(null);
     }
 
-    void setDashedBoard() {
-        myUFOObjects.get(getSelectedItemIndex()).setBackground(
-                ContextCompat.getDrawable(activity.getBaseContext(),R.drawable.dashed_background));
+    void setDashedBorderIfAnySelected() {
+        if (getSelectedItemIndex() >= 0)
+            myUFOObjects.get(getSelectedItemIndex()).setBackground(ContextCompat.getDrawable(activity.getBaseContext(),R.drawable.dashed_background));
+        else
+            Log.i("DashSelect", "no  item selected.");
     }
 }
