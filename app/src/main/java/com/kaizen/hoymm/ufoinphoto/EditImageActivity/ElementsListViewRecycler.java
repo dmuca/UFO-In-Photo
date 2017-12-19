@@ -124,8 +124,8 @@ class ElementsListViewRecycler {
         return elementsRecyclerViewAdapter.getSelectedIndex();
     }
 
-    void setSelectedItemIndex(int newIndex) {
-        elementsRecyclerViewAdapter.setSelectedIndex(newIndex);
+    void selectUFO(int newIndex) {
+        elementsRecyclerViewAdapter.selectUFO(newIndex);
     }
 
     void removeCurUFOObj(){

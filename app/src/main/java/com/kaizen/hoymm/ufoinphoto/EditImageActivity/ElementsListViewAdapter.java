@@ -29,19 +29,19 @@ class ElementsListViewAdapter extends RecyclerView.Adapter <ElementsListViewAdap
         private ConstraintLayout constraintLayout;
         private ImageView imageOfUFO;
         private TextView idNumbText;
-        ViewHolder(ConstraintLayout constraintLayout){
-            super(constraintLayout);
-            this.constraintLayout = constraintLayout;
-            imageOfUFO = constraintLayout.findViewById(R.id.item_elements_list_iv_id);
-            idNumbText = constraintLayout.findViewById(R.id.element_text_id);
+        ViewHolder(ConstraintLayout listElementView){
+            super(listElementView);
+            this.constraintLayout = listElementView;
+            imageOfUFO = listElementView.findViewById(R.id.item_elements_list_iv_id);
+            idNumbText = listElementView.findViewById(R.id.element_text_id);
         }
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ConstraintLayout constraintLayout = (ConstraintLayout) LayoutInflater.from(parent.getContext())
+        ConstraintLayout listElementView = (ConstraintLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_elements_by_images, parent, false);
-        return new ElementsListViewAdapter.ViewHolder(constraintLayout);
+        return new ElementsListViewAdapter.ViewHolder(listElementView);
     }
 
     @Override
@@ -51,7 +51,7 @@ class ElementsListViewAdapter extends RecyclerView.Adapter <ElementsListViewAdap
         holder.idNumbText.setText(String.valueOf(position+1));
 
         holder.constraintLayout.setOnClickListener(v -> {
-            selectedIndex = position;
+            selectUFO(position);
             this.notifyDataSetChanged();
             editImageCommunication.showHideFooterButtonsAnimation();
         });
@@ -77,8 +77,12 @@ class ElementsListViewAdapter extends RecyclerView.Adapter <ElementsListViewAdap
         imagesList.add(drawableId);
     }
 
-    void setSelectedIndex(int newIndex){
+    void selectUFO(int newIndex){
+        Log.i("SelectedIndex", "set to " + newIndex);
+        if (selectedIndex != -1)
+            editImageCommunication.clearDashedBorder();
         selectedIndex = newIndex;
+        editImageCommunication.setDashedBorder();
     }
 
     int getSelectedIndex(){

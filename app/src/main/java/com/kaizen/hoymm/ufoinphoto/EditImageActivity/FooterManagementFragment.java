@@ -82,7 +82,7 @@ public class FooterManagementFragment extends Fragment{
 
     private void setBehaviorRemoveButton() {
         removeButton.setOnClickListener(v -> {
-            editImageCommunication.removeCurrentlySelectedUFOObj();
+            editImageCommunication.removeCurUFO();
             showOrHideFooterPanelButtonsAnimation(new boolean []{true, false, false, false, true});
         });
     }
@@ -102,6 +102,7 @@ public class FooterManagementFragment extends Fragment{
                 if (resultCode == RESULT_OK) {
                     int selectedUFOImg = data.getIntExtra(ChooseUFOActivity.SELECTED_UFO_DRAWABLE_KEY, R.drawable.img1);
                     editImageCommunication.addNewUFOObj(selectedUFOImg);
+                    editImageCommunication.selectLastUFOObject();
                     editImageCommunication.showHideFooterButtonsAnimation();
                 }
                 else

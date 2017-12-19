@@ -1,7 +1,9 @@
 package com.kaizen.hoymm.ufoinphoto.EditImageActivity;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.ViewGroup;
@@ -100,7 +102,7 @@ class SectionCenterImg {
         });
     }
 
-    void addUFOToMainPhoto(int drawableImg) {
+    void addUFOToPhoto(int drawableImg) {
         areWithImages = (RelativeLayout) activity.findViewById(R.id.editImageFrameId);
         ImageView imgUFO = new ImageView(activity);
         imgUFO.setImageResource(drawableImg);
@@ -108,11 +110,10 @@ class SectionCenterImg {
         // set params etc.
         areWithImages.addView(imgUFO, areWithImages.getWidth(), areWithImages.getHeight());
         myUFOObjects.add(imgUFO);
-        setSelectedItemIndex(myUFOObjects.size()-1);
     }
 
-    private void setSelectedItemIndex(int newIndex) {
-        elementsListViewRecycler.setSelectedItemIndex(newIndex);
+    void selectLastUFO() {
+        elementsListViewRecycler.selectUFO(myUFOObjects.size()-1);
     }
 
     void notifyDataSetChanged() {
@@ -134,5 +135,14 @@ class SectionCenterImg {
 
     int howManyUFOObjectsCurrently() {
         return myUFOObjects.size();
+    }
+
+    void clearDashedBoard() {
+        myUFOObjects.get(getSelectedItemIndex()).setBackground(null);
+    }
+
+    void setDashedBoard() {
+        myUFOObjects.get(getSelectedItemIndex()).setBackground(
+                ContextCompat.getDrawable(activity.getBaseContext(),R.drawable.dashed_background));
     }
 }

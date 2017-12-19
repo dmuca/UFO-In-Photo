@@ -65,13 +65,28 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
 
     @Override
     public void addNewUFOObj(int drawableImg) {
-        sectionCenterImg.addUFOToMainPhoto(drawableImg);
+        sectionCenterImg.addUFOToPhoto(drawableImg);
         sectionCenterImg.addUFOToElementsList(drawableImg);
     }
 
     @Override
-    public void removeCurrentlySelectedUFOObj() {
+    public void selectLastUFOObject() {
+        sectionCenterImg.selectLastUFO();
+    }
+
+    @Override
+    public void removeCurUFO() {
         sectionCenterImg.removeCurUFOObj();
+    }
+
+    @Override
+    public void clearDashedBorder() {
+        sectionCenterImg.clearDashedBoard();
+    }
+
+    @Override
+    public void setDashedBorder() {
+        sectionCenterImg.setDashedBoard();
     }
 
     @Override
