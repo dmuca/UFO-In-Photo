@@ -1,13 +1,11 @@
 package com.kaizen.hoymm.ufoinphoto.EditImageActivity;
 
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.net.Uri;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
 import android.util.Log;
-import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.kaizen.hoymm.ufoinphoto.R;
@@ -22,7 +20,7 @@ import static com.kaizen.hoymm.ufoinphoto.MainActivity.URI_OF_ORIGINAL_IMAGE_KEY
 
 class SectionCenterImg {
     private EditImageActivity activity;
-    private RelativeLayout areWithImages;
+    private RelativeLayout areaWithImages;
 
     private ElementsListViewRecycler elementsListViewRecycler;
     private ImageView imageToEditImageView = null;
@@ -56,7 +54,7 @@ class SectionCenterImg {
     }
 
     private void removeObjectFromImage() {
-        areWithImages.removeView(myUFOObjects.get(getSelectedItemIndex()));
+        areaWithImages.removeView(myUFOObjects.get(getSelectedItemIndex()));
         myUFOObjects.remove(getSelectedItemIndex());
     }
 
@@ -103,12 +101,14 @@ class SectionCenterImg {
     }
 
     void addUFOToPhoto(int drawableImg) {
-        areWithImages = (RelativeLayout) activity.findViewById(R.id.editImageFrameId);
+        areaWithImages = (RelativeLayout) activity.findViewById(R.id.editImageFrameId);
         ImageView imgUFO = new ImageView(activity);
         imgUFO.setImageResource(drawableImg);
-        imgUFO.setLayoutParams(new ActionBar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        // set params etc.
-        areWithImages.addView(imgUFO, areWithImages.getWidth(), areWithImages.getHeight());
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(areaWithImages.getWidth()/2, areaWithImages.getHeight()/2);
+        params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        params.addRule(RelativeLayout.CENTER_VERTICAL);
+        areaWithImages.addView(imgUFO, params);
         myUFOObjects.add(imgUFO);
     }
 
