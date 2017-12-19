@@ -31,4 +31,7 @@ interface EditImageCommunication {
     void removeCurUFO();
     void removeDashedBorder();
     void setDashedAndSelectedUFOImg();
+
+    void selectCurrent();
+    void deselectCurrent();
 }

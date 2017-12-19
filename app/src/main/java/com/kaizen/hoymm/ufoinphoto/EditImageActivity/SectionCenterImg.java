@@ -148,9 +148,12 @@ class SectionCenterImg {
     }
 
     void setDashedBorderIfAnySelected() {
-        if (getSelectedItemIndex() >= 0){
+        if (getSelectedItemIndex() >= 0)
             UFOImages.get(getSelectedItemIndex()).setBackground(ContextCompat.getDrawable(activity.getBaseContext(),R.drawable.dashed_background));
-            UFOImages.get(getSelectedItemIndex()).setSelected(true);
-        }
+    }
+
+    void setSelected(boolean selected) {
+        if (getSelectedItemIndex() >= 0)
+            UFOImages.get(getSelectedItemIndex()).setSelected(selected);
     }
 }

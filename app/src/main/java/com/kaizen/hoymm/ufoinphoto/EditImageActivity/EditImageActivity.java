@@ -103,6 +103,16 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
     }
 
     @Override
+    public void selectCurrent() {
+        sectionCenterImg.setSelected(true);
+    }
+
+    @Override
+    public void deselectCurrent() {
+        sectionCenterImg.setSelected(false);
+    }
+
+    @Override
     public void changeFooterPanelFromRotateToManagementFragmentUsingAnimation() {
         SwapRotateToManagementFooterPanelAnimation.showFooterLayout(this);
     }
