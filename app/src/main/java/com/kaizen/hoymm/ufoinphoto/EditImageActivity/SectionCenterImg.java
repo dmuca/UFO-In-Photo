@@ -155,7 +155,12 @@ class SectionCenterImg {
     }
 
     void clearDashedBoard() {
-        UFOImages.get(getSelectedItemIndex()).setBackground(null);
+        if (isAnyObjectDashed())
+            UFOImages.get(getSelectedItemIndex()).setBackground(null);
+    }
+
+    private boolean isAnyObjectDashed() {
+        return getSelectedItemIndex() >= 0;
     }
 
     void setDashedBorderIfAnySelected() {
