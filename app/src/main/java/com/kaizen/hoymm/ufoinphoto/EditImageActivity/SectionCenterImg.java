@@ -129,6 +129,7 @@ class SectionCenterImg {
 
             ufoImageView.setSelected(true);
             elementsListViewRecycler.selectUFO(UFOImages.indexOf(ufoImageView));
+            elementsListViewRecycler.notifyDataSetChanged();
         }
     }
 

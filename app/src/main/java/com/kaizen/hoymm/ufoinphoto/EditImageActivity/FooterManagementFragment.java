@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,7 +86,7 @@ public class FooterManagementFragment extends Fragment{
     private void setBehaviorRemoveButton() {
         removeButton.setOnClickListener(v -> {
             editImageCommunication.removeCurUFO();
-            showOrHideFooterPanelButtonsAnimation(new boolean []{true, false, false, false, true});
+            editImageCommunication.showHideFooterButtonsAnimation();
         });
     }
 
@@ -138,32 +139,28 @@ public class FooterManagementFragment extends Fragment{
     }
 
     private void showButton(ImageButton imageButton) {
-        imageButton.setEnabled(true);
         startShowAnimation(imageButton);
+        imageButton.setEnabled(true);
     }
 
     private void startShowAnimation(ImageButton imageButton) {
         final TranslateAnimation moveInAnimation = new TranslateAnimation(0, 0, imageButton.getHeight(), 0);
         moveInAnimation.setDuration(ANIMATIONS_DURATION);
-        imageButton.setAnimation(moveInAnimation);
-        moveInAnimation.start();
+        imageButton.startAnimation(moveInAnimation);
         imageButton.setVisibility(View.VISIBLE);
     }
 
     private void hideButton(ImageButton imageButton) {
-        imageButton.setEnabled(false);
         startHideAnimation(imageButton);
+        imageButton.setEnabled(false);
     }
 
     private void startHideAnimation(final ImageButton imageButton) {
         final TranslateAnimation moveOutAnimation = new TranslateAnimation(0, 0, 0, imageButton.getHeight());
         moveOutAnimation.setDuration(ANIMATIONS_DURATION);
-        imageButton.setAnimation(moveOutAnimation);
-        moveOutAnimation.start();
         moveOutAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-
             }
 
             @Override
@@ -176,6 +173,7 @@ public class FooterManagementFragment extends Fragment{
 
             }
         });
+        imageButton.startAnimation(moveOutAnimation);
     }
 
     boolean isListShown(){

@@ -53,7 +53,6 @@ public class SwapRotateToManagementFooterPanelAnimation {
         });
 
         editImageCommunication.getRotateFooterFragment().getView().startAnimation(moveOutAnimation);
-        Log.i("FragName 1", editImageCommunication.getManagementFooterFragment().getClass().getName());
         return moveOutAnimation;
     }
 

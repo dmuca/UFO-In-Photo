@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
@@ -65,7 +66,6 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
         buttonsToShow[0] = true;
         buttonsToShow[1] = buttonsToShow[2] = buttonsToShow[3] = sectionCenterImg.getSelectedItemIndex() != -1;
         buttonsToShow[4] = sectionCenterImg.howManyUFOObjectsCurrently() > 0;
-
         sectionFooter.footerManagementFragment.showOrHideFooterPanelButtonsAnimation(buttonsToShow);
     }
 

@@ -12,12 +12,18 @@ import android.view.View;
 public class UFOImageView extends android.support.v7.widget.AppCompatImageView implements View.OnTouchListener{
     private float last_X, last_Y;
     private SelectImage selectImageInterface;
+    private EditImageCommunication editImageCommunication;
 
     public UFOImageView(Context context) {
         super(context);
         setOnTouchListener(this);
         selectImageInterface = (SelectImage) context;
-        setOnClickListener(v -> selectImageInterface.selectUFOObject(this));
+        editImageCommunication = (EditImageCommunication) context;
+
+        setOnClickListener(v -> {
+            selectImageInterface.selectUFOObject(this);
+            editImageCommunication.showHideFooterButtonsAnimation();
+        });
     }
 
     @Override
@@ -28,7 +34,6 @@ public class UFOImageView extends android.support.v7.widget.AppCompatImageView i
 
         final int X = (int) event.getRawX();
         final int Y = (int) event.getRawY();
-        Log.i("OnTouch", "X: " + X + ", Y: " + Y);
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN:
                 last_X = X;
