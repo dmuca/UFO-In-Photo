@@ -112,14 +112,24 @@ class SectionCenterImg {
     }
 
     void selectLastUFO() {
-        selectUFO(UFOImages.size()-1);
+        selectUFOByIndex(UFOImages.size()-1);
     }
 
-    void selectUFO(int index){
+    void selectUFOByIndex(int index){
         if (getSelectedItemIndex() != -1)
             UFOImages.get(getSelectedItemIndex()).setSelected(false);
         UFOImages.get(index).setSelected(true);
         elementsListViewRecycler.selectUFO(index);
+    }
+
+    void selectUFO(UFOImageView ufoImageView) {
+        if (UFOImages.contains(ufoImageView)){
+            if (getSelectedItemIndex() != -1)
+                UFOImages.get(getSelectedItemIndex()).setSelected(false);
+
+            ufoImageView.setSelected(true);
+            elementsListViewRecycler.selectUFO(UFOImages.indexOf(ufoImageView));
+        }
     }
 
     void notifyDataSetChanged() {

@@ -1,5 +1,6 @@
 package com.kaizen.hoymm.ufoinphoto.EditImageActivity;
 
+import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -20,9 +21,11 @@ class ElementsListViewAdapter extends RecyclerView.Adapter <ElementsListViewAdap
     private int selectedIndex = -1;
     private ArrayList <Integer> imagesList = new ArrayList<>();
     private EditImageCommunication editImageCommunication;
+    private SelectImage selectImageInterface;
 
-    ElementsListViewAdapter(EditImageCommunication editImageCommunication) {
-        this.editImageCommunication = editImageCommunication;
+    ElementsListViewAdapter(Context context) {
+        this.editImageCommunication = (EditImageCommunication) context;
+        this.selectImageInterface = (SelectImage) context;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder{
@@ -81,9 +84,9 @@ class ElementsListViewAdapter extends RecyclerView.Adapter <ElementsListViewAdap
         Log.i("SelectedIndex", "set to " + newIndex);
         if (selectedIndex != -1)
             editImageCommunication.removeDashedBorder();
-        editImageCommunication.deselectCurrent();
+        selectImageInterface.deselectCurrent();
         selectedIndex = newIndex;
-        editImageCommunication.selectCurrent();
+        selectImageInterface.selectCurrent();
         editImageCommunication.setDashedAndSelectedUFOImg();
     }
 

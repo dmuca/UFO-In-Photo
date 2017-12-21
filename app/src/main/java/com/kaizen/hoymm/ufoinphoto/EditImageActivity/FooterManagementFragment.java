@@ -24,6 +24,7 @@ import static com.kaizen.hoymm.ufoinphoto.EditImageActivity.EditImageActivity.AN
 
 public class FooterManagementFragment extends Fragment{
     private EditImageCommunication editImageCommunication;
+    private SelectImage selectImageInterface;
     private ImageButton addButton, effectsButton, transformButton, removeButton, elementsButton;
     private static final int CHOOSE_UFO_REQ_CODE = 1;
 
@@ -37,6 +38,7 @@ public class FooterManagementFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         editImageCommunication = (EditImageCommunication) getActivity();
+        selectImageInterface = (SelectImage) getActivity();
         initButtonsIfViewExists();
         setButtonsBehavior();
     }
@@ -102,7 +104,7 @@ public class FooterManagementFragment extends Fragment{
                 if (resultCode == RESULT_OK) {
                     int selectedUFOImg = data.getIntExtra(ChooseUFOActivity.SELECTED_UFO_DRAWABLE_KEY, R.drawable.img1);
                     editImageCommunication.addNewUFOObj(selectedUFOImg);
-                    editImageCommunication.selectLastUFOObject();
+                    selectImageInterface.selectLastUFOObject();
                     editImageCommunication.showHideFooterButtonsAnimation();
                 }
                 else

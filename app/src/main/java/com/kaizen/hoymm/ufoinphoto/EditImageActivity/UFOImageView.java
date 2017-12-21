@@ -11,10 +11,13 @@ import android.view.View;
 
 public class UFOImageView extends android.support.v7.widget.AppCompatImageView implements View.OnTouchListener{
     private float last_X, last_Y;
+    private SelectImage selectImageInterface;
 
     public UFOImageView(Context context) {
         super(context);
         setOnTouchListener(this);
+        selectImageInterface = (SelectImage) context;
+        setOnClickListener(v -> selectImageInterface.selectUFOObject(this));
     }
 
     @Override

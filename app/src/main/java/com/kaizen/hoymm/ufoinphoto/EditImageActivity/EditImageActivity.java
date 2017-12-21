@@ -9,7 +9,7 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import com.kaizen.hoymm.ufoinphoto.R;
 
-public class EditImageActivity extends AppCompatActivity implements EditImageCommunication {
+public class EditImageActivity extends AppCompatActivity implements EditImageCommunication, SelectImage {
     public static final int ANIMATIONS_DURATION = 300;
     private SectionHeaderButtons sectionHeaderButtons;
     private SectionCenterImg sectionCenterImg;
@@ -81,8 +81,13 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
     }
 
     @Override
-    public void selectUFOObject(int index) {
-        sectionCenterImg.selectUFO(index);
+    public void selectUFOObjectByIndex(int index) {
+        sectionCenterImg.selectUFOByIndex(index);
+    }
+
+    @Override
+    public void selectUFOObject(UFOImageView ufoImageView) {
+        sectionCenterImg.selectUFO(ufoImageView);
     }
 
     @Override
