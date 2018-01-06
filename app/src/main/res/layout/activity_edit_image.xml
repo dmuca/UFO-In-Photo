@@ -41,14 +41,14 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintVertical_bias="0.0"
         app:layout_constraintTop_toBottomOf="@+id/topButtonsLinearLayout"
-        app:layout_constraintBottom_toTopOf="@+id/footerFrameId"
+        app:layout_constraintBottom_toTopOf="@+id/footerTopFrameId"
         android:id="@+id/editImageFrameId"
+        android:background="#FFFFFF"
         >
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/imageToEditId"
-            android:adjustViewBounds="true"
             android:clickable="true"
             android:scaleType="center"
             android:contentDescription="@string/currently_editing_image"
@@ -61,7 +61,7 @@
         android:orientation="vertical"
         android:gravity="bottom"
         android:id="@+id/box_for_recycler_view_id"
-        app:layout_constraintBottom_toTopOf="@+id/footerFrameId"
+        app:layout_constraintBottom_toTopOf="@+id/footerBottomFrameId"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/editImageFrameId"
         >
@@ -73,11 +73,20 @@
             android:scrollbars="vertical" />
     </LinearLayout>
 
+    <FrameLayout
+        android:id="@+id/footerTopFrameId"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/top_footer_height"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/footerBottomFrameId"
+        app:layout_constraintHorizontal_bias="0.0">
+    </FrameLayout>
 
     <FrameLayout
-        android:id="@+id/footerFrameId"
+        android:id="@+id/footerBottomFrameId"
         android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/bootom_footer_height"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

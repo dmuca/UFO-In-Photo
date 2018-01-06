@@ -1,4 +1,4 @@
-package com.kaizen.hoymm.ufoinphoto.EditImageActivity;
+package com.kaizen.hoymm.ufoinphoto.EditImageActivity.FooterFragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,13 +11,14 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.kaizen.hoymm.ufoinphoto.EditImageActivity.EditImageCommunication;
 import com.kaizen.hoymm.ufoinphoto.R;
 
 /**
  * Created by hoymm on 20.11.17.
  */
 
-public class FooterRotateFragment extends Fragment {
+public class FooterBottomRotateFragment extends Fragment {
     private ImageView imageToEdit;
     private ImageButton rotateLeftButton, rotateRightButton, acceptButton;
     private EditImageCommunication editImageCommunication;
@@ -25,7 +26,7 @@ public class FooterRotateFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.footer_rotate_fragment, container, false);
+        return inflater.inflate(R.layout.fragment_bottom_footer_rotate, container, false);
     }
 
     @Override

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:alpha="0.7"
+    >
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        >
+        <ImageButton
+            android:id="@+id/transform_left_id"
+            android:src="@drawable/left"
+            style="@style/ImageButtonStyle"
+            />
+
+        <ImageButton
+            android:id="@+id/transform_right_id"
+            style="@style/ImageButtonStyle"
+            android:src="@drawable/right"
+            />
+
+        <ImageButton
+            android:id="@+id/transform_up_id"
+            style="@style/ImageButtonStyle"
+            android:src="@drawable/up"
+            />
+
+        <ImageButton
+            android:id="@+id/transform_down_id"
+            style="@style/ImageButtonStyle"
+            android:src="@drawable/down"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        >
+        <ImageButton
+            android:id="@+id/mirrorhor_id"
+            android:src="@drawable/mirrorhor"
+            style="@style/ImageButtonStyle"
+            />
+
+        <ImageButton
+            android:id="@+id/mirrorver_id"
+            android:src="@drawable/mirrorver"
+            style="@style/ImageButtonStyle"
+            />
+
+        <ImageButton
+            android:id="@+id/rotate_left_id"
+            android:src="@drawable/rotate_left"
+            style="@style/ImageButtonStyle"
+            />
+
+        <ImageButton
+            android:id="@+id/rotate_right_id"
+            android:src="@drawable/rotate_right"
+            style="@style/ImageButtonStyle"
+            />
+
+        <ImageButton
+            android:id="@+id/zoom_in_id"
+            android:src="@drawable/zoom_in"
+            style="@style/ImageButtonStyle"
+            />
+
+        <ImageButton
+            android:id="@+id/zoom_out_id"
+            android:src="@drawable/zoom_out"
+            style="@style/ImageButtonStyle"
+            />
+    </LinearLayout>
+</LinearLayout>

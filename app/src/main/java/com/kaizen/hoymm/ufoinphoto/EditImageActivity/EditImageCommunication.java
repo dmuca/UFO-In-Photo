@@ -7,7 +7,7 @@ import android.widget.FrameLayout;
  * Created by hoymm on 20.11.17.
  */
 
-interface EditImageCommunication {
+public interface EditImageCommunication {
     void showReadyButton();
     void hideReadyButton();
     void showHideFooterButtonsAnimation();

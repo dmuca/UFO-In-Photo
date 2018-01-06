@@ -1,10 +1,9 @@
-package com.kaizen.hoymm.ufoinphoto.EditImageActivity;
+package com.kaizen.hoymm.ufoinphoto.EditImageActivity.FooterFragments;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.kaizen.hoymm.ufoinphoto.EditImageActivity.ActivityChooseUFO.ChooseUFOActivity;
+import com.kaizen.hoymm.ufoinphoto.EditImageActivity.EditImageCommunication;
+import com.kaizen.hoymm.ufoinphoto.EditImageActivity.SelectImage;
 import com.kaizen.hoymm.ufoinphoto.R;
 
 import static android.app.Activity.RESULT_OK;
@@ -23,7 +24,7 @@ import static com.kaizen.hoymm.ufoinphoto.EditImageActivity.EditImageActivity.AN
  * Created by hoymm on 20.11.17.
  */
 
-public class FooterManagementFragment extends Fragment{
+public class FooterBottomManagementFragment extends Fragment{
     private EditImageCommunication editImageCommunication;
     private SelectImage selectImageInterface;
     private ImageButton addButton, effectsButton, transformButton, removeButton, elementsButton;
@@ -32,7 +33,7 @@ public class FooterManagementFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.footer_management_fragment, container, false);
+        return inflater.inflate(R.layout.fragment_bottom_footer_management, container, false);
     }
 
     @Override
@@ -114,7 +115,7 @@ public class FooterManagementFragment extends Fragment{
         }
     }
 
-    void showOrHideFooterPanelButtonsAnimation(boolean[] buttonsToShow) {
+    public void showOrHideFooterPanelButtonsAnimation(boolean[] buttonsToShow) {
         showOrHideButton(addButton, buttonsToShow[0]);
         showOrHideButton(effectsButton, buttonsToShow[1]);
         showOrHideButton(transformButton, buttonsToShow[2]);

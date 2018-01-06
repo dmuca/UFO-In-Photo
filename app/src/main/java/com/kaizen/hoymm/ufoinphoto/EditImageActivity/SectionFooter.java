@@ -5,6 +5,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.FrameLayout;
 
+import com.kaizen.hoymm.ufoinphoto.EditImageActivity.FooterFragments.FooterBottomManagementFragment;
+import com.kaizen.hoymm.ufoinphoto.EditImageActivity.FooterFragments.FooterBottomRotateFragment;
+import com.kaizen.hoymm.ufoinphoto.EditImageActivity.FooterFragments.FooterTopEffectsFragment;
+import com.kaizen.hoymm.ufoinphoto.EditImageActivity.FooterFragments.FooterTopTransformFragment;
 import com.kaizen.hoymm.ufoinphoto.R;
 
 /**
@@ -14,9 +18,11 @@ import com.kaizen.hoymm.ufoinphoto.R;
 class SectionFooter {
     private EditImageActivity activity;
     FrameLayout footerFrameLayout;
-    FooterRotateFragment footerRotateFragment;
-    FooterManagementFragment footerManagementFragment;
+    FooterBottomRotateFragment footerBottomRotateFragment;
+    FooterBottomManagementFragment footerBottomManagementFragment;
 
+    FooterTopEffectsFragment footerTopEffectsFragment;
+    FooterTopTransformFragment footerTopTransformFragment;
 
     SectionFooter(EditImageActivity activity) {
         this.activity = activity;
@@ -28,22 +34,28 @@ class SectionFooter {
     }
 
     private void initFooterFragments() {
-        footerRotateFragment = new FooterRotateFragment();
-        footerManagementFragment = new FooterManagementFragment();
+        footerBottomRotateFragment = new FooterBottomRotateFragment();
+        footerBottomManagementFragment = new FooterBottomManagementFragment();
+
+        footerTopEffectsFragment = new FooterTopEffectsFragment();
+        footerTopTransformFragment = new FooterTopTransformFragment();
     }
 
     private void addFooterFragments() {
-        addNewFragment(R.id.footerFrameId , footerManagementFragment);
-        addNewFragment(R.id.footerFrameId , footerRotateFragment);
+        addNewFragment(R.id.footerBottomFrameId, footerBottomManagementFragment);
+        addNewFragment(R.id.footerBottomFrameId, footerBottomRotateFragment);
+
+        addNewFragment(R.id.footerTopFrameId, footerTopEffectsFragment);
+        addNewFragment(R.id.footerTopFrameId, footerTopTransformFragment);
     }
 
     private void showFooterRotateFragmentAndHideOthers() {
-        activity.getSupportFragmentManager().beginTransaction().show(footerRotateFragment).commit();
-        activity.getSupportFragmentManager().beginTransaction().hide(footerManagementFragment).commit();
+        activity.getSupportFragmentManager().beginTransaction().show(footerBottomRotateFragment).commit();
+        activity.getSupportFragmentManager().beginTransaction().hide(footerBottomManagementFragment).commit();
     }
 
     private void initFooterFrame() {
-        footerFrameLayout = (FrameLayout) activity.findViewById(R.id.footerFrameId);
+        footerFrameLayout = (FrameLayout) activity.findViewById(R.id.footerBottomFrameId);
     }
 
     private void addNewFragment(int ID, Fragment fragment) {

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:alpha="0.7"
+    >
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:progress="75"
+        android:max="100"
+        android:id="@+id/seekbar_transparent_id"
+        />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <ImageButton
+            android:id="@+id/transparent_id"
+            android:src="@drawable/transparent"
+            style="@style/ImageButtonStyle"
+            />
+
+        <ImageButton
+            android:id="@+id/hue_id"
+            style="@style/ImageButtonStyle"
+            android:src="@drawable/hue"
+            />
+
+        <ImageButton
+            android:id="@+id/saturation_id"
+            style="@style/ImageButtonStyle"
+            android:src="@drawable/saturation"
+            />
+
+        <ImageButton
+            android:id="@+id/brightness_id"
+            style="@style/ImageButtonStyle"
+            android:src="@drawable/brightness"
+            />
+
+        <ImageButton
+            android:id="@+id/contrast_id"
+            style="@style/ImageButtonStyle"
+            android:src="@drawable/contrast"
+            />
+        </LinearLayout>
+</LinearLayout>
