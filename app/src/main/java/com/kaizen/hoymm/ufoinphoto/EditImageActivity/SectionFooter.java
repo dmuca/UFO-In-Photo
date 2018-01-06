@@ -52,6 +52,8 @@ class SectionFooter {
     private void showFooterRotateFragmentAndHideOthers() {
         activity.getSupportFragmentManager().beginTransaction().show(footerBottomRotateFragment).commit();
         activity.getSupportFragmentManager().beginTransaction().hide(footerBottomManagementFragment).commit();
+        activity.getSupportFragmentManager().beginTransaction().hide(footerTopEffectsFragment).commit();
+        activity.getSupportFragmentManager().beginTransaction().hide(footerTopTransformFragment).commit();
     }
 
     private void initFooterFrame() {
