@@ -14,19 +14,23 @@ public interface EditImageCommunication {
 
     void addNewUFOObj(int drawableImg);
 
-    void changeFooterPanelFromRotateToManagementFragmentUsingAnimation();
-    FrameLayout getFooterFrameLayout();
+    void swapRotatePanelToManagement();
+    FrameLayout getFooterBottomFrameLayout();
+    FrameLayout getFooterTopFrameLayout();
     Fragment getManagementFooterFragment();
     Fragment getRotateFooterFragment();
-    void showManagementFooterFragmentAndHideRotate();
+    Fragment getEffectFooterFragment();
+    Fragment getTransformFooterFragment();
+    void showManagementFragmentAndHideRotate();
 
     Bitmap getEditedImage();
 
     void notifyElemenetsListDataChanged();
-    void hideShowUFOElementsPanel();
+    void hideShowFooterElementsPanel();
+    void showHideEffectsPanel();
+    void showHideTransformPanel();
 
     void removeCurUFO();
     void removeDashedBorder();
     void setDashedAndSelectedUFOImg();
-;
 }

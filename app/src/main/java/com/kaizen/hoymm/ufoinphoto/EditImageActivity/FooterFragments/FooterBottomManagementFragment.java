@@ -75,11 +75,15 @@ public class FooterBottomManagementFragment extends Fragment{
     }
 
     private void setBehaviorEffectsButton() {
-        effectsButton.setOnClickListener(v -> Toast.makeText(getContext(), "Effects button", Toast.LENGTH_SHORT).show());
+        effectsButton.setOnClickListener(v -> {
+            editImageCommunication.showHideEffectsPanel();
+            Toast.makeText(getContext(), "Effects button", Toast.LENGTH_SHORT).show();
+        });
     }
 
     private void setBehaviorTransformButton() {
         transformButton.setOnClickListener(v -> {
+            editImageCommunication.showHideTransformPanel();
             Toast.makeText(getContext(), "Transform button", Toast.LENGTH_SHORT).show();
         });
     }
@@ -95,7 +99,7 @@ public class FooterBottomManagementFragment extends Fragment{
         elementsButton.setOnClickListener(v -> {
             Toast.makeText(getContext(), "Elements button", Toast.LENGTH_SHORT).show();
             editImageCommunication.notifyElemenetsListDataChanged();
-            editImageCommunication.hideShowUFOElementsPanel();
+            editImageCommunication.hideShowFooterElementsPanel();
         });
     }
 
@@ -115,7 +119,7 @@ public class FooterBottomManagementFragment extends Fragment{
         }
     }
 
-    public void showOrHideFooterPanelButtonsAnimation(boolean[] buttonsToShow) {
+    public void showOrHideBottomFooterPanelButtonsAnimation(boolean[] buttonsToShow) {
         showOrHideButton(addButton, buttonsToShow[0]);
         showOrHideButton(effectsButton, buttonsToShow[1]);
         showOrHideButton(transformButton, buttonsToShow[2]);

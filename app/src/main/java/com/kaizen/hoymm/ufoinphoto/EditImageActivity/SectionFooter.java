@@ -17,7 +17,8 @@ import com.kaizen.hoymm.ufoinphoto.R;
 
 class SectionFooter {
     private EditImageActivity activity;
-    FrameLayout footerFrameLayout;
+    FrameLayout footerBottomFrameLayout, footerTopFrameLayout;
+    // TODO try to change all of below objects into Fragment Object
     FooterBottomRotateFragment footerBottomRotateFragment;
     FooterBottomManagementFragment footerBottomManagementFragment;
 
@@ -57,7 +58,8 @@ class SectionFooter {
     }
 
     private void initFooterFrame() {
-        footerFrameLayout = (FrameLayout) activity.findViewById(R.id.footerBottomFrameId);
+        footerTopFrameLayout = (FrameLayout) activity.findViewById(R.id.footerTopFrameId);
+        footerBottomFrameLayout = (FrameLayout) activity.findViewById(R.id.footerBottomFrameId);
     }
 
     private void addNewFragment(int ID, Fragment fragment) {

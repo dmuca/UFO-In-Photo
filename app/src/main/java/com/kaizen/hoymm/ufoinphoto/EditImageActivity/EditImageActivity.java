@@ -12,7 +12,7 @@ import com.kaizen.hoymm.ufoinphoto.EditImageActivity.FooterFragments.FooterBotto
 import com.kaizen.hoymm.ufoinphoto.R;
 
 public class EditImageActivity extends AppCompatActivity implements EditImageCommunication, SelectImage {
-    public static final int ANIMATIONS_DURATION = 300;
+    public static final int ANIMATIONS_DURATION = 440*3;
     private SectionHeaderButtons sectionHeaderButtons;
     private SectionCenterImg sectionCenterImg;
     private SectionFooter sectionFooter;
@@ -46,7 +46,7 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
 
 
     @Override
-    public void showManagementFooterFragmentAndHideRotate() {
+    public void showManagementFragmentAndHideRotate() {
         getSupportFragmentManager().beginTransaction().hide(sectionFooter.footerBottomRotateFragment).commit();
         getSupportFragmentManager().beginTransaction().show(sectionFooter.footerBottomManagementFragment).commit();
     }
@@ -63,11 +63,15 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
 
     @Override
     public void showHideFooterButtonsAnimation() {
+        showOrHideBottomFooterPanel();
+    }
+
+    private void showOrHideBottomFooterPanel() {
         boolean buttonsToShow [] = new boolean [5];
         buttonsToShow[0] = true;
         buttonsToShow[1] = buttonsToShow[2] = buttonsToShow[3] = sectionCenterImg.getSelectedItemIndex() != -1;
         buttonsToShow[4] = sectionCenterImg.howManyUFOObjectsCurrently() > 0;
-        sectionFooter.footerBottomManagementFragment.showOrHideFooterPanelButtonsAnimation(buttonsToShow);
+        sectionFooter.footerBottomManagementFragment.showOrHideBottomFooterPanelButtonsAnimation(buttonsToShow);
     }
 
     @Override
@@ -119,13 +123,29 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
     }
 
     @Override
-    public void changeFooterPanelFromRotateToManagementFragmentUsingAnimation() {
-        SwapRotateToManagementFooterPanelAnimation.showFooterLayout(this);
+    public void swapRotatePanelToManagement() {
+        FooterAnimation.swapRotatePanelToManagement(this);
     }
 
     @Override
-    public FrameLayout getFooterFrameLayout() {
-        return sectionFooter.footerFrameLayout;
+    public void showHideEffectsPanel() {
+        FooterAnimation.showHideEffectsPanel(this);
+    }
+
+    @Override
+    public void showHideTransformPanel() {
+        FooterAnimation.showHideTransformPanel(this);
+
+    }
+
+    @Override
+    public FrameLayout getFooterBottomFrameLayout() {
+        return sectionFooter.footerBottomFrameLayout;
+    }
+
+    @Override
+    public FrameLayout getFooterTopFrameLayout() {
+        return sectionFooter.footerTopFrameLayout;
     }
 
     @Override
@@ -155,13 +175,23 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
     @Override
     public void onBackPressed() {
         if (sectionCenterImg.isElementsListShown())
-            hideShowUFOElementsPanel();
+            hideShowFooterElementsPanel();
         else
             super.onBackPressed();
     }
 
     @Override
-    public void hideShowUFOElementsPanel() {
+    public void hideShowFooterElementsPanel() {
         sectionCenterImg.hideOrShowUFOElementsPanel();
+    }
+
+    @Override
+    public Fragment getEffectFooterFragment() {
+        return sectionFooter.footerTopEffectsFragment;
+    }
+
+    @Override
+    public Fragment getTransformFooterFragment() {
+        return sectionFooter.footerTopTransformFragment;
     }
 }

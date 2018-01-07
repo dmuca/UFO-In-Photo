@@ -1,6 +1,6 @@
 package com.kaizen.hoymm.ufoinphoto;
 
-import com.kaizen.hoymm.ufoinphoto.EditImageActivity.SwapRotateToManagementFooterPanelAnimation;
+import com.kaizen.hoymm.ufoinphoto.EditImageActivity.FooterAnimation;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -9,7 +9,7 @@ import org.junit.Test;
  * Created by hoymm on 21.11.17.
  */
 
-public class SwapRotateToManagementFooterPanelAnimationTest {
+public class FooterAnimationTest {
     private static MainActivity mainActivity;
 
     @BeforeClass
@@ -19,11 +19,11 @@ public class SwapRotateToManagementFooterPanelAnimationTest {
 
     @Test(expected = NullPointerException.class)
     public void testTryToInitEditImageCommunicationNullPointerException(){
-        SwapRotateToManagementFooterPanelAnimation.tryToInitEditImageCommunication(null);
+        FooterAnimation.tryToInitEditImageCommunication(null);
     }
 
     @Test(expected = ClassCastException.class)
     public void testTryToInitEditImageCommunicationClassCastException(){
-        SwapRotateToManagementFooterPanelAnimation.tryToInitEditImageCommunication(mainActivity);
+        FooterAnimation.tryToInitEditImageCommunication(mainActivity);
     }
 }
