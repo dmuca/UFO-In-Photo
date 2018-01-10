@@ -14,7 +14,7 @@
         android:padding="30dp"
         android:src="@drawable/img1"
         android:background="@color/appThemeColor"
-        android:contentDescription="@string/choosen_ufo_image"
+        android:contentDescription="@string/chosen_ufo_image"
         android:id="@+id/UFOMainImage"
         />
     <View

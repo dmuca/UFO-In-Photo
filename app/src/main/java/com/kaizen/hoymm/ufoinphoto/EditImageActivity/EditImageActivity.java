@@ -12,7 +12,7 @@ import com.kaizen.hoymm.ufoinphoto.EditImageActivity.FooterFragments.FooterBotto
 import com.kaizen.hoymm.ufoinphoto.R;
 
 public class EditImageActivity extends AppCompatActivity implements EditImageCommunication, SelectImage {
-    public static final int ANIMATIONS_DURATION = 440*3;
+    public static final int ANIMATIONS_DURATION = 460;
     private SectionHeaderButtons sectionHeaderButtons;
     private SectionCenterImg sectionCenterImg;
     private SectionFooter sectionFooter;

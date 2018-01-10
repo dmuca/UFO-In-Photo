@@ -26,4 +26,8 @@
         <item name="android:scaleType">centerInside</item>
     </style>
 
+    <style name="ImageButtonStyle.Transparent">
+        <item name="android:background">@drawable/buttonshape_transparent</item>
+    </style>
+
 </resources>

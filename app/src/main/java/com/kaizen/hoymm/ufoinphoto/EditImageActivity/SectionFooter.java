@@ -12,13 +12,12 @@ import com.kaizen.hoymm.ufoinphoto.EditImageActivity.FooterFragments.FooterTopTr
 import com.kaizen.hoymm.ufoinphoto.R;
 
 /**
- * Created by Damian Muca (Kaizen) on 13.12.17.
+ * Created by Damian Muca (Kaizen) on 13.12.17
  */
 
 class SectionFooter {
     private EditImageActivity activity;
     FrameLayout footerBottomFrameLayout, footerTopFrameLayout;
-    // TODO try to change all of below objects into Fragment Object
     FooterBottomRotateFragment footerBottomRotateFragment;
     FooterBottomManagementFragment footerBottomManagementFragment;
 

@@ -4,12 +4,11 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:alpha="0.7"
+    android:background="@color/buttonTransparentNormalColor"
     >
     <SeekBar
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_height="50dp"
         android:progress="75"
         android:max="100"
         android:id="@+id/seekbar_transparent_id"
@@ -23,31 +22,36 @@
         <ImageButton
             android:id="@+id/transparent_id"
             android:src="@drawable/transparent"
-            style="@style/ImageButtonStyle"
+            style="@style/ImageButtonStyle.Transparent"
+            android:contentDescription="@string/transparent"
             />
 
         <ImageButton
             android:id="@+id/hue_id"
-            style="@style/ImageButtonStyle"
+            style="@style/ImageButtonStyle.Transparent"
             android:src="@drawable/hue"
+            android:contentDescription="@string/hue"
             />
 
         <ImageButton
             android:id="@+id/saturation_id"
-            style="@style/ImageButtonStyle"
+            style="@style/ImageButtonStyle.Transparent"
             android:src="@drawable/saturation"
+            android:contentDescription="@string/saturation"
             />
 
         <ImageButton
             android:id="@+id/brightness_id"
-            style="@style/ImageButtonStyle"
+            style="@style/ImageButtonStyle.Transparent"
             android:src="@drawable/brightness"
+            android:contentDescription="@string/brightness"
             />
 
         <ImageButton
             android:id="@+id/contrast_id"
-            style="@style/ImageButtonStyle"
+            style="@style/ImageButtonStyle.Transparent"
             android:src="@drawable/contrast"
+            android:contentDescription="@string/contrast"
             />
         </LinearLayout>
 </LinearLayout>

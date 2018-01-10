@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:alpha="0.7"
+    android:background="@color/buttonTransparentNormalColor"
     >
     <LinearLayout
         android:orientation="horizontal"
@@ -14,25 +14,29 @@
         <ImageButton
             android:id="@+id/transform_left_id"
             android:src="@drawable/left"
-            style="@style/ImageButtonStyle"
+            style="@style/ImageButtonStyle.Transparent"
+            android:contentDescription="@string/move_left"
             />
 
         <ImageButton
             android:id="@+id/transform_right_id"
-            style="@style/ImageButtonStyle"
+            style="@style/ImageButtonStyle.Transparent"
             android:src="@drawable/right"
+            android:contentDescription="@string/move_right"
             />
 
         <ImageButton
             android:id="@+id/transform_up_id"
-            style="@style/ImageButtonStyle"
+            style="@style/ImageButtonStyle.Transparent"
             android:src="@drawable/up"
+            android:contentDescription="@string/move_up"
             />
 
         <ImageButton
             android:id="@+id/transform_down_id"
-            style="@style/ImageButtonStyle"
+            style="@style/ImageButtonStyle.Transparent"
             android:src="@drawable/down"
+            android:contentDescription="@string/move_down"
             />
     </LinearLayout>
 
@@ -45,37 +49,43 @@
         <ImageButton
             android:id="@+id/mirrorhor_id"
             android:src="@drawable/mirrorhor"
-            style="@style/ImageButtonStyle"
+            style="@style/ImageButtonStyle.Transparent"
+            android:contentDescription="@string/mirror_hor"
             />
 
         <ImageButton
             android:id="@+id/mirrorver_id"
             android:src="@drawable/mirrorver"
-            style="@style/ImageButtonStyle"
+            style="@style/ImageButtonStyle.Transparent"
+            android:contentDescription="@string/mirror_vertical"
             />
 
         <ImageButton
             android:id="@+id/rotate_left_id"
             android:src="@drawable/rotate_left"
-            style="@style/ImageButtonStyle"
+            style="@style/ImageButtonStyle.Transparent"
+            android:contentDescription="@string/rotate_left"
             />
 
         <ImageButton
             android:id="@+id/rotate_right_id"
             android:src="@drawable/rotate_right"
-            style="@style/ImageButtonStyle"
+            style="@style/ImageButtonStyle.Transparent"
+            android:contentDescription="@string/rotate_right"
             />
 
         <ImageButton
             android:id="@+id/zoom_in_id"
             android:src="@drawable/zoom_in"
-            style="@style/ImageButtonStyle"
+            style="@style/ImageButtonStyle.Transparent"
+            android:contentDescription="@string/zoom_in"
             />
 
         <ImageButton
             android:id="@+id/zoom_out_id"
             android:src="@drawable/zoom_out"
-            style="@style/ImageButtonStyle"
+            style="@style/ImageButtonStyle.Transparent"
+            android:contentDescription="@string/zoom_out"
             />
     </LinearLayout>
 </LinearLayout>

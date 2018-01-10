@@ -11,7 +11,7 @@
     <string name="cancel">Cancel</string>
     <string name="read_external_storage_explanation">Application needs permission to read storage, so it can edit images from gallery.</string>
     <string name="write_external_storage_explanation">Application needs permission to save file to gallery.</string>
-    <string name="choosen_ufo_image">Choosen UFO Image</string>
+    <string name="chosen_ufo_image">Chosen UFO Image</string>
     <string name="ufo_icon_to_choose">ufo_icon_to_choose</string>
     <string name="no_image_was_selected">No image was selected.</string>
     <string name="share">Share</string>
@@ -23,4 +23,19 @@
     <string name="img_not_selected">Image not selected.</string>
     <string name="currently_editing_image">Currently editing image</string>
     <string name="img_has_been_saved">Image has been saved.</string>
+    <string name="move_left">Move left</string>
+    <string name="move_right">Move right</string>
+    <string name="move_up">Move up</string>
+    <string name="move_down">Move down</string>
+    <string name="mirror_hor">Mirror Horizontal</string>
+    <string name="mirror_vertical">Mirror vertical</string>
+    <string name="rotate_left">Rotate left</string>
+    <string name="rotate_right">Rotate right</string>
+    <string name="zoom_in">Zoom in</string>
+    <string name="zoom_out">Zoom out</string>
+    <string name="transparent">Transparent</string>
+    <string name="hue">Hue</string>
+    <string name="saturation">Saturation</string>
+    <string name="brightness">Brightness</string>
+    <string name="contrast">Contrast</string>
 </resources>

@@ -14,6 +14,7 @@
     <color name="elementsListSeparateLineColor">#70ffffff</color>
 
     <color name="buttonNormalColor">#353535</color>
-    <color name="buttonNormalTransparentColor">#a4353535</color>
     <color name="buttonClickedColor">#212121</color>
+    <color name="buttonTransparentNormalColor">#7f353535</color>
+    <color name="buttonTransparentClickedColor">#7f212121</color>
 </resources>
