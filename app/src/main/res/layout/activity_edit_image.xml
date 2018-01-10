@@ -54,24 +54,6 @@
             />
     </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        android:gravity="bottom"
-        android:id="@+id/box_for_recycler_view_id"
-        app:layout_constraintBottom_toTopOf="@+id/footerBottomFrameId"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editImageFrameId"
-        >
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/elements_list_recycler_view_id"
-            android:visibility="invisible"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scrollbars="vertical" />
-    </LinearLayout>
-
     <FrameLayout
         android:id="@+id/footerTopFrameId"
         android:layout_width="0dp"
@@ -92,4 +74,22 @@
         app:layout_constraintHorizontal_bias="0.0">
     </FrameLayout>
 
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:gravity="bottom"
+        android:id="@+id/box_for_recycler_view_id"
+        app:layout_constraintBottom_toTopOf="@+id/footerBottomFrameId"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editImageFrameId"
+        >
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/elements_list_recycler_view_id"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical" />
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
