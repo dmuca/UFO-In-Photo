@@ -20,12 +20,14 @@ import java.util.ArrayList;
 class ElementsListViewAdapter extends RecyclerView.Adapter <ElementsListViewAdapter.ViewHolder> {
     private int selectedIndex = -1;
     private ArrayList <Integer> imagesList = new ArrayList<>();
-    private EditImageCommunication editImageCommunication;
+    private EditImageActions editImageActions;
+    private AppAnimations appAnimations;
     private SelectImage selectImageInterface;
 
     ElementsListViewAdapter(Context context) {
-        this.editImageCommunication = (EditImageCommunication) context;
+        this.editImageActions = (EditImageActions) context;
         this.selectImageInterface = (SelectImage) context;
+        this.appAnimations = (AppAnimations) context;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder{
@@ -56,7 +58,7 @@ class ElementsListViewAdapter extends RecyclerView.Adapter <ElementsListViewAdap
         holder.constraintLayout.setOnClickListener(v -> {
             selectUFO(position);
             this.notifyDataSetChanged();
-            editImageCommunication.showHideFooterButtonsAnimation();
+            appAnimations.showHideFooterButtons();
         });
     }
 
@@ -83,11 +85,11 @@ class ElementsListViewAdapter extends RecyclerView.Adapter <ElementsListViewAdap
     void selectUFO(int newIndex){
         Log.i("SelectedIndex", "set to " + newIndex);
         if (selectedIndex != -1)
-            editImageCommunication.removeDashedBorder();
+            editImageActions.removeDashedBorder();
         selectImageInterface.deselectCurrent();
         selectedIndex = newIndex;
         selectImageInterface.selectCurrent();
-        editImageCommunication.setDashedAndSelectedUFOImg();
+        editImageActions.setDashedAndSelectedUFOImg();
     }
 
     int getSelectedIndex(){

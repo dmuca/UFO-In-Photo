@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.kaizen.hoymm.ufoinphoto.EditImageActivity.EditImageCommunication;
+import com.kaizen.hoymm.ufoinphoto.EditImageActivity.AppAnimations;
 import com.kaizen.hoymm.ufoinphoto.R;
 
 /**
@@ -21,7 +21,7 @@ import com.kaizen.hoymm.ufoinphoto.R;
 public class FooterBottomRotateFragment extends Fragment {
     private ImageView imageToEdit;
     private ImageButton rotateLeftButton, rotateRightButton, acceptButton;
-    private EditImageCommunication editImageCommunication;
+    private AppAnimations appAnimations;
     
     @Nullable
     @Override
@@ -33,7 +33,7 @@ public class FooterBottomRotateFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         try{
-            editImageCommunication = (EditImageCommunication) context;
+            appAnimations = (AppAnimations) context;
         } catch(ClassCastException e){
             throw new ClassCastException(context.toString() + " must implement OnFragmentSendText");
         }
@@ -67,8 +67,8 @@ public class FooterBottomRotateFragment extends Fragment {
 
     private void setAcceptButtonBehavior() {
         acceptButton.setOnClickListener(v -> {
-                editImageCommunication.showReadyButton();
-                editImageCommunication.swapRotatePanelToManagement();
+                appAnimations.showReadyButton();
+                appAnimations.swapRotatePanelToManagement();
             });
     }
 }

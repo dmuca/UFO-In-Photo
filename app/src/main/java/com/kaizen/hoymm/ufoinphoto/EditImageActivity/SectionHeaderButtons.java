@@ -18,19 +18,19 @@ import com.kaizen.hoymm.ufoinphoto.R;
 public class SectionHeaderButtons {
     private Button backBtn, helpBtn, readyBtn;
     private Activity activity;
-    private final EditImageCommunication editImageCommunication;
+    private final EditImageActions editImageActions;
 
     SectionHeaderButtons(Activity activity) {
         this.activity = activity;
 
-        editImageCommunication = tryInitEditImageCommunication(activity);
+        editImageActions = tryInitEditImageCommunication(activity);
         initButtons();
         setButtonsBehavior();
     }
 
-    private EditImageCommunication tryInitEditImageCommunication(Activity activity) {
+    private EditImageActions tryInitEditImageCommunication(Activity activity) {
         try {
-            return (EditImageCommunication) activity;
+            return (EditImageActions) activity;
         }
         catch (ClassCastException e){
             throw new ClassCastException(activity.toString() + " must implement OnFragmentSendText");
@@ -75,8 +75,8 @@ public class SectionHeaderButtons {
     private void setReadyButtonsBehavior() {
         readyBtn.setOnClickListener
                 (v -> {
-                    editImageCommunication.removeDashedBorder();
-                    Bitmap bitmapNewImage = editImageCommunication.getEditedImage();
+                    editImageActions.removeDashedBorder();
+                    Bitmap bitmapNewImage = editImageActions.getEditedImage();
                     if (DynamicPermissions.isWriteExternalStoragePermissionGranted(activity))
                         StoreImg.storeImageTemporarily(bitmapNewImage, activity);
                     else

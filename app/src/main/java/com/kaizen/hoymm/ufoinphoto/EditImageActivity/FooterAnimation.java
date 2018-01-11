@@ -3,7 +3,6 @@ package com.kaizen.hoymm.ufoinphoto.EditImageActivity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
@@ -24,8 +23,8 @@ public class FooterAnimation {
 
     @NonNull
     private static TranslateAnimation getInBottomFooterAnimation(Context context) {
-        final EditImageCommunication editImageCommunication = tryToInitEditImageCommunication(context);
-        float fromDeltaY =  editImageCommunication.getFooterBottomFrameLayout().getHeight(), toDeltaY = 0;
+        final FooterComponents editImageActions = tryToInitFooterComponents(context);
+        float fromDeltaY =  editImageActions.getFooterBottomFrameLayout().getHeight(), toDeltaY = 0;
 
         return getFooterSwapAnimation(fromDeltaY, toDeltaY);
     }
@@ -39,8 +38,9 @@ public class FooterAnimation {
 
     @NonNull
     private static TranslateAnimation getOutBottomFooterAnimation(Context context, final TranslateAnimation moveInAnimation) {
-        final EditImageCommunication editImageCommunication = tryToInitEditImageCommunication(context);
-        final FrameLayout bottomFooterFrame = editImageCommunication.getFooterBottomFrameLayout();
+        final FooterComponents footerComponents = tryToInitFooterComponents(context);
+        final AppAnimations appAnimations = tryToInitPerformAppAnimation(context);
+        final FrameLayout bottomFooterFrame = footerComponents.getFooterBottomFrameLayout();
         final TranslateAnimation moveOutAnimation = getFooterSwapAnimation(0, bottomFooterFrame.getHeight());
 
         moveOutAnimation.setAnimationListener(new Animation.AnimationListener() {
@@ -53,47 +53,58 @@ public class FooterAnimation {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                editImageCommunication.showManagementFragmentAndHideRotate();
-                editImageCommunication.getManagementFooterFragment().getView().startAnimation(moveInAnimation);
+                appAnimations.showManagementFragmentAndHideRotate();
+                footerComponents.getManagementFooterFragment().getView().startAnimation(moveInAnimation);
             }
         });
 
-        editImageCommunication.getRotateFooterFragment().getView().startAnimation(moveOutAnimation);
+        footerComponents.getRotateFooterFragment().getView().startAnimation(moveOutAnimation);
         return moveOutAnimation;
     }
 
-    public static EditImageCommunication tryToInitEditImageCommunication(Context context) {
+    private static AppAnimations tryToInitPerformAppAnimation(Context context) {
         if (context == null)
-            throw new NullPointerException("tryToInitEditImageCommunication() context cannot be null.");
+            throw new NullPointerException("tryToInitPerformAppAnimation() context cannot be null.");
         try {
-           return (EditImageCommunication) context;
+            return (AppAnimations) context;
         }
         catch (ClassCastException e){
-            throw new ClassCastException(context.toString() + " must implement OnFragmentSendText");
+            throw new ClassCastException(context.toString() + " must implement AppAnimations");
+        }
+    }
+
+    public static FooterComponents tryToInitFooterComponents(Context context) {
+        if (context == null)
+            throw new NullPointerException("tryToInitFooterComponents() context cannot be null.");
+        try {
+           return (FooterComponents) context;
+        }
+        catch (ClassCastException e){
+            throw new ClassCastException(context.toString() + " must implement FooterComponents");
         }
     }
 
     static void showHideEffectsPanel(EditImageActivity editImageActivity) {
-        final EditImageCommunication editImageCommunication = tryToInitEditImageCommunication(editImageActivity);
-        Fragment effectFrag = editImageCommunication.getEffectFooterFragment();
-        Fragment transformFrag = editImageCommunication.getTransformFooterFragment();
+        final FooterComponents editImageActions = tryToInitFooterComponents(editImageActivity);
+        Fragment effectFrag = editImageActions.getEffectFooterFragment();
+        Fragment transformFrag = editImageActions.getTransformFooterFragment();
 
-        if (editImageCommunication.getEffectFooterFragment().isVisible())
+        if (editImageActions.getEffectFooterFragment().isVisible())
             hideTopFrag(editImageActivity, effectFrag);
-        else if (editImageCommunication.getTransformFooterFragment().isVisible())
+        else if (editImageActions.getTransformFooterFragment().isVisible())
             hideOneFragmentAndShowSecond(editImageActivity, transformFrag, effectFrag);
         else
             showTopFrag(editImageActivity, effectFrag);
     }
 
     static void showHideTransformPanel(EditImageActivity editImageActivity) {
-        final EditImageCommunication editImageCommunication = tryToInitEditImageCommunication(editImageActivity);
-        Fragment effectFrag = editImageCommunication.getEffectFooterFragment();
-        Fragment transformFrag = editImageCommunication.getTransformFooterFragment();
+        final FooterComponents editImageActions = tryToInitFooterComponents(editImageActivity);
+        Fragment effectFrag = editImageActions.getEffectFooterFragment();
+        Fragment transformFrag = editImageActions.getTransformFooterFragment();
 
-        if (editImageCommunication.getTransformFooterFragment().isVisible())
+        if (editImageActions.getTransformFooterFragment().isVisible())
             hideTopFrag(editImageActivity, transformFrag);
-        else if (editImageCommunication.getEffectFooterFragment().isVisible())
+        else if (editImageActions.getEffectFooterFragment().isVisible())
             hideOneFragmentAndShowSecond(editImageActivity, effectFrag, transformFrag);
         else
             showTopFrag(editImageActivity, transformFrag);
@@ -191,15 +202,15 @@ public class FooterAnimation {
     }
 
     private static TranslateAnimation getInTopFooterAnimation(Context context) {
-        final EditImageCommunication editImageCommunication = tryToInitEditImageCommunication(context);
-        float fromDeltaY =  editImageCommunication.getFooterTopFrameLayout().getHeight(), toDeltaY = 0;
+        final FooterComponents editImageActions = tryToInitFooterComponents(context);
+        float fromDeltaY =  editImageActions.getFooterTopFrameLayout().getHeight(), toDeltaY = 0;
 
         return getFooterSwapAnimation(fromDeltaY, toDeltaY);
     }
 
     private static TranslateAnimation getOutTopFooterAnimation(Context context) {
-        final EditImageCommunication editImageCommunication = tryToInitEditImageCommunication(context);
-        float fromDeltaY =  0, toDeltaY = editImageCommunication.getFooterTopFrameLayout().getHeight();
+        final FooterComponents editImageActions = tryToInitFooterComponents(context);
+        float fromDeltaY =  0, toDeltaY = editImageActions.getFooterTopFrameLayout().getHeight();
         return getFooterSwapAnimation(fromDeltaY, toDeltaY);
     }
 }

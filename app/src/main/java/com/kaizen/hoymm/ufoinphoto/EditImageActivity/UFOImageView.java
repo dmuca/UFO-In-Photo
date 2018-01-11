@@ -1,28 +1,27 @@
 package com.kaizen.hoymm.ufoinphoto.EditImageActivity;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
 /**
- * Created by Damian Muca (Kaizen) on 19.12.17.
+ * Created by Damian Muca (Kaizen) on 19.12.17
  */
 
 public class UFOImageView extends android.support.v7.widget.AppCompatImageView implements View.OnTouchListener{
     private float last_X, last_Y;
     private SelectImage selectImageInterface;
-    private EditImageCommunication editImageCommunication;
+    private AppAnimations appAnimations;
 
     public UFOImageView(Context context) {
         super(context);
         setOnTouchListener(this);
         selectImageInterface = (SelectImage) context;
-        editImageCommunication = (EditImageCommunication) context;
+        appAnimations = (AppAnimations) context;
 
         setOnClickListener(v -> {
             selectImageInterface.selectUFOObject(this);
-            editImageCommunication.showHideFooterButtonsAnimation();
+            appAnimations.showHideFooterButtons();
         });
     }
 

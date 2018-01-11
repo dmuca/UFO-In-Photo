@@ -13,7 +13,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.kaizen.hoymm.ufoinphoto.EditImageActivity.ActivityChooseUFO.ChooseUFOActivity;
-import com.kaizen.hoymm.ufoinphoto.EditImageActivity.EditImageCommunication;
+import com.kaizen.hoymm.ufoinphoto.EditImageActivity.AppAnimations;
+import com.kaizen.hoymm.ufoinphoto.EditImageActivity.EditImageActions;
 import com.kaizen.hoymm.ufoinphoto.EditImageActivity.SelectImage;
 import com.kaizen.hoymm.ufoinphoto.R;
 
@@ -25,7 +26,8 @@ import static com.kaizen.hoymm.ufoinphoto.EditImageActivity.EditImageActivity.AN
  */
 
 public class FooterBottomManagementFragment extends Fragment{
-    private EditImageCommunication editImageCommunication;
+    private EditImageActions editImageActions;
+    private AppAnimations appAnimations;
     private SelectImage selectImageInterface;
     private ImageButton addButton, effectsButton, transformButton, removeButton, elementsButton;
     private static final int CHOOSE_UFO_REQ_CODE = 1;
@@ -39,8 +41,9 @@ public class FooterBottomManagementFragment extends Fragment{
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        editImageCommunication = (EditImageCommunication) getActivity();
+        editImageActions = (EditImageActions) getActivity();
         selectImageInterface = (SelectImage) getActivity();
+        appAnimations = (AppAnimations) getActivity();
         initButtonsIfViewExists();
         setButtonsBehavior();
     }
@@ -76,30 +79,30 @@ public class FooterBottomManagementFragment extends Fragment{
 
     private void setBehaviorEffectsButton() {
         effectsButton.setOnClickListener(v -> {
-            editImageCommunication.showHideEffectsPanel();
+            appAnimations.showHideEffectsPanel();
             Toast.makeText(getContext(), "Effects button", Toast.LENGTH_SHORT).show();
         });
     }
 
     private void setBehaviorTransformButton() {
         transformButton.setOnClickListener(v -> {
-            editImageCommunication.showHideTransformPanel();
+            appAnimations.showHideTransformPanel();
             Toast.makeText(getContext(), "Transform button", Toast.LENGTH_SHORT).show();
         });
     }
 
     private void setBehaviorRemoveButton() {
         removeButton.setOnClickListener(v -> {
-            editImageCommunication.removeCurUFO();
-            editImageCommunication.showHideFooterButtonsAnimation();
+            editImageActions.removeCurUFO();
+            appAnimations.showHideFooterButtons();
         });
     }
 
     private void setBehaviorElementsButton() {
         elementsButton.setOnClickListener(v -> {
             Toast.makeText(getContext(), "Elements button", Toast.LENGTH_SHORT).show();
-            editImageCommunication.notifyElemenetsListDataChanged();
-            editImageCommunication.hideShowFooterElementsPanel();
+            editImageActions.notifyElemenetsListDataChanged();
+            appAnimations.showHideUFOElementsPanel();
         });
     }
 
@@ -109,9 +112,9 @@ public class FooterBottomManagementFragment extends Fragment{
             case CHOOSE_UFO_REQ_CODE:
                 if (resultCode == RESULT_OK) {
                     int selectedUFOImg = data.getIntExtra(ChooseUFOActivity.SELECTED_UFO_DRAWABLE_KEY, R.drawable.img1);
-                    editImageCommunication.addNewUFOObj(selectedUFOImg);
+                    editImageActions.addNewUFOObj(selectedUFOImg);
                     selectImageInterface.selectLastUFOObject();
-                    editImageCommunication.showHideFooterButtonsAnimation();
+                    appAnimations.showHideFooterButtons();
                 }
                 else
                     Toast.makeText(getContext(), R.string.no_image_was_selected, Toast.LENGTH_SHORT).show();
@@ -179,9 +182,5 @@ public class FooterBottomManagementFragment extends Fragment{
             }
         });
         imageButton.startAnimation(moveOutAnimation);
-    }
-
-    boolean isListShown(){
-        return elementsButton.isActivated();
     }
 }

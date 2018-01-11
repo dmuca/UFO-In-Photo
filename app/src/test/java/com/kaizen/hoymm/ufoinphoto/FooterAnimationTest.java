@@ -19,11 +19,11 @@ public class FooterAnimationTest {
 
     @Test(expected = NullPointerException.class)
     public void testTryToInitEditImageCommunicationNullPointerException(){
-        FooterAnimation.tryToInitEditImageCommunication(null);
+        FooterAnimation.tryToInitFooterComponents(null);
     }
 
     @Test(expected = ClassCastException.class)
     public void testTryToInitEditImageCommunicationClassCastException(){
-        FooterAnimation.tryToInitEditImageCommunication(mainActivity);
+        FooterAnimation.tryToInitFooterComponents(mainActivity);
     }
 }

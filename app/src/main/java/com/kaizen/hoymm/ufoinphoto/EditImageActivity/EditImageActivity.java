@@ -11,7 +11,8 @@ import android.widget.RelativeLayout;
 import com.kaizen.hoymm.ufoinphoto.EditImageActivity.FooterFragments.FooterBottomManagementFragment;
 import com.kaizen.hoymm.ufoinphoto.R;
 
-public class EditImageActivity extends AppCompatActivity implements EditImageCommunication, SelectImage {
+public class EditImageActivity extends AppCompatActivity
+        implements EditImageActions, SelectImage, FooterComponents, AppAnimations {
     public static final int ANIMATIONS_DURATION = 460;
     private SectionHeaderButtons sectionHeaderButtons;
     private SectionCenterImg sectionCenterImg;
@@ -62,7 +63,7 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
     }
 
     @Override
-    public void showHideFooterButtonsAnimation() {
+    public void showHideFooterButtons() {
         showOrHideBottomFooterPanel();
     }
 
@@ -175,13 +176,13 @@ public class EditImageActivity extends AppCompatActivity implements EditImageCom
     @Override
     public void onBackPressed() {
         if (sectionCenterImg.isElementsListShown())
-            hideShowFooterElementsPanel();
+            showHideUFOElementsPanel();
         else
             super.onBackPressed();
     }
 
     @Override
-    public void hideShowFooterElementsPanel() {
+    public void showHideUFOElementsPanel() {
         sectionCenterImg.hideOrShowUFOElementsPanel();
     }
 

@@ -1,7 +1,6 @@
 package com.kaizen.hoymm.ufoinphoto.EditImageActivity.FooterFragments;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,8 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.kaizen.hoymm.ufoinphoto.EditImageActivity.EditImageActivity;
-import com.kaizen.hoymm.ufoinphoto.EditImageActivity.EditImageCommunication;
+import com.kaizen.hoymm.ufoinphoto.EditImageActivity.EditImageActions;
 import com.kaizen.hoymm.ufoinphoto.R;
 
 /**
@@ -20,7 +18,7 @@ import com.kaizen.hoymm.ufoinphoto.R;
  */
 
 public class FooterTopTransformFragment extends Fragment{
-    private EditImageCommunication editImageCommunication;
+    private EditImageActions editImageActions;
     private ImageButton moveLeftButton, moveRightButton, moveUpButton, moveDownButtom;
     private ImageButton mirrorHorButton, mirrorVerButton, rotateLeftButton, rotateRightButton, zoomInButton, zoomOutButton;
 
@@ -129,7 +127,7 @@ public class FooterTopTransformFragment extends Fragment{
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            editImageCommunication = (EditImageCommunication) context;
+            editImageActions = (EditImageActions) context;
         } catch (ClassCastException classCastException) {
             classCastException.printStackTrace();
         }

@@ -12,7 +12,7 @@ import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
-import com.kaizen.hoymm.ufoinphoto.EditImageActivity.EditImageCommunication;
+import com.kaizen.hoymm.ufoinphoto.EditImageActivity.EditImageActions;
 import com.kaizen.hoymm.ufoinphoto.R;
 
 /**
@@ -20,7 +20,7 @@ import com.kaizen.hoymm.ufoinphoto.R;
  */
 
 public class FooterTopEffectsFragment extends Fragment {
-    private EditImageCommunication editImageCommunication;
+    private EditImageActions editImageActions;
     private SeekBar transparentSeekBar;
     private ImageButton transparentButton, hueButton, saturationButton, brightnessButton, contrastButton;
 
@@ -34,7 +34,7 @@ public class FooterTopEffectsFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         try{
-            editImageCommunication = (EditImageCommunication) context;
+            editImageActions = (EditImageActions) context;
         }
         catch (ClassCastException classCastException){
             classCastException.printStackTrace();
