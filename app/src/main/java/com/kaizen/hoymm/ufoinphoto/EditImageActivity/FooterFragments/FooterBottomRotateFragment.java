@@ -54,9 +54,9 @@ public class FooterBottomRotateFragment extends Fragment {
 
     private void initXMLObjects() {
         imageToEdit = getActivity().findViewById(R.id.imageToEditId);
-        acceptButton = getActivity().findViewById(R.id.accept_button_id);
-        rotateLeftButton = getActivity().findViewById(R.id.rotate_left_button_id);
-        rotateRightButton = getActivity().findViewById(R.id.rotate_right_button_id);
+        acceptButton = getActivity().findViewById(R.id.accept_start_panel_id);
+        rotateLeftButton = getActivity().findViewById(R.id.rotate_left_start_panel_id);
+        rotateRightButton = getActivity().findViewById(R.id.rotate_right_start_panel_id);
     }
 
     @NonNull

@@ -6,19 +6,19 @@
     android:layout_height="wrap_content"
     >
     <ImageButton
-        android:id="@+id/rotate_left_button_id"
+        android:id="@+id/rotate_left_start_panel_id"
         android:src="@drawable/rotate_left"
         style="@style/ImageButtonStyle"
         />
 
     <ImageButton
-        android:id="@+id/rotate_right_button_id"
+        android:id="@+id/rotate_right_start_panel_id"
         style="@style/ImageButtonStyle"
         android:src="@drawable/rotate_right"
         />
 
     <ImageButton
-        android:id="@+id/accept_button_id"
+        android:id="@+id/accept_start_panel_id"
         style="@style/ImageButtonStyle"
         android:src="@drawable/ok"
         />

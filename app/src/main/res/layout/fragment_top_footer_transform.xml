@@ -12,28 +12,28 @@
         android:layout_weight="0.5"
         >
         <ImageButton
-            android:id="@+id/transform_left_id"
+            android:id="@+id/move_left_id"
             android:src="@drawable/left"
             style="@style/ImageButtonStyle.Transparent"
             android:contentDescription="@string/move_left"
             />
 
         <ImageButton
-            android:id="@+id/transform_right_id"
+            android:id="@+id/move_right_id"
             style="@style/ImageButtonStyle.Transparent"
             android:src="@drawable/right"
             android:contentDescription="@string/move_right"
             />
 
         <ImageButton
-            android:id="@+id/transform_up_id"
+            android:id="@+id/move_up_id"
             style="@style/ImageButtonStyle.Transparent"
             android:src="@drawable/up"
             android:contentDescription="@string/move_up"
             />
 
         <ImageButton
-            android:id="@+id/transform_down_id"
+            android:id="@+id/move_down_id"
             style="@style/ImageButtonStyle.Transparent"
             android:src="@drawable/down"
             android:contentDescription="@string/move_down"
