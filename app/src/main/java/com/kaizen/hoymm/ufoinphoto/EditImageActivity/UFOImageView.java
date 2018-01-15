@@ -95,7 +95,6 @@ public class UFOImageView extends android.support.v7.widget.AppCompatImageView i
         return true;
     }
 
-    private PointFloat downPoint = new PointFloat(0f, 0f);
     private boolean allowMoving = true;
     private void moveImage(View view, MotionEvent event) {
         if (event.getPointerCount() > 1)
@@ -105,11 +104,9 @@ public class UFOImageView extends android.support.v7.widget.AppCompatImageView i
             case MotionEvent.ACTION_DOWN:
                 if (event.getPointerCount() == 1)
                     allowMoving = true;
-
                 mActivePointerId = event.getPointerId(0);
-                downPoint = new PointFloat(event.getX(), event.getY());
-                lastTouch.X = event.getX();
-                lastTouch.Y = event.getY();
+                lastTouch.X = event.getRawX();
+                lastTouch.Y = event.getRawY();
                 break;
             case MotionEvent.ACTION_UP:
                 mActivePointerId = INVALID_POINTER_ID;
@@ -135,28 +132,27 @@ public class UFOImageView extends android.support.v7.widget.AppCompatImageView i
                 mActivePointerId = INVALID_POINTER_ID;
                 break;
             case MotionEvent.ACTION_MOVE:
-                if (allowMoving) {
-                    final int pointerIndex = event.findPointerIndex(mActivePointerId);
-                    if (pointerIndex != -1) {
-                        final PointFloat curPoint = new PointFloat(event.getX(pointerIndex), event.getY(pointerIndex));
-
-                    /*
-                    Log.i("SetX",
-                            "view.getX(): " + view.getX()
-                            + ", curPoint.X: " + curPoint.X
-                            + ", downPoint.X: " + downPoint.X);*/
-                        Log.i("SetY",
-                                "view.getY(): " + view.getY()
-                                        + ", curPoint.Y: " + curPoint.Y
-                                        + ", downPoint.Y: " + downPoint.Y);
-
-                        view.setX(view.getX() + curPoint.X - downPoint.X);
-                        view.setY(view.getY() + curPoint.Y - downPoint.Y);
-                        lastTouch.X = curPoint.X;
-                        lastTouch.Y = curPoint.Y;
-                    }
-                }
+                if (allowMoving)
+                    ifPointerExistsMoveImg(view, event);
                 break;
         }
+    }
+
+    private void ifPointerExistsMoveImg(View view, MotionEvent event) {
+        final int pointerIndex = event.findPointerIndex(mActivePointerId);
+        if (ifPointerExists(pointerIndex))
+            moveImg(view, event);
+    }
+
+    private boolean ifPointerExists(int pointerIndex) {
+        return pointerIndex != -1;
+    }
+
+    private void moveImg(View view, MotionEvent event) {
+        final PointFloat curPoint = new PointFloat(event.getRawX(), event.getRawY());
+        view.setX(view.getX() + curPoint.X - lastTouch.X);
+        view.setY(view.getY() + curPoint.Y - lastTouch.Y);
+        lastTouch.X = curPoint.X;
+        lastTouch.Y = curPoint.Y;
     }
 }
