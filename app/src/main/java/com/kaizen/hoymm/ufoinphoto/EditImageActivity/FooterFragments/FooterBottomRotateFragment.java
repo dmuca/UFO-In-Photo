@@ -50,6 +50,10 @@ public class FooterBottomRotateFragment extends Fragment {
         setButtonRotationChange(rotateLeftButton, -90);
         setButtonRotationChange(rotateRightButton, 90);
         setAcceptButtonBehavior();
+
+        //TODO REMOVE CODE
+        acceptButton.performClick();
+        //....
     }
 
     private void initXMLObjects() {

@@ -50,6 +50,10 @@ public class EditImageActivity extends AppCompatActivity
     public void showManagementFragmentAndHideRotate() {
         getSupportFragmentManager().beginTransaction().hide(sectionFooter.footerBottomRotateFragment).commit();
         getSupportFragmentManager().beginTransaction().show(sectionFooter.footerBottomManagementFragment).commit();
+
+        // TODO REMOVE CODE
+        sectionFooter.getEXAMPLEobject();
+        //...
     }
 
     @Override

@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.kaizen.hoymm.ufoinphoto.EditImageActivity.EditImageActivity;
+
+import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
     public static final String URI_OF_ORIGINAL_IMAGE_KEY =
@@ -24,6 +27,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initButtons();
         setButtonsActions();
+
+
+        // TODO REMOVE LINE
+        Intent editImageActivity = new Intent(this, EditImageActivity.class);
+        Uri exampleImgUri = Uri.fromFile(new File("/storage/emulated/0/DCIM/Camera/IMG_20171229_202938.jpg"));
+        editImageActivity.putExtra(URI_OF_ORIGINAL_IMAGE_KEY, exampleImgUri);
+        //Log.i("URI_PASSED", selectedImageUri.getPath());
+        startActivity(editImageActivity);
+        // ...
     }
 
     private void initButtons() {

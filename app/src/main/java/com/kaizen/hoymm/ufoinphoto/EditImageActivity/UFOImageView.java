@@ -1,7 +1,11 @@
 package com.kaizen.hoymm.ufoinphoto.EditImageActivity;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.util.Log;
 import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 
 import static android.view.MotionEvent.INVALID_POINTER_ID;
@@ -15,6 +19,9 @@ public class UFOImageView extends android.support.v7.widget.AppCompatImageView i
     private PointFloat lastTouch = new PointFloat(0f, 0f);
     private SelectImage selectImageInterface;
     private AppAnimations appAnimations;
+
+    private ScaleGestureDetector mScaleDetector;
+    private float mScaleFactor = 1.f;
 
     private class PointFloat {
         float X,Y;
@@ -35,16 +42,59 @@ public class UFOImageView extends android.support.v7.widget.AppCompatImageView i
             selectImageInterface.selectUFOObject(this);
             appAnimations.showHideFooterButtons();
         });
+
+
+        mScaleDetector = new ScaleGestureDetector(this.getContext(), new ScaleListener());
+    }
+
+    @Override
+    public void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+
+
+        canvas.save();
+        Log.i("Scalling", "mScaleFactor: " + mScaleFactor);
+
+        this.setScaleX(mScaleFactor);
+        this.setScaleY(mScaleFactor);
+
+/*
+
+        this.getLayoutParams().height *= mScaleFactor;
+        this.getLayoutParams().width *= mScaleFactor;
+*/
+
+        canvas.scale(mScaleFactor, mScaleFactor);
+        // onDraw() code goes here
+        canvas.restore();
+    }
+
+    private class ScaleListener
+            extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+        @Override
+        public boolean onScale(ScaleGestureDetector detector) {
+            mScaleFactor *= detector.getScaleFactor();
+
+            // Don't let the object get too small or too large.
+            mScaleFactor = Math.max(0.1f, Math.min(mScaleFactor, 5.0f));
+
+            invalidate();
+            return true;
+        }
     }
 
     @Override
     public boolean onTouch(View view, MotionEvent event) {
         if (!this.isSelected())
             return false;
+/*
+        view.setScaleX(1.4f);
+        view.setScaleY(2.3f);*/
 
-
-        moveImage(view, event);
+        if (event.getPointerCount() == 1)
+            moveImage(view, event);
         changeImgSizeOrRotate(view, event);
+        mScaleDetector.onTouchEvent(event);
         return true;
     }
 
@@ -82,11 +132,24 @@ public class UFOImageView extends android.support.v7.widget.AppCompatImageView i
                 break;
             case MotionEvent.ACTION_MOVE:
                 final int pointerIndex = event.findPointerIndex(mActivePointerId);
-                final PointFloat curPoint = new PointFloat(event.getX(pointerIndex), event.getY(pointerIndex));
-                view.setX(view.getX() + curPoint.X - downPoint.X);
-                view.setY(view.getY() + curPoint.Y - downPoint.Y);
-                lastTouch.X = curPoint.X;
-                lastTouch.Y = curPoint.Y;
+                if (pointerIndex != -1) {
+                    final PointFloat curPoint = new PointFloat(event.getX(pointerIndex), event.getY(pointerIndex));
+
+                    /*
+                    Log.i("SetX",
+                            "view.getX(): " + view.getX()
+                            + ", curPoint.X: " + curPoint.X
+                            + ", downPoint.X: " + downPoint.X);*/
+                    Log.i("SetY",
+                            "view.getY(): " + view.getY()
+                                    + ", curPoint.Y: " + curPoint.Y
+                                    + ", downPoint.Y: " + downPoint.Y);
+
+                    view.setX(view.getX() + curPoint.X - downPoint.X);
+                    view.setY(view.getY() + curPoint.Y - downPoint.Y);
+                    lastTouch.X = curPoint.X;
+                    lastTouch.Y = curPoint.Y;
+                }
                 break;
         }
     }

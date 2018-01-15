@@ -56,6 +56,13 @@ class SectionFooter {
         activity.getSupportFragmentManager().beginTransaction().hide(footerTopTransformFragment).commit();
     }
 
+    // TODO REMOVE
+    void getEXAMPLEobject(){
+        footerBottomManagementFragment.getExampleObject();
+    }
+
+    //...
+
     private void initFooterFrame() {
         footerTopFrameLayout = (FrameLayout) activity.findViewById(R.id.footerTopFrameId);
         footerBottomFrameLayout = (FrameLayout) activity.findViewById(R.id.footerBottomFrameId);

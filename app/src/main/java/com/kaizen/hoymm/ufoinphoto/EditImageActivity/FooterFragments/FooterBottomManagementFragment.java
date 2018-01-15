@@ -1,5 +1,6 @@
 package com.kaizen.hoymm.ufoinphoto.EditImageActivity.FooterFragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -47,6 +48,16 @@ public class FooterBottomManagementFragment extends Fragment{
         initButtonsIfViewExists();
         setButtonsBehavior();
     }
+
+    // TODO REMOVE CODE
+    public void getExampleObject(){
+        int selectedUFOImg = R.drawable.img1;
+        editImageActions.addNewUFOObj(selectedUFOImg);
+        selectImageInterface.selectLastUFOObject();
+        appAnimations.showHideFooterButtons();
+    }
+
+    //...
 
     private void initButtonsIfViewExists() {
         View view = getView();

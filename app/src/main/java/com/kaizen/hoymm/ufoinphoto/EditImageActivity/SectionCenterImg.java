@@ -33,6 +33,7 @@ class SectionCenterImg {
         this.activity = activity;
         initReciveAndSetOnClickListenerForMainImg();
         elementsListViewRecycler = new ElementsListViewRecycler(activity);
+
     }
 
     private void initReciveAndSetOnClickListenerForMainImg() {
