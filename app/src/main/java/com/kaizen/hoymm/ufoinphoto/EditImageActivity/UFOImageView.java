@@ -1,7 +1,6 @@
 package com.kaizen.hoymm.ufoinphoto.EditImageActivity;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -91,17 +90,22 @@ public class UFOImageView extends android.support.v7.widget.AppCompatImageView i
         view.setScaleX(1.4f);
         view.setScaleY(2.3f);*/
 
-        if (event.getPointerCount() == 1)
-            moveImage(view, event);
-        changeImgSizeOrRotate(view, event);
+        moveImage(view, event);
         mScaleDetector.onTouchEvent(event);
         return true;
     }
 
-    PointFloat downPoint = new PointFloat(0f, 0f);
+    private PointFloat downPoint = new PointFloat(0f, 0f);
+    private boolean allowMoving = true;
     private void moveImage(View view, MotionEvent event) {
+        if (event.getPointerCount() > 1)
+            allowMoving = false;
+
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN:
+                if (event.getPointerCount() == 1)
+                    allowMoving = true;
+
                 mActivePointerId = event.getPointerId(0);
                 downPoint = new PointFloat(event.getX(), event.getY());
                 lastTouch.X = event.getX();
@@ -131,30 +135,28 @@ public class UFOImageView extends android.support.v7.widget.AppCompatImageView i
                 mActivePointerId = INVALID_POINTER_ID;
                 break;
             case MotionEvent.ACTION_MOVE:
-                final int pointerIndex = event.findPointerIndex(mActivePointerId);
-                if (pointerIndex != -1) {
-                    final PointFloat curPoint = new PointFloat(event.getX(pointerIndex), event.getY(pointerIndex));
+                if (allowMoving) {
+                    final int pointerIndex = event.findPointerIndex(mActivePointerId);
+                    if (pointerIndex != -1) {
+                        final PointFloat curPoint = new PointFloat(event.getX(pointerIndex), event.getY(pointerIndex));
 
                     /*
                     Log.i("SetX",
                             "view.getX(): " + view.getX()
                             + ", curPoint.X: " + curPoint.X
                             + ", downPoint.X: " + downPoint.X);*/
-                    Log.i("SetY",
-                            "view.getY(): " + view.getY()
-                                    + ", curPoint.Y: " + curPoint.Y
-                                    + ", downPoint.Y: " + downPoint.Y);
+                        Log.i("SetY",
+                                "view.getY(): " + view.getY()
+                                        + ", curPoint.Y: " + curPoint.Y
+                                        + ", downPoint.Y: " + downPoint.Y);
 
-                    view.setX(view.getX() + curPoint.X - downPoint.X);
-                    view.setY(view.getY() + curPoint.Y - downPoint.Y);
-                    lastTouch.X = curPoint.X;
-                    lastTouch.Y = curPoint.Y;
+                        view.setX(view.getX() + curPoint.X - downPoint.X);
+                        view.setY(view.getY() + curPoint.Y - downPoint.Y);
+                        lastTouch.X = curPoint.X;
+                        lastTouch.Y = curPoint.Y;
+                    }
                 }
                 break;
         }
-    }
-
-    private void changeImgSizeOrRotate(View view, MotionEvent event) {
-
     }
 }
